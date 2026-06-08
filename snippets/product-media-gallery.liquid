@@ -1,5 +1,5 @@
 {%- doc -%}
-  Product media gallery in editorial 2-by-2 format: horizontal sticky thumbnails on top, large media grid, sticky product info on the right.
+  Product media gallery in editorial 2-by-2 format: horizontal scrolling large media, sticky product info on the right.
 {%- enddoc -%}
 
 {%- liquid
@@ -39,16 +39,8 @@
   body.template-product [class*="ShopWithAI"],
   body.template-product [id*="ShopWithAI"],
   body.template-product iframe[src*="tapita"],
-  body.template-product iframe[src*="shop-with-ai"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-
-  body.template-product.template-suffix-baia.luxury-product {
-    overflow-x: hidden !important;
-  }
+  body.template-product iframe[src*="shop-with-ai"] { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+  body.template-product.template-suffix-baia.luxury-product { overflow-x: hidden !important; }
 
   @media screen and (min-width: 1024px) {
     body.template-product.template-suffix-baia.luxury-product header,
@@ -56,26 +48,14 @@
     body.template-product.template-suffix-baia.luxury-product .site-header,
     body.template-product.template-suffix-baia.luxury-product .header-wrapper,
     body.template-product.template-suffix-baia.luxury-product .shopify-section-group-header-group,
-    body.template-product.template-suffix-baia.luxury-product .shopify-section-header {
-      padding-left: clamp(28px, 2.8vw, 54px) !important;
-      padding-right: clamp(28px, 2.8vw, 54px) !important;
-      box-sizing: border-box !important;
-    }
-
+    body.template-product.template-suffix-baia.luxury-product .shopify-section-header { padding-left: clamp(28px, 2.8vw, 54px) !important; padding-right: clamp(28px, 2.8vw, 54px) !important; box-sizing: border-box !important; }
     body.template-product.template-suffix-baia.luxury-product header a,
     body.template-product.template-suffix-baia.luxury-product header summary,
     body.template-product.template-suffix-baia.luxury-product .header a,
-    body.template-product.template-suffix-baia.luxury-product .header summary {
-      font-weight: 500 !important;
-    }
-
+    body.template-product.template-suffix-baia.luxury-product .header summary { font-weight: 500 !important; }
     body.template-product.template-suffix-baia.luxury-product .header__heading-logo,
     body.template-product.template-suffix-baia.luxury-product .header-logo img,
-    body.template-product.template-suffix-baia.luxury-product .site-header__logo img {
-      min-width: clamp(150px, 10vw, 210px) !important;
-      height: auto !important;
-    }
-
+    body.template-product.template-suffix-baia.luxury-product .site-header__logo img { min-width: clamp(150px, 10vw, 210px) !important; height: auto !important; }
     body.template-product .wrapper-main-content,
     body.template-product main.wrapper-main-content,
     body.template-product #MainContent.wrapper-main-content,
@@ -83,64 +63,25 @@
     body.template-product .container,
     body.template-product .page-width,
     body.template-product .page-width--full,
-    body.template-product .relative.page-width {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: visible !important;
-    }
+    body.template-product .relative.page-width { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
 
-    #shopify-section-{{ section_id }} {
-      --azp-page-x: clamp(24px, 1.8vw, 36px);
-      --azp-info-w: clamp(505px, 36vw, 650px);
-      --azp-gallery-w: calc(100vw - var(--azp-info-w) - (var(--azp-page-x) * 2));
-      --azp-thumb-w: 66px;
-      --azp-thumb-gap: 13px;
-      --azp-gallery-gap: 14px;
-      --azp-media-gap: 12px;
-      --azp-media-w: var(--azp-gallery-w);
-      display: block !important;
-      width: 100vw !important;
-      max-width: 100vw !important;
-      margin: 0 !important;
-      padding: 0 var(--azp-page-x) !important;
-      overflow: visible !important;
-      box-sizing: border-box !important;
-      transform: none !important;
-    }
-
+    #shopify-section-{{ section_id }} { --azp-page-x: clamp(24px, 1.8vw, 36px); --azp-info-w: clamp(505px, 36vw, 650px); --azp-gallery-w: calc(100vw - var(--azp-info-w) - (var(--azp-page-x) * 2)); --azp-thumb-w: 66px; --azp-thumb-gap: 13px; --azp-gallery-gap: 14px; --azp-media-gap: 12px; --azp-media-w: var(--azp-gallery-w); display: block !important; width: 100vw !important; max-width: 100vw !important; margin: 0 !important; padding: 0 var(--azp-page-x) !important; overflow: visible !important; box-sizing: border-box !important; transform: none !important; }
     #shopify-section-{{ section_id }} .page-width,
     #shopify-section-{{ section_id }} .page-width.page-width--full.relative,
-    #shopify-section-{{ section_id }} .container {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: visible !important;
-    }
-
+    #shopify-section-{{ section_id }} .container { width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
     #shopify-section-{{ section_id }} .section,
     #shopify-section-{{ section_id }} .section--padding,
     #shopify-section-{{ section_id }} .product,
     #shopify-section-{{ section_id }} .featured-product { padding-top: 0 !important; padding-bottom: 0 !important; margin-top: 0 !important; overflow: visible !important; }
-
     #shopify-section-{{ section_id }} .featured-product.product { display: grid !important; grid-template-columns: var(--azp-gallery-w) var(--azp-info-w) !important; column-gap: 0 !important; row-gap: 0 !important; align-items: start !important; justify-content: start !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
     #shopify-section-{{ section_id }} .product__gallery-container,
     #shopify-section-{{ section_id }} .product__gallery-container.lg\:sticky { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; justify-self: start !important; align-self: start !important; position: relative !important; top: auto !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; margin: 0 !important; padding: 0 !important; display: grid !important; grid-template-columns: 1fr !important; gap: var(--azp-gallery-gap) !important; align-items: start !important; overflow: visible !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; margin: 0 !important; padding: 0 !important; display: grid !important; grid-template-columns: 1fr !important; gap: 0 !important; align-items: start !important; overflow: visible !important; }
 
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-wrap { grid-column: 1 !important; width: 100% !important; position: sticky !important; top: 16px !important; height: auto !important; z-index: 5 !important; background: rgb(var(--color-background)) !important; padding-bottom: var(--azp-gallery-gap) !important; overflow: hidden !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list { width: 100% !important; max-width: 100% !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: var(--azp-thumb-gap) !important; overflow-x: auto !important; overflow-y: hidden !important; overscroll-behavior-x: contain !important; scroll-snap-type: x proximity !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; padding: 0 0 2px !important; margin: 0 !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list::-webkit-scrollbar { display: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb { position: relative !important; display: block !important; flex: 0 0 var(--azp-thumb-w) !important; width: var(--azp-thumb-w) !important; height: var(--azp-thumb-w) !important; margin: 0 !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: 0 !important; background: #f2f2f2 !important; cursor: pointer !important; overflow: hidden !important; opacity: 0.76 !important; appearance: none !important; scroll-snap-align: start !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb[aria-current='true'] { border-color: #000 !important; opacity: 1 !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb img { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; pointer-events: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-arrow { display: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-arrow svg { width: 21px !important; height: 21px !important; }
-
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid { grid-column: 1 !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: var(--azp-media-gap) !important; width: var(--azp-media-w) !important; max-width: var(--azp-media-w) !important; min-width: var(--azp-media-w) !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile { position: relative !important; width: 100% !important; aspect-ratio: 3 / 4.05 !important; background: #f4f4f2 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; scroll-margin-top: 100px !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-wrap { display: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid { grid-column: 1 !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: var(--azp-media-gap) !important; width: var(--azp-media-w) !important; max-width: var(--azp-media-w) !important; min-width: var(--azp-media-w) !important; margin: 0 !important; padding: 0 !important; overflow-x: auto !important; overflow-y: hidden !important; scroll-snap-type: x mandatory !important; overscroll-behavior-x: contain !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid::-webkit-scrollbar { display: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile { position: relative !important; flex: 0 0 calc((var(--azp-media-w) - var(--azp-media-gap)) / 2) !important; width: calc((var(--azp-media-w) - var(--azp-media-gap)) / 2) !important; aspect-ratio: 3 / 4.05 !important; background: #f4f4f2 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; scroll-snap-align: start !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile img,
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; }
 
@@ -158,7 +99,6 @@
     #shopify-section-{{ section_id }} .product__price { order: 2 !important; display: flex !important; justify-content: center !important; color: #000 !important; font-family: 'Founders Grotesk Mono', 'Founders Grotesk Mono Light', 'Courier New', monospace !important; font-size: 12px !important; font-weight: 400 !important; letter-spacing: 0.16em !important; line-height: 1.2 !important; }
     #shopify-section-{{ section_id }} .product__price .price,
     #shopify-section-{{ section_id }} .product__price .price * { color: #000 !important; font-family: inherit !important; font-size: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
-
     #shopify-section-{{ section_id }} .linked-colors { order: 3 !important; margin-top: 2px !important; display: grid !important; justify-items: center !important; gap: 10px !important; overflow: visible !important; }
     #shopify-section-{{ section_id }} .linked-colors__wrap { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 8px !important; overflow: visible !important; }
     #shopify-section-{{ section_id }} .linked-colors__header { display: none !important; }
@@ -167,7 +107,6 @@
     #shopify-section-{{ section_id }} .linked-colors__thumb.is-active { outline: 1px solid #000 !important; outline-offset: 0 !important; }
     #shopify-section-{{ section_id }} .linked-colors__thumb img { width: 100% !important; height: 100% !important; object-fit: contain !important; object-position: center center !important; display: block !important; }
     #shopify-section-{{ section_id }} .linked-colors::after { content: '+  Coloris disponibles ({{ linked_count }})'; display: block; font-family: 'Founders Grotesk Mono', 'Founders Grotesk Mono Light', 'Courier New', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.08em; color: #000; line-height: 1.2; margin-top: 2px; }
-
     #shopify-section-{{ section_id }} .product-form-wrapper { order: 4 !important; margin-top: 8px !important; }
     #shopify-section-{{ section_id }} .product-form-wrapper .product-form,
     #shopify-section-{{ section_id }} .product-form-wrapper .product-form__buttons,
@@ -206,7 +145,7 @@
 
 <media-gallery id="ProductGallery-{{ section_id }}-{{ product_id }}" class="product__gallery block w-full relative{% if media_count == 1 %} with-only1{% endif %}" form="{{ product_form_id }}" aria-label="{{ 'products.media.gallery_viewer' | t | escape }}" role="region" data-animate="fade-up" data-immediate>
   {%- if media_count > 1 -%}
-    <div class="azp-thumbs-wrap" aria-hidden="false">
+    <div class="azp-thumbs-wrap" aria-hidden="true">
       <div class="azp-thumbs-list" aria-controls="AzpMediaGrid-{{ section_id }}-{{ product_id }}">
         {%- if featured_media != null -%}
           {%- assign thumb_alt = featured_media.alt | default: product.title | escape -%}
@@ -266,7 +205,7 @@
       const mediaId = thumb.dataset.mediaId;
       const media = mediaId ? gallery.querySelector(`.azp-media-tile[data-media-id="${mediaId}"]`) : null;
       if (!media) return;
-      event.preventDefault(); event.stopPropagation(); setActiveThumb(mediaId); media.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+      event.preventDefault(); event.stopPropagation(); setActiveThumb(mediaId); media.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }, true);
     if ('IntersectionObserver' in window && mediaItems.length) {
       const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting && entry.intersectionRatio >= 0.35) setActiveThumb(entry.target.dataset.mediaId); }); }, { threshold: [0.35, 0.6] });
