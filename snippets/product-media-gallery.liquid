@@ -1,5 +1,5 @@
 {%- doc -%}
-  Product media gallery in editorial 2-by-2 format: small sticky thumbnails on the left, large media grid, sticky product info on the right.
+  Product media gallery in editorial 2-by-2 format: horizontal sticky thumbnails on top, large media grid, sticky product info on the right.
 {%- enddoc -%}
 
 {%- liquid
@@ -99,7 +99,7 @@
       --azp-thumb-gap: 13px;
       --azp-gallery-gap: 14px;
       --azp-media-gap: 12px;
-      --azp-media-w: calc(var(--azp-gallery-w) - var(--azp-thumb-w) - var(--azp-gallery-gap));
+      --azp-media-w: var(--azp-gallery-w);
       display: block !important;
       width: 100vw !important;
       max-width: 100vw !important;
@@ -128,19 +128,19 @@
     #shopify-section-{{ section_id }} .featured-product.product { display: grid !important; grid-template-columns: var(--azp-gallery-w) var(--azp-info-w) !important; column-gap: 0 !important; row-gap: 0 !important; align-items: start !important; justify-content: start !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
     #shopify-section-{{ section_id }} .product__gallery-container,
     #shopify-section-{{ section_id }} .product__gallery-container.lg\:sticky { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; justify-self: start !important; align-self: start !important; position: relative !important; top: auto !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; margin: 0 !important; padding: 0 !important; display: grid !important; grid-template-columns: var(--azp-thumb-w) var(--azp-media-w) !important; gap: var(--azp-gallery-gap) !important; align-items: start !important; overflow: visible !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; margin: 0 !important; padding: 0 !important; display: grid !important; grid-template-columns: 1fr !important; gap: var(--azp-gallery-gap) !important; align-items: start !important; overflow: visible !important; }
 
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-wrap { grid-column: 1 !important; width: var(--azp-thumb-w) !important; position: sticky !important; top: 16px !important; height: calc(100vh - 32px) !important; z-index: 5 !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list { width: 100% !important; max-height: calc(100vh - 70px) !important; overflow-y: auto !important; overflow-x: hidden !important; scrollbar-width: none !important; padding: 0 !important; margin: 0 !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-wrap { grid-column: 1 !important; width: 100% !important; position: sticky !important; top: 16px !important; height: auto !important; z-index: 5 !important; background: rgb(var(--color-background)) !important; padding-bottom: var(--azp-gallery-gap) !important; overflow: hidden !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list { width: 100% !important; max-width: 100% !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: var(--azp-thumb-gap) !important; overflow-x: auto !important; overflow-y: hidden !important; overscroll-behavior-x: contain !important; scroll-snap-type: x proximity !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; padding: 0 0 2px !important; margin: 0 !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list::-webkit-scrollbar { display: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb { position: relative !important; display: block !important; width: var(--azp-thumb-w) !important; height: var(--azp-thumb-w) !important; margin: 0 0 var(--azp-thumb-gap) 0 !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: 0 !important; background: #f2f2f2 !important; cursor: pointer !important; overflow: hidden !important; opacity: 0.76 !important; appearance: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb { position: relative !important; display: block !important; flex: 0 0 var(--azp-thumb-w) !important; width: var(--azp-thumb-w) !important; height: var(--azp-thumb-w) !important; margin: 0 !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: 0 !important; background: #f2f2f2 !important; cursor: pointer !important; overflow: hidden !important; opacity: 0.76 !important; appearance: none !important; scroll-snap-align: start !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb[aria-current='true'] { border-color: #000 !important; opacity: 1 !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb img { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; pointer-events: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-arrow { width: 100% !important; height: 30px !important; border: 0 !important; background: transparent !important; color: #000 !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 0 !important; margin: 5px 0 0 !important; cursor: pointer !important; box-shadow: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-arrow { display: none !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-arrow svg { width: 21px !important; height: 21px !important; }
 
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid { grid-column: 2 !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: var(--azp-media-gap) !important; width: var(--azp-media-w) !important; max-width: var(--azp-media-w) !important; min-width: var(--azp-media-w) !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile { position: relative !important; width: 100% !important; aspect-ratio: 3 / 4.05 !important; background: #f4f4f2 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; scroll-margin-top: 16px !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid { grid-column: 1 !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: var(--azp-media-gap) !important; width: var(--azp-media-w) !important; max-width: var(--azp-media-w) !important; min-width: var(--azp-media-w) !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile { position: relative !important; width: 100% !important; aspect-ratio: 3 / 4.05 !important; background: #f4f4f2 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; scroll-margin-top: 100px !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile img,
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; }
 
@@ -275,8 +275,8 @@
     gallery.querySelector('[data-product-thumbs-next]')?.addEventListener('click', (event) => {
       event.preventDefault(); event.stopPropagation(); if (!thumbsList) return;
       const firstThumb = thumbsList.querySelector('.azp-thumb');
-      const gap = parseFloat(getComputedStyle(firstThumb || thumbsList).marginBottom || 13) || 13;
-      thumbsList.scrollBy({ top: ((firstThumb?.offsetHeight || 66) + gap) * 6, behavior: 'smooth' });
+      const gap = parseFloat(getComputedStyle(thumbsList).columnGap || getComputedStyle(thumbsList).gap || 13) || 13;
+      thumbsList.scrollBy({ left: ((firstThumb?.offsetWidth || 66) + gap) * 6, behavior: 'smooth' });
     });
     const injectDimensionsButton = () => {
       const buyButton = section?.querySelector('.product-form-wrapper .product-form__submit');
