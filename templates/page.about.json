@@ -1,0 +1,413 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "title-xl tracking-heading",
+        "heading_alignment": "text-left",
+        "heading_tag": "h1",
+        "text_size": "text-base",
+        "padding_top": 72,
+        "padding_bottom": 120,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "image-with-text-overlay": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p><em><strong>Baia Wellness</strong></em></p>",
+            "text_font": "body",
+            "text_size": "subtext-lg",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "text",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Why Baïa Wellness Exists",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h1",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "heading"
+      ],
+      "settings": {
+        "transparent_header": true,
+        "image": "shopify://shop_images/image_bg.webp",
+        "image_height": "400px",
+        "content_width": "large",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#ac025f",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 50,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": true,
+        "enable_parallax": true,
+        "parallax_direction": "vertical"
+      }
+    },
+    "images-with-text": {
+      "type": "images-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "My Story",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "scribble",
+            "highlighted_scribble": "basic-underline",
+            "highlighted_reveal": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I'm Anaya, the founder of Baia Wellness — and like 1 in 10 women, I have PCOS.</p><p>For years, I struggled with irregular cycles, inflammation, fatigue, and the feeling of not being truly heard by the medical system. I tried countless diets, supplements, and routines, but nothing felt aligned with what my body needed.</p><p>My search for answers led me across continents.<br/><br/>I connected with naturopaths and herbalists in the UK and China, exploring herbal traditions that have supported women’s hormonal health for centuries. Together, we spent months refining a tea blend designed to naturally support PCOS — using ingredients chosen for their purpose, purity, and effectiveness.</p><p>What began as a personal journey became Baia Wellness.</p><p>Each tea is crafted ethically by a family of traditional tea makers in China, whose knowledge has been passed down for generations. Their dedication to quality and sustainability reflects the heart of this brand.</p><p>My promise is simple:<br/><br/>Baia is here to offer the natural support I wished I had years ago — created by a woman with PCOS, for women with PCOS.</p><p>With love,<br/><strong>Anaya</strong></p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Go Discover",
+            "button_link": "shopify://products/tisane-sopk-desequilibre-hormonal",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": false,
+            "button_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/Anaya_pouch_product_story.webp",
+        "image_2": "shopify://shop_images/pcos-tea-customer-reviews-real-results-testimonials.webp",
+        "image_ratio": "portrait",
+        "image_width": "medium",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "#ac025f",
+        "color_button_gradient": "",
+        "padding_top": 120,
+        "padding_bottom": 100,
+        "divider": false,
+        "full_width": false,
+        "rounded": true,
+        "enable_parallax": true
+      }
+    },
+    "scrolling-text": {
+      "type": "scrolling-text",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Wellness • Mindfulness • Balance • Growth",
+            "text_size": 84,
+            "text_font": "body",
+            "highlighted_text": "stencil",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "text"
+      ],
+      "settings": {
+        "direction": "left",
+        "speed": 20,
+        "grid_horizontal": 70,
+        "enable_twin": false,
+        "enable_parallax": true,
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "rounded": false
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "content-1": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/woman-wades-in-ocean-at-sunset.jpg",
+            "image_mobile": "shopify://shop_images/woman-wades-in-ocean-at-sunset.jpg",
+            "subheading": "2020",
+            "heading": "The First Signs",
+            "heading_tag": "h2",
+            "text": "<p>My body began sending signals I couldn’t ignore: irregular cycles, unexplained weight changes, constant fatigue.<br/><br/>I blamed stress… but deep down, I knew something wasn’t right.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content-2": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/woman-holding-flower.jpg",
+            "image_mobile": "shopify://shop_images/woman-holding-flower.jpg",
+            "subheading": "May 2020",
+            "heading": "The Diagnosis",
+            "heading_tag": "h2",
+            "text": "<p>After months of confusion, I finally saw a doctor.<br/>The verdict: <strong>PCOS</strong>.<br/>The only solution offered was birth control.<br/>I took it, hoping for relief — but nothing changed.<br/>My symptoms persisted, and I felt even more disconnected from my body.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content-3": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/hands-typing.jpg",
+            "image_mobile": "shopify://shop_images/hands-typing.jpg",
+            "subheading": "2021",
+            "heading": "The Search Begins",
+            "heading_tag": "h2",
+            "text": "<p>I refused to accept that \"managing\" was my only option. I dove into research, exploring everything from Western medicine to Eastern healing traditions. I experimented with different approaches, learning what worked and what didn't through trial and error.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/highway-tail-light-streaks.jpg",
+            "image_mobile": "shopify://shop_images/highway-tail-light-streaks.jpg",
+            "subheading": "Mid 2021",
+            "heading": "The Breakthrough",
+            "heading_tag": "h2",
+            "text": "<p>While connecting with naturopaths and herbalists in the UK and China, I discovered herbal traditions used for centuries to support women with hormonal imbalances.<br/><br/>For the first time, something truly resonated.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content-5": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/taking-notes-at-meeting.jpg",
+            "image_mobile": "shopify://shop_images/taking-notes-at-meeting.jpg",
+            "subheading": "2024",
+            "heading": "Creating the Blend",
+            "heading_tag": "h2",
+            "text": "<p>For months, I worked closely with experts to create <strong>my own tea blend</strong>, crafted to:<br/><br/>• support hormonal balance<br/>• reduce inflammation<br/>• soothe PCOS symptoms<br/>• help me reconnect with my body</p><p>Slowly, I began to feel a real change.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content-6": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/person-sits-cross-legged-in-a-meditation-pose.jpg",
+            "image_mobile": "shopify://shop_images/person-sits-cross-legged-in-a-meditation-pose.jpg",
+            "subheading": "Mid 2024",
+            "heading": "My Transformation",
+            "heading_tag": "h2",
+            "text": "<p>After making the tea part of my daily routine, my cycles became more regular, my fatigue eased, and my energy returned.<br/><br/>For the first time in years, I finally felt like myself again.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "content-7": {
+          "type": "content",
+          "settings": {
+            "image": "shopify://shop_images/hiking-the-path-up.jpg",
+            "image_mobile": "shopify://shop_images/hiking-the-path-up.jpg",
+            "subheading": "2025",
+            "heading": "Baïa Wellness Is Born",
+            "heading_tag": "h2",
+            "text": "<p>I traveled to China to meet the small family of artisans who grow and craft our teas using generations of knowledge.<br/>Their commitment to quality and tradition aligned perfectly with my vision.<br/>And that’s how <strong>Baïa Wellness</strong> was born — a natural solution created by a woman living with PCOS, for women living with PCOS.</p><h2></h2>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary",
+            "button_external": false,
+            "button_icon": true,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        }
+      },
+      "block_order": [
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4",
+        "content-5",
+        "content-6",
+        "content-7"
+      ],
+      "custom_css": [],
+      "settings": {
+        "show_navigation": true,
+        "layout": "image_first",
+        "image_ratio": "portrait",
+        "image_ratio_mobile": "landscape",
+        "heading": "My Journey: 2020 - 2025",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#2d0320",
+        "color_background": "#d6d7eb",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "settings": {
+        "text_alignment": "center",
+        "text_alignment_mobile": "center",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "#c5e8b8",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 120,
+        "padding_bottom": 20,
+        "divider": false,
+        "narrow": true,
+        "rounded": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image-with-text-overlay",
+    "images-with-text",
+    "scrolling-text",
+    "timeline",
+    "rich-text"
+  ]
+}

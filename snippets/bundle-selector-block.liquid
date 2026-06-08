@@ -1,0 +1,674 @@
+{%- comment -%}
+  Adapter that turns the flat fields of a `bundle_selector` block into a list
+  of pseudo-blocks expected by `bundle-selector-render.liquid`.
+
+  Required: block (object), target_product (object)
+{%- endcomment -%}
+
+{%- liquid
+  assign s = block.settings
+  assign bs_id = block.id
+
+  assign bg_color = s.bg_color | default: '#fffcf0'
+  assign accent_color = s.accent_color | default: '#a4174d'
+  assign card_border = s.card_border | default: '#e8e2d4'
+  assign card_bg = s.card_bg | default: '#ffffff'
+  assign text_color = s.text_color | default: '#1a1a1a'
+  assign muted_color = s.muted_color | default: '#7a7a7a'
+  assign top_badge_bg = s.top_badge_bg | default: '#c4f348'
+  assign top_badge_color = s.top_badge_color | default: '#1a1a1a'
+  assign bottom_pill_bg = s.bottom_pill_bg | default: '#c4f348'
+  assign bottom_pill_color = s.bottom_pill_color | default: '#1a1a1a'
+  assign cta_bg = s.cta_bg
+  if cta_bg == blank
+    assign cta_bg = accent_color
+  endif
+  assign cta_fg = s.cta_fg
+  if cta_fg == blank
+    assign cta_fg = '#ffffff'
+  endif
+  assign bundle_max_width = s.bundle_max_width | default: 1100
+
+  assign gift_threshold = s.gift_threshold_quantity | default: 3
+
+  assign gift_ids = ''
+  assign gift_titles = ''
+  if s.gift_product_1 != blank
+    assign g1_id = s.gift_product_1.variants.first.id
+    assign gift_ids = gift_ids | append: g1_id
+    assign gift_titles = gift_titles | append: s.gift_product_1.title
+  endif
+  if s.gift_product_2 != blank
+    assign g2_id = s.gift_product_2.variants.first.id
+    if gift_ids != ''
+      assign gift_ids = gift_ids | append: ','
+      assign gift_titles = gift_titles | append: ' + '
+    endif
+    assign gift_ids = gift_ids | append: g2_id
+    assign gift_titles = gift_titles | append: s.gift_product_2.title
+  endif
+-%}
+
+<style>
+  #bundle-{{ bs_id }} {
+    --bs-bg: {{ bg_color }};
+    --bs-accent: {{ accent_color }};
+    --bs-text: {{ text_color }};
+    --bs-muted: {{ muted_color }};
+    --bs-card-bg: {{ card_bg }};
+    --bs-card-border: {{ card_border }};
+    --bs-top-badge-bg: {{ top_badge_bg }};
+    --bs-top-badge-color: {{ top_badge_color }};
+    --bs-bottom-pill-bg: {{ bottom_pill_bg }};
+    --bs-bottom-pill-color: {{ bottom_pill_color }};
+    --bs-cta-bg: {{ cta_bg }};
+    --bs-cta-fg: {{ cta_fg }};
+  }
+  #bundle-{{ bs_id }} .bs__cta {
+    background: var(--bs-cta-bg) !important;
+    color: var(--bs-cta-fg) !important;
+  }
+  #bundle-{{ bs_id }} .bs__inner {
+    max-width: 100% !important;
+  }
+  /* Mobile : let the bundle break out of the product info column slightly to gain width */
+  @media screen and (max-width: 989px) {
+    #bundle-{{ bs_id }} {
+      width: calc(100% + 24px) !important;
+      margin-inline-start: -12px !important;
+      margin-inline-end: -12px !important;
+    }
+    #bundle-{{ bs_id }} .bs__inner {
+      padding-inline: 4px !important;
+    }
+    #bundle-{{ bs_id }} .bs__grid {
+      gap: 4px !important;
+    }
+  }
+  @media screen and (min-width: 990px) {
+    #bundle-{{ bs_id }} .bs__inner {
+      max-width: {{ bundle_max_width }}px !important;
+    }
+  }
+</style>
+
+<div class="bs"
+     id="bundle-{{ bs_id }}"
+     data-shop-currency="{{ shop.currency }}"
+     data-active-currency="{{ cart.currency.iso_code }}"
+     data-input-currency="{{ s.prices_currency | default: shop.currency | upcase }}"
+     data-custom-rates="{{ s.currency_rates | default: '' | escape }}">
+  <div class="bs__inner">
+
+
+    <form class="bs__form"
+          data-bundle-form
+          data-variant-id="{{ target_product.selected_or_first_available_variant.id }}"
+          data-gift-ids="{{ gift_ids }}"
+          data-gift-threshold="{{ gift_threshold }}">
+
+      <div class="bs__grid">
+        {%- comment -%} Bundle 1 {%- endcomment -%}
+        {%- if s.b1_quantity != blank or s.b1_label != blank -%}
+          {%- assign qty1 = s.b1_quantity | default: 1 -%}
+          {%- assign disc1 = s.b1_discount | default: 0 -%}
+          {%- assign full1 = target_product.price | times: qty1 -%}
+          {%- assign disc_amt1 = full1 | times: disc1 | divided_by: 100 -%}
+          {%- assign actual1 = full1 | minus: disc_amt1 -%}
+          {%- comment -%} Priority: custom_text > custom_cents > auto-calc. {%- endcomment -%}
+          {%- assign price1_cents = 0 -%}
+          {%- if s.b1_price != blank -%}
+            {%- assign price1_display = s.b1_price -%}
+          {%- elsif s.b1_price_cents != blank and s.b1_price_cents > 0 -%}
+            {%- assign price1_cents = s.b1_price_cents -%}
+            {%- assign price1_display = price1_cents | money -%}
+          {%- else -%}
+            {%- assign price1_cents = actual1 -%}
+            {%- assign price1_display = actual1 | money -%}
+          {%- endif -%}
+          {%- assign compare1_cents = 0 -%}
+          {%- if s.b1_compare_price != blank -%}
+            {%- assign compare1_display = s.b1_compare_price -%}
+          {%- elsif s.b1_compare_price_cents != blank and s.b1_compare_price_cents > 0 -%}
+            {%- assign compare1_cents = s.b1_compare_price_cents -%}
+            {%- assign compare1_display = compare1_cents | money -%}
+          {%- else -%}
+            {%- if disc1 > 0 -%}
+              {%- assign compare1_cents = full1 -%}
+              {%- assign compare1_display = full1 | money -%}
+            {%- else -%}
+              {%- assign compare1_display = '' -%}
+            {%- endif -%}
+          {%- endif -%}
+          {%- assign gifts1 = false -%}
+          {%- if qty1 >= gift_threshold and gift_ids != '' -%}{% assign gifts1 = true %}{%- endif -%}
+          {%- assign sel1 = false -%}
+          {%- if s.default_index == '1' -%}{% assign sel1 = true %}{%- endif -%}
+          {%- assign variant1_id = s.b1_variant_id | default: '' -%}
+          <label class="bs__card{% if sel1 %} is-selected{% endif %}"
+                 data-bundle-card
+                 data-quantity="{{ qty1 }}"
+                 data-variant-id="{{ variant1_id }}"
+                 data-include-gifts="{{ gifts1 }}"
+                 data-price-cents="{{ price1_cents }}"
+                 data-compare-cents="{{ compare1_cents }}"
+                 data-actual-price-formatted="{{ price1_display | escape }}"
+                 data-full-price-formatted="{{ compare1_display | escape }}">
+            <input type="radio" name="bundle" value="1" hidden {% if sel1 %}checked{% endif %}>
+            {%- if s.b1_top_badge != blank -%}<span class="bs__top-badge">{{ s.b1_top_badge | escape }}</span>{%- endif -%}
+            <div class="bs__card-inner">
+              {%- if s.b1_title != blank -%}<p class="bs__card-title">{{ s.b1_title | escape }}</p>{%- endif -%}
+              <div class="bs__image-wrap">
+                {%- if s.b1_image != blank -%}{{ s.b1_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'bs__image', alt: s.b1_label }}
+                {%- elsif target_product.featured_image != blank -%}{{ target_product.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'bs__image', alt: target_product.title }}{%- endif -%}
+              </div>
+              {%- if s.b1_label != blank -%}<p class="bs__quantity">{{ s.b1_label | escape }}</p>{%- endif -%}
+              {%- if s.b1_sub_label != blank -%}<span class="bs__sub-pill">{{ s.b1_sub_label | escape }}</span>{%- endif -%}
+              <div class="bs__price-line">
+                <span class="bs__price">{{ price1_display }}</span>
+                {%- if compare1_display != '' -%}<span class="bs__compare">{{ compare1_display }}</span>{%- endif -%}
+              </div>
+            </div>
+            {%- if s.b1_bottom_pill != blank -%}<span class="bs__bottom-pill">{{ s.b1_bottom_pill | escape }}</span>{%- endif -%}
+          </label>
+        {%- endif -%}
+
+        {%- comment -%} Bundle 2 {%- endcomment -%}
+        {%- if s.b2_quantity != blank or s.b2_label != blank -%}
+          {%- assign qty2 = s.b2_quantity | default: 3 -%}
+          {%- assign disc2 = s.b2_discount | default: 0 -%}
+          {%- assign full2 = target_product.price | times: qty2 -%}
+          {%- assign disc_amt2 = full2 | times: disc2 | divided_by: 100 -%}
+          {%- assign actual2 = full2 | minus: disc_amt2 -%}
+          {%- assign price2_cents = 0 -%}
+          {%- if s.b2_price != blank -%}
+            {%- assign price2_display = s.b2_price -%}
+          {%- elsif s.b2_price_cents != blank and s.b2_price_cents > 0 -%}
+            {%- assign price2_cents = s.b2_price_cents -%}
+            {%- assign price2_display = price2_cents | money -%}
+          {%- else -%}
+            {%- assign price2_cents = actual2 -%}
+            {%- assign price2_display = actual2 | money -%}
+          {%- endif -%}
+          {%- assign compare2_cents = 0 -%}
+          {%- if s.b2_compare_price != blank -%}
+            {%- assign compare2_display = s.b2_compare_price -%}
+          {%- elsif s.b2_compare_price_cents != blank and s.b2_compare_price_cents > 0 -%}
+            {%- assign compare2_cents = s.b2_compare_price_cents -%}
+            {%- assign compare2_display = compare2_cents | money -%}
+          {%- else -%}
+            {%- if disc2 > 0 -%}
+              {%- assign compare2_cents = full2 -%}
+              {%- assign compare2_display = full2 | money -%}
+            {%- else -%}
+              {%- assign compare2_display = '' -%}
+            {%- endif -%}
+          {%- endif -%}
+          {%- assign gifts2 = false -%}
+          {%- if qty2 >= gift_threshold and gift_ids != '' -%}{% assign gifts2 = true %}{%- endif -%}
+          {%- assign sel2 = false -%}
+          {%- if s.default_index == '2' -%}{% assign sel2 = true %}{%- endif -%}
+          {%- assign variant2_id = s.b2_variant_id | default: '' -%}
+          <label class="bs__card{% if sel2 %} is-selected{% endif %}"
+                 data-bundle-card
+                 data-quantity="{{ qty2 }}"
+                 data-variant-id="{{ variant2_id }}"
+                 data-include-gifts="{{ gifts2 }}"
+                 data-price-cents="{{ price2_cents }}"
+                 data-compare-cents="{{ compare2_cents }}"
+                 data-actual-price-formatted="{{ price2_display | escape }}"
+                 data-full-price-formatted="{{ compare2_display | escape }}">
+            <input type="radio" name="bundle" value="2" hidden {% if sel2 %}checked{% endif %}>
+            {%- if s.b2_top_badge != blank -%}<span class="bs__top-badge">{{ s.b2_top_badge | escape }}</span>{%- endif -%}
+            <div class="bs__card-inner">
+              {%- if s.b2_title != blank -%}<p class="bs__card-title">{{ s.b2_title | escape }}</p>{%- endif -%}
+              <div class="bs__image-wrap">
+                {%- if s.b2_image != blank -%}{{ s.b2_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'bs__image', alt: s.b2_label }}
+                {%- elsif target_product.featured_image != blank -%}{{ target_product.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'bs__image', alt: target_product.title }}{%- endif -%}
+              </div>
+              {%- if s.b2_label != blank -%}<p class="bs__quantity">{{ s.b2_label | escape }}</p>{%- endif -%}
+              {%- if s.b2_sub_label != blank -%}<span class="bs__sub-pill">{{ s.b2_sub_label | escape }}</span>{%- endif -%}
+              <div class="bs__price-line">
+                <span class="bs__price">{{ price2_display }}</span>
+                {%- if compare2_display != '' -%}<span class="bs__compare">{{ compare2_display }}</span>{%- endif -%}
+              </div>
+            </div>
+            {%- if s.b2_bottom_pill != blank -%}<span class="bs__bottom-pill">{{ s.b2_bottom_pill | escape }}</span>{%- endif -%}
+          </label>
+        {%- endif -%}
+
+        {%- comment -%} Bundle 3 {%- endcomment -%}
+        {%- if s.b3_quantity != blank or s.b3_label != blank -%}
+          {%- assign qty3 = s.b3_quantity | default: 6 -%}
+          {%- assign disc3 = s.b3_discount | default: 0 -%}
+          {%- assign full3 = target_product.price | times: qty3 -%}
+          {%- assign disc_amt3 = full3 | times: disc3 | divided_by: 100 -%}
+          {%- assign actual3 = full3 | minus: disc_amt3 -%}
+          {%- assign price3_cents = 0 -%}
+          {%- if s.b3_price != blank -%}
+            {%- assign price3_display = s.b3_price -%}
+          {%- elsif s.b3_price_cents != blank and s.b3_price_cents > 0 -%}
+            {%- assign price3_cents = s.b3_price_cents -%}
+            {%- assign price3_display = price3_cents | money -%}
+          {%- else -%}
+            {%- assign price3_cents = actual3 -%}
+            {%- assign price3_display = actual3 | money -%}
+          {%- endif -%}
+          {%- assign compare3_cents = 0 -%}
+          {%- if s.b3_compare_price != blank -%}
+            {%- assign compare3_display = s.b3_compare_price -%}
+          {%- elsif s.b3_compare_price_cents != blank and s.b3_compare_price_cents > 0 -%}
+            {%- assign compare3_cents = s.b3_compare_price_cents -%}
+            {%- assign compare3_display = compare3_cents | money -%}
+          {%- else -%}
+            {%- if disc3 > 0 -%}
+              {%- assign compare3_cents = full3 -%}
+              {%- assign compare3_display = full3 | money -%}
+            {%- else -%}
+              {%- assign compare3_display = '' -%}
+            {%- endif -%}
+          {%- endif -%}
+          {%- assign gifts3 = false -%}
+          {%- if qty3 >= gift_threshold and gift_ids != '' -%}{% assign gifts3 = true %}{%- endif -%}
+          {%- assign sel3 = false -%}
+          {%- if s.default_index == '3' -%}{% assign sel3 = true %}{%- endif -%}
+          {%- assign variant3_id = s.b3_variant_id | default: '' -%}
+          <label class="bs__card{% if sel3 %} is-selected{% endif %}"
+                 data-bundle-card
+                 data-quantity="{{ qty3 }}"
+                 data-variant-id="{{ variant3_id }}"
+                 data-include-gifts="{{ gifts3 }}"
+                 data-price-cents="{{ price3_cents }}"
+                 data-compare-cents="{{ compare3_cents }}"
+                 data-actual-price-formatted="{{ price3_display | escape }}"
+                 data-full-price-formatted="{{ compare3_display | escape }}">
+            <input type="radio" name="bundle" value="3" hidden {% if sel3 %}checked{% endif %}>
+            {%- if s.b3_top_badge != blank -%}<span class="bs__top-badge">{{ s.b3_top_badge | escape }}</span>{%- endif -%}
+            <div class="bs__card-inner">
+              {%- if s.b3_title != blank -%}<p class="bs__card-title">{{ s.b3_title | escape }}</p>{%- endif -%}
+              <div class="bs__image-wrap">
+                {%- if s.b3_image != blank -%}{{ s.b3_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'bs__image', alt: s.b3_label }}
+                {%- elsif target_product.featured_image != blank -%}{{ target_product.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'bs__image', alt: target_product.title }}{%- endif -%}
+              </div>
+              {%- if s.b3_label != blank -%}<p class="bs__quantity">{{ s.b3_label | escape }}</p>{%- endif -%}
+              {%- if s.b3_sub_label != blank -%}<span class="bs__sub-pill">{{ s.b3_sub_label | escape }}</span>{%- endif -%}
+              <div class="bs__price-line">
+                <span class="bs__price">{{ price3_display }}</span>
+                {%- if compare3_display != '' -%}<span class="bs__compare">{{ compare3_display }}</span>{%- endif -%}
+              </div>
+            </div>
+            {%- if s.b3_bottom_pill != blank -%}<span class="bs__bottom-pill">{{ s.b3_bottom_pill | escape }}</span>{%- endif -%}
+          </label>
+        {%- endif -%}
+      </div>
+
+      {%- if s.banner_image != blank -%}
+        {%- assign banner_alt = s.banner_alt | default: 'Welcome Kit' | escape -%}
+        <div class="bs__banner"
+             style="margin-top: {{ s.banner_margin_top | default: 12 }}px; margin-bottom: {{ s.banner_margin_bottom | default: 0 }}px;">
+          {%- if s.banner_link != blank -%}
+            <a href="{{ s.banner_link }}" class="bs__banner-link" aria-label="{{ banner_alt }}">
+          {%- endif -%}
+          <img
+            src="{{ s.banner_image | image_url: width: 1200 }}"
+            srcset="{{ s.banner_image | image_url: width: 600 }} 600w, {{ s.banner_image | image_url: width: 900 }} 900w, {{ s.banner_image | image_url: width: 1200 }} 1200w, {{ s.banner_image | image_url: width: 1600 }} 1600w"
+            sizes="(min-width: 990px) 700px, 100vw"
+            alt="{{ banner_alt }}"
+            loading="lazy"
+            class="bs__banner-img"
+            style="width: {{ s.banner_width_desktop | default: 100 }}%; --bs-banner-w-mobile: {{ s.banner_width_mobile | default: 100 }}%;">
+          {%- if s.banner_link != blank -%}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <button class="bs__cta" type="button" data-bundle-cta>
+        <span class="bs__cta-label">{{ s.cta_label | default: 'Add to cart' | escape }}</span>
+        <span class="bs__cta-sep" aria-hidden="true">—</span>
+        <span class="bs__cta-price" data-cta-price>{{ target_product.price | money }}</span>
+      </button>
+
+      <p class="bs__error" data-bundle-error hidden></p>
+    </form>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function init() {
+      var root = document.getElementById('bundle-{{ bs_id }}');
+      if (!root) return;
+      if (root.dataset.bsInited === '1') return;
+      root.dataset.bsInited = '1';
+
+      var form = root.querySelector('[data-bundle-form]');
+      if (!form) return;
+
+      var cards = form.querySelectorAll('[data-bundle-card]');
+      var ctaPrice = form.querySelector('[data-cta-price]');
+      var giftNote = form.querySelector('[data-bundle-gift-note]');
+      var cta = form.querySelector('[data-bundle-cta]');
+      var errorEl = form.querySelector('[data-bundle-error]');
+
+      function getSelected() {
+        return form.querySelector('[data-bundle-card].is-selected') || cards[0];
+      }
+      // Currency handling:
+      //   - inputCurrency: the currency YOU saved your cents in (set in admin).
+      //   - shopCurrency:  the shop's primary currency (Shopify default).
+      //   - activeCurrency: visitor's currency (set by Shopify Markets).
+      //
+      // Logic:
+      //   - cents in admin are interpreted as inputCurrency.
+      //   - We convert from inputCurrency → activeCurrency using static rates
+      //     (we use Shopify.currency.rate when shop = input; otherwise we ask
+      //     /cart.js for the current shop_currency_rate, or fall back to a
+      //     known approximate ratio) to ALWAYS show the right value.
+      //
+      // Simplest reliable path: re-render the price using Intl.NumberFormat
+      // for the active currency, computing cents in active currency through
+      // a 2-step conversion (input → shop via fixed admin-set ratio, then
+      // shop → active via Shopify.currency.rate).
+      var shopCurrency = (root.getAttribute('data-shop-currency') || 'EUR').toUpperCase();
+      var inputCurrency = (root.getAttribute('data-input-currency') || shopCurrency).toUpperCase();
+      var activeCurrency = ((window.Shopify && window.Shopify.currency && window.Shopify.currency.active)
+        || root.getAttribute('data-active-currency') || shopCurrency).toUpperCase();
+
+      // Parse user-defined custom rates from admin (e.g. "DKK:7.45,GBP:0.85")
+      var customRates = {};
+      var ratesRaw = root.getAttribute('data-custom-rates') || '';
+      ratesRaw.split(',').forEach(function(pair) {
+        pair = pair.trim();
+        if (!pair) return;
+        var parts = pair.split(':');
+        if (parts.length !== 2) return;
+        var code = parts[0].trim().toUpperCase();
+        var val = parseFloat(parts[1].trim().replace(',', '.'));
+        if (code && !isNaN(val) && val > 0) customRates[code] = val;
+      });
+
+      var shopToActiveRate = 1;
+      var shopifyRate = (window.Shopify && window.Shopify.currency && window.Shopify.currency.rate)
+        ? parseFloat(window.Shopify.currency.rate) : NaN;
+      if (!isNaN(shopifyRate) && shopifyRate > 0) shopToActiveRate = shopifyRate;
+
+      // Static input → shop rates. If the shop is multi-currency, you can
+      // override these from the admin (left for future enhancement).
+      // For now, if input == shop, ratio = 1.
+      var inputToShopRate = (inputCurrency === shopCurrency) ? 1 : null;
+
+      function formatIn(currencyCode, cents) {
+        try {
+          return new Intl.NumberFormat(document.documentElement.lang || 'fr', {
+            style: 'currency',
+            currency: currencyCode,
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }).format(cents / 100);
+        } catch(e) {
+          return (cents / 100).toFixed(2) + ' ' + currencyCode;
+        }
+      }
+
+      function convertedMoney(cents) {
+        if (!cents || cents <= 0) return '';
+
+        // 1) Same currency → display as-is
+        if (inputCurrency === activeCurrency) {
+          return formatIn(inputCurrency, cents);
+        }
+
+        // 2) User-defined custom rate (HIGHEST PRIORITY when shop != active)
+        //    Format: "DKK:7.45,GBP:0.85,USD:1.08" — value is the multiplier
+        //    applied to the input cents to get the active currency cents.
+        if (customRates[activeCurrency]) {
+          var displayCents = Math.round(cents * customRates[activeCurrency]);
+          return formatIn(activeCurrency, displayCents);
+        }
+
+        // 3) Shopify rate (when input == shop currency)
+        if (inputCurrency === shopCurrency && shopToActiveRate > 0) {
+          var displayCents2 = Math.round(cents * shopToActiveRate);
+          return formatIn(activeCurrency, displayCents2);
+        }
+
+        // 4) Fallback: display in inputCurrency
+        return formatIn(inputCurrency, cents);
+      }
+
+      function priceFromCard(card) {
+        var cents = parseInt(card.getAttribute('data-price-cents'), 10);
+        if (cents > 0) return convertedMoney(cents);
+        return card.getAttribute('data-actual-price-formatted') || '';
+      }
+      function compareFromCard(card) {
+        var cents = parseInt(card.getAttribute('data-compare-cents'), 10);
+        if (cents > 0) return convertedMoney(cents);
+        return card.getAttribute('data-full-price-formatted') || '';
+      }
+
+      function refreshAllCardPrices() {
+        cards.forEach(function(card) {
+          var priceEl = card.querySelector('.bs__price');
+          var compareEl = card.querySelector('.bs__compare');
+          if (priceEl) priceEl.textContent = priceFromCard(card);
+          if (compareEl) {
+            var c = compareFromCard(card);
+            if (c) { compareEl.textContent = c; compareEl.style.display = ''; }
+            else { compareEl.style.display = 'none'; }
+          }
+        });
+      }
+      refreshAllCardPrices();
+
+      function updateProductPrice(formattedPrice, fullPrice) {
+        var priceContainers = document.querySelectorAll('[id^="Price-"]');
+        if (!priceContainers.length) return;
+        priceContainers.forEach(function(container) {
+          if (!container.dataset.bundleOriginal) {
+            container.dataset.bundleOriginal = container.innerHTML;
+          }
+          container.innerHTML = '<div class="bs__product-price-injected"><span class="bs__pp-current">' + formattedPrice + '</span>' +
+            (fullPrice && fullPrice !== formattedPrice ? '<span class="bs__pp-compare">' + fullPrice + '</span>' : '') +
+            '</div>';
+        });
+      }
+      function update() {
+        var sel = getSelected();
+        if (!sel) return;
+        var formattedPrice = priceFromCard(sel);
+        var fullPrice = compareFromCard(sel);
+        if (ctaPrice) ctaPrice.textContent = formattedPrice;
+        if (giftNote) giftNote.hidden = sel.getAttribute('data-include-gifts') !== 'true';
+        if (formattedPrice) updateProductPrice(formattedPrice, fullPrice);
+      }
+      cards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          cards.forEach(function(c) { c.classList.remove('is-selected'); });
+          card.classList.add('is-selected');
+          var radio = card.querySelector('input[type="radio"]');
+          if (radio) radio.checked = true;
+          update();
+        });
+      });
+      update();
+
+      if (cta) {
+        cta.addEventListener('click', function() {
+          if (errorEl) { errorEl.hidden = true; errorEl.textContent = ''; }
+          var sel = getSelected();
+          if (!sel) return;
+          var qty = parseInt(sel.getAttribute('data-quantity'), 10) || 1;
+          var includeGifts = sel.getAttribute('data-include-gifts') === 'true';
+          // Use the per-bundle variant ID if set, otherwise fallback to the
+          // main product variant × bundle quantity. With per-bundle variants,
+          // we add quantity 1 of the chosen variant (its price is already
+          // the bundle price configured in Shopify Admin).
+          var bundleVariantId = sel.getAttribute('data-variant-id');
+          var variantId = bundleVariantId && bundleVariantId.trim() ? bundleVariantId.trim() : form.getAttribute('data-variant-id');
+          var addQty = bundleVariantId && bundleVariantId.trim() ? 1 : qty;
+          var giftIdsRaw = form.getAttribute('data-gift-ids') || '';
+
+          if (!variantId) {
+            if (errorEl) { errorEl.hidden = false; errorEl.textContent = 'Produit indisponible'; }
+            return;
+          }
+
+          var items = [{
+            id: parseInt(variantId, 10),
+            quantity: addQty,
+            properties: { '_bundle_quantity': String(qty) }
+          }];
+          if (includeGifts && giftIdsRaw) {
+            giftIdsRaw.split(',').forEach(function(gid) {
+              var n = parseInt(gid, 10);
+              if (n) {
+                // No line item properties on gifts so Shopify BOGO discounts
+                // can match them. We rely on Shopify discount label to show
+                // them as "Gratuit" in the cart.
+                items.push({
+                  id: n,
+                  quantity: 1
+                });
+              }
+            });
+          }
+
+          cta.disabled = true;
+          var labelEl = cta.querySelector('.bs__cta-label');
+          var originalLabel = labelEl ? labelEl.textContent : '';
+          if (labelEl) labelEl.textContent = 'Ajout en cours...';
+
+          // Split main vs gifts using the gift IDs list (cadeaux have no
+          // properties anymore so Shopify BOGO discounts can match them).
+          var giftIdSet = {};
+          if (giftIdsRaw) {
+            giftIdsRaw.split(',').forEach(function(gid) {
+              var n = parseInt(gid, 10);
+              if (n) giftIdSet[n] = true;
+            });
+          }
+          var mainItems = items.filter(function(it) { return !giftIdSet[it.id]; });
+          var giftItems = items.filter(function(it) { return giftIdSet[it.id]; });
+
+          function addBatch(batch) {
+            if (!batch.length) return Promise.resolve(null);
+            return fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+              },
+              body: JSON.stringify({ items: batch })
+            }).then(function(res) {
+              if (!res.ok) return res.json().then(function(err) { throw err; });
+              return res.json();
+            });
+          }
+
+          // Strategy: remove ALL existing instances of this variant + gifts from
+          // the cart first, then add the bundle fresh. This avoids "out of stock"
+          // errors from accumulating quantities across clicks.
+          var allIdsToReset = [parseInt(variantId, 10)];
+          if (giftIdsRaw) {
+            giftIdsRaw.split(',').forEach(function(gid) {
+              var n = parseInt(gid, 10);
+              if (n) allIdsToReset.push(n);
+            });
+          }
+
+          fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+            .then(function(res) { return res.json(); })
+            .then(function(cart) {
+              console.log('[Bundle] Current cart before reset:', cart.items.map(function(i){ return { id: i.id, qty: i.quantity, key: i.key }; }));
+              // Build an "updates" payload that sets each existing line to 0
+              var updates = {};
+              (cart.items || []).forEach(function(it) {
+                if (allIdsToReset.indexOf(it.id) !== -1) {
+                  updates[it.key] = 0;
+                }
+              });
+              if (Object.keys(updates).length === 0) {
+                console.log('[Bundle] No existing items to clear, proceeding with add');
+                return Promise.resolve(null);
+              }
+              console.log('[Bundle] Clearing existing items:', updates);
+              return fetch('/cart/update.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ updates: updates })
+              }).then(function(res) {
+                if (!res.ok) {
+                  return res.json().then(function(err){ throw err; });
+                }
+                return res.json();
+              }).then(function(updatedCart) {
+                console.log('[Bundle] Cart after reset:', updatedCart.items.map(function(i){ return { id: i.id, qty: i.quantity }; }));
+              });
+            })
+            .then(function() {
+              console.log('[Bundle] Adding main items:', mainItems);
+              return addBatch(mainItems);
+            })
+            .then(function(addedMain) {
+              console.log('[Bundle] Main added OK:', addedMain);
+              return addBatch(giftItems).catch(function(giftErr) {
+                console.warn('[Bundle] Gifts could not be added:', giftErr);
+              });
+            })
+            .then(function() {
+            cta.disabled = false;
+            if (labelEl) labelEl.textContent = originalLabel;
+
+            document.dispatchEvent(new CustomEvent('cart:refresh', {
+              bubbles: true,
+              detail: { open: true }
+            }));
+            document.dispatchEvent(new CustomEvent('cart:open', { bubbles: true }));
+            document.dispatchEvent(new CustomEvent('ajaxProduct:added', { bubbles: true }));
+
+            setTimeout(function() {
+              var drawer = document.querySelector('cart-drawer');
+              if (drawer) {
+                if (typeof drawer.open === 'function') {
+                  drawer.open();
+                } else {
+                  var trigger = document.querySelector('[aria-controls="CartDrawer"], a[href="/cart"], [data-drawer-toggle="cart"]');
+                  if (trigger) trigger.click();
+                }
+              }
+            }, 80);
+          }).catch(function(err) {
+            console.error('Bundle add to cart error', err);
+            cta.disabled = false;
+            if (labelEl) labelEl.textContent = originalLabel;
+            if (errorEl) {
+              errorEl.hidden = false;
+              var msg = '';
+              if (err) {
+                if (err.description) msg = err.description;
+                else if (err.message) msg = err.message;
+                else if (typeof err === 'string') msg = err;
+              }
+              if (!msg) msg = 'Erreur lors de l\'ajout au panier. Vérifie que ton produit cible et tes produits cadeaux sont bien actifs et en stock dans Shopify Admin.';
+              // Common Shopify error: "All X items are already in your cart" or "Out of stock"
+              if (msg.toLowerCase().indexOf('stock') !== -1 || msg.toLowerCase().indexOf('inventory') !== -1) {
+                msg += ' — Vérifie : (1) le produit cible et les produits cadeaux ont bien du stock et leur suivi de stock est actif, (2) les variantes par défaut sont bien disponibles, (3) la quantité demandée ne dépasse pas le stock dispo.';
+              }
+              errorEl.textContent = msg;
+            }
+          });
+        });
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    document.addEventListener('shopify:section:load', init);
+    document.addEventListener('shopify:block:select', init);
+  })();
+</script>

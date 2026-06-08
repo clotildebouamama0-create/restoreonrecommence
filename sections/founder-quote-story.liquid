@@ -1,0 +1,543 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#1a1a1a'
+  assign muted_color = section.settings.muted_color | default: '#8a8a8a'
+  assign accent_color = section.settings.accent_color | default: '#1a1a1a'
+  assign quote = section.settings.quote
+  assign quote_font = section.settings.quote_font | default: 'serif'
+  assign quote_size_desktop = section.settings.quote_size_desktop | default: 64
+  assign quote_size_mobile = section.settings.quote_size_mobile | default: 44
+  assign eyebrow_size_desktop = section.settings.eyebrow_size_desktop | default: 17
+  assign eyebrow_size_mobile = section.settings.eyebrow_size_mobile | default: 18
+  assign paragraph_size_desktop = section.settings.paragraph_size_desktop | default: 18
+  assign paragraph_size_mobile = section.settings.paragraph_size_mobile | default: 22
+  assign cta_text = section.settings.cta_text
+  assign cta_link = section.settings.cta_link
+  assign image = section.settings.image
+  assign caption_left = section.settings.caption_left
+  assign caption_right = section.settings.caption_right
+  assign columns = section.blocks | where: 'type', 'column'
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ bg }};
+    color: {{ text_color }};
+  }
+  #shopify-section-{{ section.id }} .fqs,
+  #shopify-section-{{ section.id }} .fqs * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  #shopify-section-{{ section.id }} .fqs::before { display: none !important; content: none !important; }
+
+  .fqs {
+    display: block;
+    width: 100%;
+    padding: clamp(72px, 7vw, 118px) clamp(32px, 5vw, 76px) clamp(72px, 7vw, 108px);
+  }
+
+  .fqs__inner {
+    max-width: 1780px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.72fr) minmax(380px, 0.82fr);
+    grid-template-rows: auto auto;
+    column-gap: clamp(56px, 6vw, 110px);
+    row-gap: clamp(78px, 7vw, 116px);
+    align-items: start;
+  }
+
+  .fqs__quote {
+    grid-column: 1;
+    grid-row: 1;
+    font-family: {% if quote_font == 'mono' or quote_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif quote_font == 'sans' or quote_font == 'sans-light' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% else %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% endif %} !important;
+    font-size: {{ quote_size_desktop }}px !important;
+    font-style: {% if quote_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-weight: {% if quote_font == 'sans-light' or quote_font == 'mono-light' %}300{% else %}400{% endif %} !important;
+    letter-spacing: {% if quote_font == 'mono' or quote_font == 'mono-light' %}0.01em{% else %}-0.035em{% endif %};
+    line-height: 1.14;
+    color: {{ text_color }};
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    max-width: 1180px;
+    justify-self: center;
+  }
+
+  .fqs__bottom {
+    display: contents;
+  }
+
+  .fqs__cols-wrap {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(42px, 4vw, 68px);
+  }
+
+  .fqs__cols {
+    display: grid;
+    grid-template-columns: repeat({{ columns.size | at_least: 1 | at_most: 2 }}, minmax(0, 1fr));
+    gap: clamp(54px, 5vw, 92px);
+    align-items: flex-start;
+  }
+
+  .fqs__col {
+    display: grid;
+    grid-template-columns: minmax(112px, 140px) minmax(0, 1fr);
+    gap: clamp(26px, 2vw, 38px);
+    align-items: flex-start;
+  }
+
+  .fqs__eyebrow {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: {{ eyebrow_size_desktop }}px !important;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: {{ text_color }};
+    margin: 0;
+    line-height: 1.25;
+    padding-top: 1px;
+  }
+
+  .fqs__body {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: {{ paragraph_size_desktop }}px !important;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.3;
+    color: {{ text_color }};
+    margin: 0;
+  }
+  .fqs__body p { margin: 0 0 14px; }
+  .fqs__body p:last-child { margin-bottom: 0; }
+
+  .fqs__cta-wrap {
+    margin: 0;
+  }
+
+  .fqs__cta {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: {{ accent_color }};
+    text-decoration: none;
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 1px solid {{ accent_color }};
+    transition: opacity 200ms ease;
+  }
+  .fqs__cta:hover { opacity: 0.65; }
+
+  .fqs__image-wrap {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-self: start;
+  }
+
+  .fqs__image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    position: relative;
+    background: #ece9e0;
+  }
+
+  .fqs__image img,
+  .fqs__image picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  .fqs__captions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: {{ muted_color }};
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  @media screen and (max-width: 1199px) and (min-width: 850px) {
+    .fqs__inner {
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.72fr);
+      column-gap: 48px;
+    }
+
+    .fqs__quote {
+      font-size: {{ quote_size_desktop | times: 0.84 | round }}px !important;
+    }
+
+    .fqs__col {
+      grid-template-columns: 110px 1fr;
+      gap: 24px;
+    }
+  }
+
+  @media screen and (max-width: 849px) {
+    .fqs {
+      padding: 28px 20px 56px;
+    }
+
+    .fqs__inner {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .fqs__bottom {
+      display: contents;
+    }
+
+    .fqs__image-wrap {
+      order: 1;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .fqs__image {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+    }
+
+    .fqs__captions {
+      font-size: 16px;
+      color: {{ muted_color }};
+      padding: 0 2px;
+    }
+
+    .fqs__quote {
+      order: 2;
+      font-size: {{ quote_size_mobile }}px !important;
+      line-height: 1.13;
+      letter-spacing: {% if quote_font == 'mono' or quote_font == 'mono-light' %}0.01em{% else %}-0.045em{% endif %};
+      text-align: center;
+      max-width: 100%;
+      padding: 0;
+      margin: 8px 0 0;
+      font-weight: {% if quote_font == 'sans-light' or quote_font == 'mono-light' %}300{% else %}400{% endif %} !important;
+    }
+
+    .fqs__cols-wrap {
+      order: 3;
+      width: 100%;
+      gap: 28px;
+    }
+
+    .fqs__cols {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .fqs__col {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .fqs__eyebrow {
+      font-size: {{ eyebrow_size_mobile }}px !important;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      padding: 0;
+    }
+
+    .fqs__body {
+      font-size: {{ paragraph_size_mobile }}px !important;
+      line-height: 1.28;
+      letter-spacing: -0.01em;
+    }
+
+    .fqs__body p {
+      margin-bottom: 16px;
+    }
+
+    .fqs__cta-wrap {
+      margin-top: 4px;
+    }
+  }
+</style>
+
+<section class="fqs" data-section-id="{{ section.id }}">
+  <div class="fqs__inner">
+    {%- if quote != blank -%}
+      <p class="fqs__quote">{{ quote }}</p>
+    {%- endif -%}
+
+    <div class="fqs__bottom">
+      <div class="fqs__cols-wrap">
+        <div class="fqs__cols">
+          {%- for block in columns limit: 2 -%}
+            <div class="fqs__col" {{ block.shopify_attributes }}>
+              {%- if block.settings.eyebrow != blank -%}
+                <p class="fqs__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.body != blank -%}
+                <div class="fqs__body rte">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if cta_text != blank -%}
+          <div class="fqs__cta-wrap">
+            {%- if cta_link != blank -%}
+              <a href="{{ cta_link }}" class="fqs__cta">{{ cta_text | escape }}</a>
+            {%- else -%}
+              <span class="fqs__cta">{{ cta_text | escape }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="fqs__image-wrap">
+        <div class="fqs__image">
+          {%- if image != blank -%}
+            {%- assign max_w = image.width | at_most: 1400 -%}
+            {%- assign img_alt = image.alt | default: caption_left | default: 'founder' | escape -%}
+            {{ image | image_url: width: max_w | image_tag:
+              loading: 'lazy',
+              widths: '400,600,800,1000,1200,1400',
+              sizes: '(max-width: 849px) calc(100vw - 40px), 32vw',
+              alt: img_alt
+            }}
+          {%- else -%}
+            <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:{{ muted_color }};font-size:14px;">
+              Sélectionnez une image
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if caption_left != blank or caption_right != blank -%}
+          <div class="fqs__captions">
+            <span>{{ caption_left | escape }}</span>
+            <span>{{ caption_right | escape }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Citation fondatrice",
+  "tag": "section",
+  "class": "founder-quote-story-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Citation (haut de section)"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Citation",
+      "default": "The name Freja (frei-ya) is of Scandinavian origin and means \"love\". I thought it fit beautifully with our mission."
+    },
+    {
+      "type": "header",
+      "content": "Typographie de la phrase"
+    },
+    {
+      "type": "select",
+      "id": "quote_font",
+      "label": "Police de la phrase",
+      "options": [
+        { "value": "serif", "label": "Serif" },
+        { "value": "serif-italic", "label": "Serif italique" },
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" }
+      ],
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "quote_size_desktop",
+      "label": "Taille de la phrase desktop",
+      "min": 32,
+      "max": 90,
+      "step": 1,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "quote_size_mobile",
+      "label": "Taille de la phrase mobile",
+      "min": 28,
+      "max": 64,
+      "step": 1,
+      "default": 44,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typographie des paragraphes"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_desktop",
+      "label": "Taille des petits titres desktop",
+      "min": 14,
+      "max": 25,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size_mobile",
+      "label": "Taille des petits titres mobile",
+      "min": 14,
+      "max": 25,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size_desktop",
+      "label": "Taille des paragraphes desktop",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_size_mobile",
+      "label": "Taille des paragraphes mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "CTA (sous les colonnes)"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du CTA",
+      "default": "Discover Freja"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du CTA"
+    },
+    {
+      "type": "header",
+      "content": "Image fondatrice (droite)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Format vertical recommandé (ex: 800×1000 px)."
+    },
+    {
+      "type": "text",
+      "id": "caption_left",
+      "label": "Légende gauche (sous l'image)",
+      "default": "Jenny Lei"
+    },
+    {
+      "type": "text",
+      "id": "caption_right",
+      "label": "Légende droite (sous l'image)",
+      "default": "Founder, Freja"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texte principal",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Légendes sous l'image (gris)",
+      "default": "#8a8a8a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "CTA (lien souligné)",
+      "default": "#1a1a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Colonne (eyebrow + texte)",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Sur-titre (eyebrow)",
+          "default": "OUR STORY"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Texte",
+          "default": "<p>After a hopeless search to find a suitable bag for an important interview and fueled by the belief that women were in need of both functional and luxurious handbags to support their modern lifestyles, our founder Jenny pivoted from her career plans to create her interpretation of the perfect work bag.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Citation fondatrice",
+      "blocks": [
+        {
+          "type": "column",
+          "settings": {
+            "eyebrow": "OUR STORY",
+            "body": "<p>After a hopeless search to find a suitable bag for an important interview and fueled by the belief that women were in need of both functional and luxurious handbags to support their modern lifestyles, our founder Jenny pivoted from her career plans to create her interpretation of the perfect work bag.</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "eyebrow": "OUR MISSION",
+            "body": "<p>Our handbags are designed to be forever pieces for a well considered wardrobe — created on the premise that women's handbags should not only be aesthetically pleasing, but also highly functional and crafted responsibly with a transparent supply chain.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

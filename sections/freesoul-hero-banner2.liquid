@@ -1,0 +1,402 @@
+{% comment %}
+  ============================================================
+  SECTION : Hero Banner (style Free Soul)
+  Thème   : Concept (Shopify)
+  Auteur  : Custom
+  Usage   : Customizer → Ajouter une section → hero-banner
+  ============================================================
+{% endcomment %}
+
+{%- assign s = section.settings -%}
+
+<div class="fs-hero-wrap" id="fs-hero-{{ section.id }}">
+
+  <section class="fs-hero" aria-label="{{ s.hero_title | escape }}">
+
+    {%- comment -%} Image desktop {%- endcomment -%}
+    {%- if s.hero_image != blank -%}
+      {{
+        s.hero_image
+        | image_url: width: 1600
+        | image_tag:
+          class: 'fs-hero__img fs-hero__img--desktop',
+          loading: 'lazy',
+          widths: '768, 1200, 1600',
+          sizes: '100vw',
+          alt: s.hero_image.alt | default: s.hero_title
+      }}
+    {%- else -%}
+      <div class="fs-hero__img fs-hero__img--desktop fs-hero__img--placeholder"></div>
+    {%- endif -%}
+
+    {%- comment -%} Image mobile (fallback sur desktop si non définie) {%- endcomment -%}
+    {%- if s.hero_image_mobile != blank -%}
+      {{
+        s.hero_image_mobile
+        | image_url: width: 800
+        | image_tag:
+          class: 'fs-hero__img fs-hero__img--mobile',
+          loading: 'lazy',
+          widths: '390, 600, 800',
+          sizes: '100vw',
+          alt: s.hero_image_mobile.alt | default: s.hero_title
+      }}
+    {%- endif -%}
+
+    <div class="fs-hero__overlay"></div>
+
+    <div class="fs-hero__content">
+
+      {%- if s.review_count != blank -%}
+      <div class="fs-stars" aria-label="5 étoiles">
+        <span class="fs-stars__icons" aria-hidden="true">★★★★★</span>
+        <span class="fs-stars__label">{{ s.review_count }}</span>
+      </div>
+      {%- endif -%}
+
+      {%- if s.hero_title != blank -%}
+        <h2 class="fs-hero__title">{{ s.hero_title }}</h2>
+      {%- endif -%}
+
+      {%- if s.hero_subtitle != blank -%}
+        <p class="fs-hero__subtitle">{{ s.hero_subtitle }}</p>
+      {%- endif -%}
+
+      {%- if s.cta_text != blank and s.cta_url != blank -%}
+        <a href="{{ s.cta_url }}" class="fs-cta">{{ s.cta_text }}</a>
+      {%- endif -%}
+
+    </div>
+  </section>
+
+</div>
+
+<style>
+  /* ─── Scoped to this section ──────────────────────────── */
+  #fs-hero-{{ section.id }} {
+    --fs-overlay:           {{ s.overlay_color }};
+    --fs-title-color:       {{ s.title_color }};
+    --fs-sub-color:         {{ s.subtitle_color }};
+    --fs-cta-bg:            {{ s.cta_bg_color }};
+    --fs-cta-color:         {{ s.cta_text_color }};
+    --fs-cta-bg-hover:      {{ s.cta_hover_color }};
+    --fs-hero-min-h-mobile: {{ s.hero_min_height_mobile }}px;
+    --fs-hero-min-h-desktop:{{ s.hero_min_height_desktop }}px;
+    --fs-title-size-mobile: {{ s.title_size_mobile }}px;
+    --fs-title-size-desktop:{{ s.title_size_desktop }}px;
+    --fs-sub-size-mobile:   {{ s.subtitle_size_mobile }}px;
+    --fs-sub-size-desktop:  {{ s.subtitle_size_desktop }}px;
+  }
+
+  /* ─── Hero section ───────────────────────────────────── */
+  #fs-hero-{{ section.id }} .fs-hero {
+    position: relative;
+    min-height: var(--fs-hero-min-h-mobile, 560px);
+    overflow: hidden;
+    display: flex;
+  }
+
+  /* Images desktop/mobile */
+  #fs-hero-{{ section.id }} .fs-hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  #fs-hero-{{ section.id }} .fs-hero__img--placeholder {
+    background: linear-gradient(135deg, #3a6b3a, #1f3d1f);
+  }
+  /* Par défaut : desktop visible, mobile caché */
+  #fs-hero-{{ section.id }} .fs-hero__img--mobile {
+    display: none;
+  }
+  #fs-hero-{{ section.id }} .fs-hero__img--desktop {
+    display: block;
+  }
+
+  #fs-hero-{{ section.id }} .fs-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--fs-overlay, rgba(0,0,0,.45));
+  }
+
+  #fs-hero-{{ section.id }} .fs-hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 36px 24px 48px;
+  }
+
+  /* Stars */
+  #fs-hero-{{ section.id }} .fs-stars {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  #fs-hero-{{ section.id }} .fs-stars__icons {
+    color: #e91e8c;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+  #fs-hero-{{ section.id }} .fs-stars__label {
+    color: #fff;
+    font-size: 13px;
+  }
+
+  /* Title */
+  #fs-hero-{{ section.id }} .fs-hero__title {
+    color: var(--fs-title-color, #fff);
+    font-size: var(--fs-title-size-mobile, 32px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    margin: 0 0 14px;
+    max-width: 600px;
+  }
+
+  /* Subtitle */
+  #fs-hero-{{ section.id }} .fs-hero__subtitle {
+    color: var(--fs-sub-color, rgba(255,255,255,.9));
+    font-size: var(--fs-sub-size-mobile, 15px);
+    line-height: 1.55;
+    margin: 0 0 26px;
+    max-width: 440px;
+  }
+
+  /* CTA — large comme l'inspiration (photo 2) */
+  #fs-hero-{{ section.id }} .fs-cta {
+    display: block;
+    background: var(--fs-cta-bg, #e91e8c);
+    color: var(--fs-cta-color, #fff);
+    text-decoration: none;
+    padding: 18px 40px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-radius: 8px;
+    width: 100%;
+    text-align: center;
+    transition: background .2s, transform .15s;
+    box-sizing: border-box;
+  }
+  #fs-hero-{{ section.id }} .fs-cta:hover {
+    background: var(--fs-cta-bg-hover, #c4177a);
+    transform: translateY(-1px);
+  }
+
+  /* ─── Mobile : image mobile si dispo ─────────────────── */
+  @media (max-width: 767px) {
+    #fs-hero-{{ section.id }} .fs-hero__img--mobile {
+      display: block;
+    }
+    #fs-hero-{{ section.id }} .fs-hero__img--desktop {
+      display: none;
+    }
+  }
+
+  /* ─── Desktop ─────────────────────────────────────────── */
+  @media (min-width: 768px) {
+    #fs-hero-{{ section.id }} .fs-hero {
+      min-height: var(--fs-hero-min-h-desktop, 620px);
+    }
+    #fs-hero-{{ section.id }} .fs-hero__content {
+      padding: 60px 64px 80px;
+      max-width: 760px;
+    }
+    #fs-hero-{{ section.id }} .fs-hero__title {
+      font-size: var(--fs-title-size-desktop, 48px);
+    }
+    #fs-hero-{{ section.id }} .fs-hero__subtitle {
+      font-size: var(--fs-sub-size-desktop, 16px);
+    }
+    #fs-hero-{{ section.id }} .fs-cta {
+      max-width: 680px;
+    }
+  }
+
+  /* ─── Reduced motion ─────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    #fs-hero-{{ section.id }} .fs-cta { transition: none; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "div",
+  "class": "fs-hero-section",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "🖼 Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Image desktop (PC)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Image mobile (téléphone) — facultatif, utilise desktop si vide"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Couleur overlay (opacité incluse)",
+      "default": "#00000073"
+    },
+    {
+      "type": "range",
+      "id": "hero_min_height_mobile",
+      "label": "Hauteur min mobile (px)",
+      "min": 300,
+      "max": 900,
+      "step": 10,
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "hero_min_height_desktop",
+      "label": "Hauteur min desktop (px)",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "default": 620
+    },
+
+    {
+      "type": "header",
+      "content": "📝 Contenu"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Texte avis (laisser vide pour masquer)",
+      "default": "Over 110,000 verified 5 star reviews"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Titre principal",
+      "default": "Matcha, now with collagen & protein."
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Sous-titre",
+      "default": "Meet Matcha Collagen and Matcha Protein – built to give you more from every sip."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Couleur titre",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Couleur sous-titre",
+      "default": "#ffffffe6"
+    },
+
+    {
+      "type": "header",
+      "content": "🔠 Taille du texte — Mobile"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Taille titre (mobile)",
+      "min": 20,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "label": "Taille sous-titre (mobile)",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+
+    {
+      "type": "header",
+      "content": "🔠 Taille du texte — Desktop"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "Taille titre (desktop)",
+      "min": 24,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_desktop",
+      "label": "Taille sous-titre (desktop)",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "header",
+      "content": "🛒 Bouton CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte bouton CTA",
+      "default": "SHOP MATCHA"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Lien bouton CTA"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Couleur fond CTA",
+      "default": "#e91e8c"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_color",
+      "label": "Couleur fond CTA (hover)",
+      "default": "#c4177a"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Couleur texte CTA",
+      "default": "#ffffff"
+    }
+
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

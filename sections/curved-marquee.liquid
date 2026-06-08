@@ -1,0 +1,306 @@
+{%- liquid
+  assign text = section.settings.text | default: 'JOIN THE COMMUNITY'
+  assign repeat = section.settings.repeat | default: 6
+  assign speed = section.settings.speed | default: 30
+  assign direction = section.settings.direction | default: 'left'
+
+  assign bg_color = section.settings.background_color
+  if bg_color == blank
+    assign bg_color = '#a8c8e6'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#0a0a0a'
+  endif
+
+  assign font_size = section.settings.font_size | default: 64
+  assign font_size_mobile = section.settings.font_size_mobile | default: 28
+  assign curve_amount = section.settings.curve_amount | default: 30
+  assign curve_amount_mobile = section.settings.curve_amount_mobile | default: 14
+  assign text_font = section.settings.text_font | default: 'serif'
+  assign text_weight = section.settings.text_weight | default: 700
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .cmq { background: {{ bg_color }} !important; color: {{ text_color }} !important; position: relative; z-index: 1; }
+  #shopify-section-{{ section.id }} .cmq::before { display: none !important; content: none !important; }
+  #shopify-section-{{ section.id }} .cmq > * { position: relative; z-index: 2; }
+  #shopify-section-{{ section.id }} .cmq,
+  #shopify-section-{{ section.id }} .cmq * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+</style>
+
+{%- comment %}
+  Wavy SVG marquee. The path traces ~3 sine-like waves between x=0 and
+  x=1200, peaking +/- curve_amount around the vertical centre.
+{%- endcomment -%}
+{%- comment %} Desktop sizes {%- endcomment -%}
+{%- assign center_y = font_size | plus: curve_amount | plus: 30 -%}
+{%- assign top_y = center_y | minus: curve_amount -%}
+{%- assign bot_y = center_y | plus: curve_amount -%}
+{%- assign viewbox_h = curve_amount | times: 2 | plus: font_size | plus: 60 -%}
+
+{%- comment %} Mobile sizes {%- endcomment -%}
+{%- assign center_y_m = font_size_mobile | plus: curve_amount_mobile | plus: 20 -%}
+{%- assign top_y_m = center_y_m | minus: curve_amount_mobile -%}
+{%- assign bot_y_m = center_y_m | plus: curve_amount_mobile -%}
+{%- assign viewbox_h_m = curve_amount_mobile | times: 2 | plus: font_size_mobile | plus: 40 -%}
+
+{%- assign repeat_indices = repeat | times: 1 -%}
+{%- capture repeated_text -%}
+  {%- for i in (1..repeat_indices) -%}{{ text | escape }}&#160;&#8226;&#160;{%- endfor -%}
+{%- endcapture -%}
+
+<section class="cmq" data-section-id="{{ section.id }}" aria-label="{{ text | escape }}">
+  <div class="cmq__inner">
+
+    {%- comment %} ----------- DESKTOP / TABLET ----------- {%- endcomment -%}
+    <svg
+      class="cmq__svg cmq__svg--desktop"
+      viewBox="0 0 1200 {{ viewbox_h }}"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <path
+          id="cmq-path-{{ section.id }}-d"
+          d="M 0 {{ center_y }}
+             C 100 {{ top_y }}, 200 {{ top_y }}, 300 {{ center_y }}
+             S 500 {{ bot_y }}, 600 {{ center_y }}
+             S 800 {{ top_y }}, 900 {{ center_y }}
+             S 1100 {{ bot_y }}, 1200 {{ center_y }}"
+          fill="none"
+        />
+      </defs>
+      <text class="cmq__text" fill="{{ text_color }}" font-size="{{ font_size }}" letter-spacing="2">
+        <textPath
+          href="#cmq-path-{{ section.id }}-d"
+          xlink:href="#cmq-path-{{ section.id }}-d"
+          startOffset="0%"
+        >
+          <animate
+            attributeName="startOffset"
+            from="{% if direction == 'right' %}-100%{% else %}0%{% endif %}"
+            to="{% if direction == 'right' %}0%{% else %}-100%{% endif %}"
+            dur="{{ speed }}s"
+            repeatCount="indefinite"
+          />
+          {{ repeated_text }}
+        </textPath>
+      </text>
+    </svg>
+
+    {%- comment %} ----------- MOBILE ----------- {%- endcomment -%}
+    <svg
+      class="cmq__svg cmq__svg--mobile"
+      viewBox="0 0 1200 {{ viewbox_h_m }}"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <path
+          id="cmq-path-{{ section.id }}-m"
+          d="M 0 {{ center_y_m }}
+             C 100 {{ top_y_m }}, 200 {{ top_y_m }}, 300 {{ center_y_m }}
+             S 500 {{ bot_y_m }}, 600 {{ center_y_m }}
+             S 800 {{ top_y_m }}, 900 {{ center_y_m }}
+             S 1100 {{ bot_y_m }}, 1200 {{ center_y_m }}"
+          fill="none"
+        />
+      </defs>
+      <text class="cmq__text" fill="{{ text_color }}" font-size="{{ font_size_mobile }}" letter-spacing="1">
+        <textPath
+          href="#cmq-path-{{ section.id }}-m"
+          xlink:href="#cmq-path-{{ section.id }}-m"
+          startOffset="0%"
+        >
+          <animate
+            attributeName="startOffset"
+            from="{% if direction == 'right' %}-100%{% else %}0%{% endif %}"
+            to="{% if direction == 'right' %}0%{% else %}-100%{% endif %}"
+            dur="{{ speed }}s"
+            repeatCount="indefinite"
+          />
+          {{ repeated_text }}
+        </textPath>
+      </text>
+    </svg>
+
+  </div>
+</section>
+
+<style>
+  .cmq {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .cmq__inner {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+  .cmq__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .cmq__svg--desktop { display: block; }
+  .cmq__svg--mobile  { display: none; }
+  @media screen and (max-width: 749px) {
+    .cmq__svg--desktop { display: none; }
+    .cmq__svg--mobile  { display: block; }
+  }
+  #shopify-section-{{ section.id }} .cmq__text {
+    font-family: {% if text_font == 'mono' or text_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif text_font == 'sans' or text_font == 'sans-light' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% elsif text_font == 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', Georgia, serif{% else %}'Cormorant Garamond', 'Playfair Display', Georgia, serif{% endif %} !important;
+    font-style: {% if text_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-weight: {{ text_weight }} !important;
+    text-transform: uppercase;
+    dominant-baseline: middle;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cmq__svg animate { display: none; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Texte courbé défilant",
+  "tag": "section",
+  "class": "curved-marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte",
+      "default": "JOIN THE BAÏA COMMUNITY"
+    },
+    {
+      "type": "select",
+      "id": "text_font",
+      "label": "Police du texte",
+      "options": [
+        { "value": "serif", "label": "Serif (Cormorant)" },
+        { "value": "serif-italic", "label": "Serif Italique" },
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" }
+      ],
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "text_weight",
+      "label": "Graisse du texte",
+      "info": "300 = light, 400 = regular, 500 = medium, 700 = bold, 900 = black",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Couleur de fond",
+      "default": "#a8c8e6"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "header",
+      "content": "Tailles desktop"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Taille du texte (desktop)",
+      "min": 24,
+      "max": 160,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "curve_amount",
+      "label": "Amplitude de la vague (desktop)",
+      "info": "Plus haut = vagues plus prononcées.",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Tailles mobile"
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Taille du texte (mobile)",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "curve_amount_mobile",
+      "label": "Amplitude de la vague (mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "repeat",
+      "label": "Nombre de répétitions du texte",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Vitesse de défilement",
+      "info": "Durée totale en secondes pour faire un cycle. Plus haut = plus lent.",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "default": 30,
+      "unit": "s"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        { "value": "left",  "label": "← Gauche" },
+        { "value": "right", "label": "Droite →" }
+      ],
+      "default": "left"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texte courbé défilant"
+    }
+  ]
+}
+{% endschema %}

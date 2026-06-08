@@ -1,0 +1,197 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "title-xl",
+        "heading_alignment": "text-left",
+        "heading_tag": "h1",
+        "text_size": "text-lg md:text-2xl",
+        "padding_top": 72,
+        "padding_bottom": 120,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "rich_text_bxLyrW": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_dEpkpi": {
+          "type": "heading",
+          "settings": {
+            "heading": "Do you have a question ?",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h1",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_CfyY4c": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Anaya will be happy to answer you every day from 9am to 6pm</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "heading_dEpkpi",
+        "text_CfyY4c"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 0,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "contact_form_nfKKXQ": {
+      "type": "contact-form",
+      "name": "t:sections.contact-form.name",
+      "settings": {
+        "heading": "Contact Us",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "#ac025f",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "#ac025f",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 32,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "image_with_text_jeLVq8": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_7ibFKb": {
+          "type": "heading",
+          "settings": {
+            "heading": "Useful information :",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_8MFX6H": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>Email Address : Hello@baiawellness.com</li><li>Postal Address: 45 Avenue des Champs-Elysées</li></ul>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7ibFKb",
+        "text_8MFX6H"
+      ],
+      "name": "t:sections.image-with-text.name",
+      "settings": {
+        "image": "shopify://shop_images/baia-wellness-location-45-champs-elysees-paris.webp",
+        "image_height": "650px",
+        "image_width": "medium",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "content_position": "align-self-center",
+        "image_mobile": "shopify://shop_images/baia-wellness-location-45-champs-elysees-paris.webp",
+        "image_height_mobile": "auto",
+        "text_alignment_mobile": "left",
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_background_2": "",
+        "gradient_background_2": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 40,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": true,
+        "parallax_direction": "vertical"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich_text_bxLyrW",
+    "contact_form_nfKKXQ",
+    "image_with_text_jeLVq8"
+  ]
+}

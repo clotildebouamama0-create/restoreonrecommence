@@ -1,0 +1,265 @@
+{%- liquid
+  assign target_product = section.settings.product
+  assign show_bundle = false
+
+  if request.design_mode
+    assign show_bundle = true
+  elsif template == 'product' and target_product != blank and product.handle == target_product.handle
+    assign show_bundle = true
+  endif
+
+  if target_product == blank and template == 'product'
+    assign target_product = product
+  endif
+-%}
+
+{%- if show_bundle and target_product != blank -%}
+  {%- render 'bundle-selector-render',
+    context_settings: section.settings,
+    context_blocks: section.blocks,
+    target_product: target_product,
+    context_id: section.id,
+    is_block: false
+  -%}
+{%- elsif show_bundle -%}
+  <p style="text-align:center;padding:20px;font-family:'Founders Grotesk',sans-serif;color:#7a7a7a;">
+    Sélectionne le produit cible dans les réglages de la section.
+  </p>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Sélecteur de bundle",
+  "tag": "section",
+  "class": "bundle-selector",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Produit cible"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produit cible (le bundle ne s'affichera que sur cette page produit)"
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre du bloc",
+      "default": "SELECT YOUR QUANTITY"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texte du bouton CTA",
+      "default": "Add to cart"
+    },
+    {
+      "type": "header",
+      "content": "Cadeaux gratuits"
+    },
+    {
+      "type": "product",
+      "id": "gift_product_1",
+      "label": "Cadeau 1 (e-book)"
+    },
+    {
+      "type": "product",
+      "id": "gift_product_2",
+      "label": "Cadeau 2 (infuseur)"
+    },
+    {
+      "type": "range",
+      "id": "gift_threshold_quantity",
+      "label": "Quantité minimum pour déclencher les cadeaux",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "gift_text",
+      "label": "Texte d'introduction des cadeaux",
+      "default": "WELCOME KIT"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de section",
+      "default": "#fffcf0"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond des cartes",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Bordure des cartes (inactive)",
+      "default": "#e8e2d4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur d'accent (carte sélectionnée, CTA)",
+      "default": "#a4174d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur secondaire (prix barré)",
+      "default": "#7a7a7a"
+    },
+    {
+      "type": "color",
+      "id": "top_badge_bg",
+      "label": "Fond du badge haut",
+      "default": "#c4f348"
+    },
+    {
+      "type": "color",
+      "id": "top_badge_color",
+      "label": "Texte du badge haut",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "bottom_pill_bg",
+      "label": "Fond de la pill basse",
+      "default": "#c4f348"
+    },
+    {
+      "type": "color",
+      "id": "bottom_pill_color",
+      "label": "Texte de la pill basse",
+      "default": "#1a1a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "is_default",
+          "label": "Sélectionné par défaut",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "quantity",
+          "label": "Quantité (nombre d'unités du produit)",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "discount_percent",
+          "label": "Réduction (%)",
+          "min": 0,
+          "max": 95,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "top_badge",
+          "label": "Badge en haut (optionnel)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre (haut de carte)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image de la carte"
+        },
+        {
+          "type": "text",
+          "id": "quantity_label",
+          "label": "Label quantité (gros texte)",
+          "default": "1 Month"
+        },
+        {
+          "type": "text",
+          "id": "sub_label",
+          "label": "Pill violette (sous l'image)"
+        },
+        {
+          "type": "text",
+          "id": "bottom_pill",
+          "label": "Pill basse (optionnel)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Sélecteur de bundle",
+      "blocks": [
+        {
+          "type": "bundle",
+          "settings": {
+            "quantity": 1,
+            "discount_percent": 0,
+            "title": "PCOS HORMONE BALANCE",
+            "quantity_label": "1 Month",
+            "sub_label": "Give it a try"
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "is_default": true,
+            "quantity": 3,
+            "discount_percent": 46,
+            "top_badge": "2 + 1 FREE",
+            "title": "PCOS HORMONE BALANCE",
+            "quantity_label": "3 Months",
+            "sub_label": "Most popular",
+            "bottom_pill": "Your favorite"
+          }
+        },
+        {
+          "type": "bundle",
+          "settings": {
+            "quantity": 6,
+            "discount_percent": 51,
+            "top_badge": "3 + 3 FREE",
+            "title": "PCOS HORMONE BALANCE",
+            "quantity_label": "6 Months",
+            "sub_label": "Maximum savings",
+            "bottom_pill": "Top deal"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,413 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#f6f6f6'
+  assign text_color = section.settings.text_color | default: '#0f0f0f'
+  assign muted_color = section.settings.muted_color | default: '#9a9a9a'
+  assign accent_color = section.settings.accent_color | default: '#0f0f0f'
+  assign title_font = section.settings.title_font | default: 'sans'
+  assign title_size_d = section.settings.title_size_desktop | default: 56
+  assign title_size_m = section.settings.title_size_mobile | default: 36
+  assign title_weight = section.settings.title_weight | default: 500
+  assign subtitle_size = section.settings.subtitle_size | default: 15
+  assign title = section.settings.title
+  assign subtitle = section.settings.subtitle
+  assign blocks = section.blocks | where: 'type', 'tab'
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ bg }};
+    color: {{ text_color }};
+  }
+  #shopify-section-{{ section.id }} .fmv,
+  #shopify-section-{{ section.id }} .fmv * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  #shopify-section-{{ section.id }} .fmv::before { display: none !important; content: none !important; }
+
+  .fmv {
+    display: block;
+    width: 100vw;
+    margin-inline-start: calc(50% - 50vw);
+    margin-inline-end: calc(50% - 50vw);
+    padding: clamp(48px, 6vw, 96px) clamp(20px, 5vw, 80px);
+  }
+  .fmv__inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 1.8fr);
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+  .fmv__left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  #shopify-section-{{ section.id }} .fmv__title,
+  #shopify-section-{{ section.id }} h2.fmv__title {
+    font-family: {% if title_font == 'mono' or title_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif title_font == 'serif' or title_font == 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% else %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% endif %} !important;
+    font-style: {% if title_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-size: {{ title_size_d }}px !important;
+    font-weight: {{ title_weight }} !important;
+    letter-spacing: {% if title_font == 'mono' or title_font == 'mono-light' %}0{% else %}-0.01em{% endif %} !important;
+    line-height: 1.05 !important;
+    margin: 0 !important;
+    color: {{ text_color }} !important;
+    text-transform: uppercase !important;
+  }
+  .fmv__subtitle {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: {{ subtitle_size }}px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: {{ muted_color }};
+    margin: 0;
+  }
+  .fmv__right {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* Tab nav — flex layout so tabs take their natural width and NEVER wrap to 2 lines */
+  .fmv__tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: clamp(8px, 1.5vw, 24px);
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+    width: 100%;
+    overflow: hidden;
+  }
+  .fmv__tab {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 14px 0 16px;
+    margin: 0;
+    cursor: pointer;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 0 1 auto;
+    text-align: center;
+    text-transform: uppercase;
+    color: {{ muted_color }};
+    transition: color 200ms ease;
+    position: relative;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .fmv__tab:hover { color: {{ text_color }}; }
+  .fmv__tab.is-active {
+    color: {{ text_color }};
+  }
+  /* Wrap text in a span so we can underline just the text width */
+  .fmv__tab > span {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+  .fmv__tab.is-active > span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: {{ accent_color }};
+  }
+
+  /* Panels */
+  .fmv__panels {
+    position: relative;
+    min-height: 340px;
+  }
+  .fmv__panel {
+    display: none;
+    width: 100%;
+  }
+  .fmv__panel.is-active {
+    display: block;
+  }
+  .fmv__panel-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    display: block;
+    background: transparent;
+  }
+  .fmv__panel picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .fmv__panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .fmv__placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ muted_color }};
+    font-size: 14px;
+    background: rgba(0,0,0,0.04);
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 849px) {
+    .fmv {
+      padding: clamp(40px, 8vw, 60px) 20px;
+    }
+    .fmv__inner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    #shopify-section-{{ section.id }} .fmv__title,
+    #shopify-section-{{ section.id }} h2.fmv__title {
+      font-size: {{ title_size_m }}px !important;
+    }
+    .fmv__subtitle {
+      font-size: 14px;
+    }
+    .fmv__right { gap: 20px; }
+    .fmv__tab {
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      padding: 12px 2px 14px;
+    }
+  }
+</style>
+
+<section class="fmv" data-section-id="{{ section.id }}" data-features-multiview>
+  <div class="fmv__inner">
+    <div class="fmv__left">
+      {%- if title != blank -%}
+        <h2 class="fmv__title">{{ title }}</h2>
+      {%- endif -%}
+      {%- if subtitle != blank -%}
+        <p class="fmv__subtitle">{{ subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="fmv__right">
+      <div class="fmv__tabs" role="tablist">
+        {%- for block in blocks -%}
+          <button
+            type="button"
+            class="fmv__tab{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            data-fmv-tab="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <span>{{ block.settings.label | escape | default: block.settings.label_fallback }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+
+      <div class="fmv__panels">
+        {%- for block in blocks -%}
+          <div
+            class="fmv__panel{% if forloop.first %} is-active{% endif %}"
+            role="tabpanel"
+            data-fmv-panel="{{ forloop.index0 }}"
+          >
+            {%- if block.settings.image != blank -%}
+              {%- assign max_w = block.settings.image.width | at_most: 1600 -%}
+              {%- assign img_alt = block.settings.image.alt | default: block.settings.label | default: title | escape -%}
+              <picture class="fmv__panel-image">
+                {{ block.settings.image | image_url: width: max_w | image_tag:
+                  loading: 'lazy',
+                  widths: '500,700,900,1200,1600',
+                  sizes: '(max-width: 849px) 100vw, 60vw',
+                  alt: img_alt
+                }}
+              </picture>
+            {%- else -%}
+              <div class="fmv__placeholder">{{ 'Aucune image' }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.querySelector('#shopify-section-{{ section.id }} [data-features-multiview]');
+    if (!root) return;
+    var tabs = root.querySelectorAll('[data-fmv-tab]');
+    var panels = root.querySelectorAll('[data-fmv-panel]');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var idx = t.getAttribute('data-fmv-tab');
+        tabs.forEach(function (tt) {
+          var on = tt.getAttribute('data-fmv-tab') === idx;
+          tt.classList.toggle('is-active', on);
+          tt.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle('is-active', p.getAttribute('data-fmv-panel') === idx);
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Features multi-vues",
+  "tag": "section",
+  "class": "features-multiview-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "FEATURES"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Enzo Messenger Bag"
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "Police du titre",
+      "options": [
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" },
+        { "value": "serif", "label": "Serif (FontBaia1)" },
+        { "value": "serif-italic", "label": "Serif Italique" }
+      ],
+      "default": "sans"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "Taille titre (desktop)",
+      "min": 24,
+      "max": 120,
+      "step": 2,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Taille titre (mobile)",
+      "min": 18,
+      "max": 80,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "label": "Graisse du titre",
+      "info": "300 = light, 400 = regular, 500 = medium, 700 = bold, 900 = black",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Taille sous-titre",
+      "min": 11,
+      "max": 24,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#f6f6f6"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texte / titre",
+      "default": "#0f0f0f"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Texte secondaire (sous-titre, onglets inactifs)",
+      "default": "#9a9a9a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Soulignement onglet actif",
+      "default": "#0f0f0f"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Onglet (catégorie)",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé de l'onglet",
+          "default": "INTERIOR"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (annotée si possible)",
+          "info": "Image PNG transparent ou JPG. Format paysage recommandé (ex: 1200×900 px)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features multi-vues",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "INTERIOR" } },
+        { "type": "tab", "settings": { "label": "FRONT" } },
+        { "type": "tab", "settings": { "label": "BACK" } },
+        { "type": "tab", "settings": { "label": "DETAILS" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

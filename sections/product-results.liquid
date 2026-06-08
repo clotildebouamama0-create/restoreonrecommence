@@ -1,0 +1,394 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  if bg_color == blank
+    assign bg_color = '#f8f8f8'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#1a1a1a'
+  endif
+  assign muted_color = section.settings.muted_color
+  if muted_color == blank
+    assign muted_color = '#7a7a7a'
+  endif
+  assign accent_color = section.settings.accent_color
+  if accent_color == blank
+    assign accent_color = '#a4174d'
+  endif
+  assign separator_color = section.settings.separator_color
+  if separator_color == blank
+    assign separator_color = '#d8d8d8'
+  endif
+  assign image_radius = section.settings.image_radius | default: 16
+  assign image_position = section.settings.image_position | default: 'right'
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --pr-bg: {{ bg_color }};
+    --pr-text: {{ text_color }};
+    --pr-muted: {{ muted_color }};
+    --pr-accent: {{ accent_color }};
+    --pr-sep: {{ separator_color }};
+    --pr-radius: {{ image_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .pr::before { display: none !important; content: none !important; }
+</style>
+
+<section class="pr slider-section-padding pr--image-{{ image_position }}" data-section-id="{{ section.id }}">
+  <div class="pr__inner page-width">
+    <div class="pr__grid">
+
+      <div class="pr__text">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="pr__eyebrow">{{ section.settings.eyebrow | escape }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <div class="pr__heading" role="heading" aria-level="2">{{ section.settings.heading }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <ul class="pr__list" role="list">
+            {%- for block in section.blocks -%}
+              <li class="pr__item" {{ block.shopify_attributes }}>
+                {%- if block.settings.show_check -%}
+                  <span class="pr__check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="5 12 10 17 19 8"/>
+                    </svg>
+                  </span>
+                {%- endif -%}
+                <p class="pr__label">
+                  {%- if block.settings.value != blank -%}
+                    <strong class="pr__value">{{ block.settings.value | escape }}</strong>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <span class="pr__text-line">{{ block.settings.text | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.note_marker != blank -%}
+                    <sup class="pr__note">{{ block.settings.note_marker | escape }}</sup>
+                  {%- endif -%}
+                </p>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.disclaimer != blank -%}
+          <div class="pr__disclaimer rte">{{ section.settings.disclaimer }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="pr__media">
+        {%- if section.settings.image != blank -%}
+          {%- assign img_alt = section.settings.heading | default: 'product results' | escape -%}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', class: 'pr__image', alt: img_alt, widths: '500,800,1100,1400,1800' }}
+        {%- else -%}
+          <div class="pr__image pr__image--ph" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .pr {
+    background: var(--pr-bg) !important;
+    color: var(--pr-text);
+    width: 100%;
+  }
+  .pr__inner { width: 100%; }
+  .pr__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  @media screen and (min-width: 990px) {
+    .pr__grid {
+      grid-template-columns: minmax(320px, 480px) 1fr;
+      gap: 80px;
+    }
+    .pr--image-left .pr__grid {
+      grid-template-columns: 1fr minmax(320px, 480px);
+    }
+    .pr--image-left .pr__text { order: 2; }
+    .pr--image-left .pr__media { order: 1; }
+  }
+
+  .pr__text {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+  }
+  @media screen and (min-width: 990px) {
+    .pr__text { gap: 22px; }
+  }
+
+  .pr__eyebrow {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pr-muted);
+    margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .pr__heading {
+    margin: 0;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-size: clamp(26px, 3.2vw, 40px);
+    line-height: 1.1;
+    color: var(--pr-text);
+    font-weight: 700;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .pr__list {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .pr__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 0;
+    border-top: 1px solid var(--pr-sep);
+  }
+  .pr__item:last-child {
+    border-bottom: 1px solid var(--pr-sep);
+  }
+  .pr__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    color: var(--pr-accent);
+  }
+  .pr__check svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .pr__label {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--pr-text);
+  }
+  .pr__value {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    margin-right: 4px;
+    color: var(--pr-text);
+  }
+  .pr__text-line { font-weight: 500; }
+  .pr__note {
+    font-size: 11px;
+    color: var(--pr-muted);
+    margin-left: 2px;
+    vertical-align: super;
+  }
+
+  .pr__disclaimer {
+    margin-top: 4px;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--pr-muted);
+  }
+  .pr__disclaimer p { margin: 0 0 4px; }
+  .pr__disclaimer p:last-child { margin: 0; }
+
+  .pr__media { min-width: 0; }
+  .pr__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* Mobile : square image */
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--pr-radius);
+  }
+  @media screen and (min-width: 990px) {
+    .pr__image {
+      aspect-ratio: 5 / 6;
+    }
+  }
+  .pr__image--ph {
+    background: linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
+  }
+
+  /* === Mobile order: eyebrow + heading first, then image, then list === */
+  @media screen and (max-width: 989px) {
+    .pr__grid { gap: 18px; }
+    .pr__text {
+      display: contents;
+    }
+    .pr__eyebrow { order: 1; }
+    .pr__heading { order: 2; }
+    .pr__media   { order: 3; margin: 6px 0; }
+    .pr__list    { order: 4; margin: 0; }
+    .pr__disclaimer { order: 5; }
+  }
+
+  /* Force FontBaia1 on the heading even if the rich-text wraps the text in <p> */
+  .pr__heading,
+  .pr__heading p,
+  .pr__heading span,
+  .pr__heading strong,
+  .pr__heading em {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  }
+  .pr__heading p { margin: 0; }
+</style>
+
+{% schema %}
+{
+  "name": "Résultats produit",
+  "tag": "section",
+  "class": "product-results",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo (portrait recommandé)"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Position de l'image",
+      "options": [
+        { "value": "right", "label": "À droite" },
+        { "value": "left", "label": "À gauche" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Rayon des coins (image)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Petit titre (eyebrow)",
+      "default": "LES RÉSULTATS"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Titre principal",
+      "default": "<p>Des dents plus blanches en 4 semaines.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "disclaimer",
+      "label": "Mentions / disclaimer (notes en bas)",
+      "default": "<p>* Test instrumental sous contrôle dentaire, valeur haute du scoring blancheur.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de section",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur secondaire",
+      "default": "#7a7a7a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur de la coche",
+      "default": "#a4174d"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Couleur des séparateurs",
+      "default": "#d8d8d8"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "result",
+      "name": "Résultat",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_check",
+          "label": "Afficher la coche",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valeur en gras (ex: +33%)"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte"
+        },
+        {
+          "type": "text",
+          "id": "note_marker",
+          "label": "Marqueur de note (ex: *, **)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Résultats produit",
+      "blocks": [
+        { "type": "result", "settings": { "value": "+33%", "text": "blancheur de l'émail", "note_marker": "*" } },
+        { "type": "result", "settings": { "value": "100%", "text": "formule douce", "note_marker": "**" } },
+        { "type": "result", "settings": { "value": "Dents", "text": "moins jaunes", "note_marker": "**" } },
+        { "type": "result", "settings": { "value": "Taches", "text": "de tabac éliminées", "note_marker": "**" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,499 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#ffffff'
+  assign title_color = section.settings.text_color | default: '#2d35ff'
+  assign cta_color = section.settings.cta_color | default: '#0b0b0b'
+  assign cta_bg = section.settings.cta_bg_color | default: '#3cff00'
+  assign locked_cta_color = section.settings.locked_cta_color | default: '#777777'
+  assign locked_cta_bg = section.settings.locked_cta_bg_color | default: '#d8d8d8'
+  assign title_font = section.settings.title_font | default: 'sans'
+  assign cta_font = section.settings.cta_font | default: 'sans'
+  assign title_size_desktop = section.settings.title_size_desktop | default: 118
+  assign title_size_mobile = section.settings.title_size_mobile | default: 74
+  assign cta_size_desktop = section.settings.cta_size_desktop | default: 18
+  assign cta_size_mobile = section.settings.cta_size_mobile | default: 16
+  assign height_d = section.settings.height_desktop | default: 760
+  assign height_m = section.settings.height_mobile | default: 620
+  assign gap = section.settings.gap | default: 0
+  assign columns = section.settings.columns | default: 3 | plus: 0
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} { background: {{ bg }}; }
+  #shopify-section-{{ section.id }} .dip,
+  #shopify-section-{{ section.id }} .dip * {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  #shopify-section-{{ section.id }} .dip::before { display: none !important; content: none !important; }
+
+  #shopify-section-{{ section.id }} .dip {
+    display: block;
+    width: 100vw;
+    margin-inline-start: calc(50% - 50vw);
+    margin-inline-end: calc(50% - 50vw);
+    overflow: hidden;
+    background: {{ bg }};
+  }
+
+  #shopify-section-{{ section.id }} .dip__grid {
+    display: grid;
+    grid-template-columns: repeat({{ columns }}, minmax(0, 1fr));
+    gap: {{ gap }}px;
+    width: 100%;
+    min-height: {{ height_d }}px;
+  }
+
+  #shopify-section-{{ section.id }} .dip__cell {
+    position: relative;
+    overflow: hidden;
+    background: #ece9e0;
+    min-height: {{ height_d }}px;
+    color: {{ title_color }};
+  }
+
+  #shopify-section-{{ section.id }} .dip__cell-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    z-index: 0;
+    transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #shopify-section-{{ section.id }} .dip__cell:hover .dip__cell-img {
+    transform: scale(1.03);
+  }
+
+  #shopify-section-{{ section.id }} .dip__overlay {
+    position: absolute;
+    z-index: 5;
+    top: clamp(22px, 3vw, 52px);
+    left: clamp(16px, 2vw, 34px);
+    right: clamp(16px, 2vw, 34px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(16px, 1.5vw, 26px);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .dip__cell-title {
+    margin: 0 !important;
+    transform: none !important;
+    will-change: auto !important;
+    transition: none !important;
+    font-family: {% if title_font == 'mono' or title_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif title_font == 'serif' or title_font == 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', Georgia, serif{% else %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% endif %} !important;
+    font-size: {{ title_size_desktop }}px !important;
+    font-style: {% if title_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-weight: {% if title_font == 'mono-light' or title_font == 'sans-light' %}300{% else %}400{% endif %} !important;
+    line-height: 0.92 !important;
+    letter-spacing: {% if title_font == 'mono' or title_font == 'mono-light' %}-0.06em{% else %}-0.075em{% endif %} !important;
+    text-transform: uppercase !important;
+    color: {{ title_color }} !important;
+    text-align: center !important;
+    max-width: 100%;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .dip__cell-cta {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: min(260px, 82%);
+    min-height: 64px;
+    padding: 0 34px;
+    border-radius: 6px;
+    border: 0 !important;
+    background: {{ cta_bg }} !important;
+    color: {{ cta_color }} !important;
+    font-family: {% if cta_font == 'mono' or cta_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif cta_font == 'serif' or cta_font == 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', Georgia, serif{% else %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% endif %} !important;
+    font-size: {{ cta_size_desktop }}px !important;
+    font-style: {% if cta_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-weight: {% if cta_font == 'mono-light' or cta_font == 'sans-light' %}300{% else %}400{% endif %} !important;
+    letter-spacing: 0.02em !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+    cursor: pointer;
+    transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .dip__cell-cta.is-locked {
+    background: {{ locked_cta_bg }} !important;
+    color: {{ locked_cta_color }} !important;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: none !important;
+    opacity: 0.92;
+  }
+
+  #shopify-section-{{ section.id }} .dip__lock-icon {
+    width: 0.9em;
+    height: 0.9em;
+    display: inline-flex;
+  }
+
+  #shopify-section-{{ section.id }} .dip__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 14px;
+    background: #f0ece4;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .dip__grid {
+      grid-template-columns: 1fr;
+      gap: {{ gap | at_most: 8 }}px;
+      min-height: 0;
+    }
+
+    #shopify-section-{{ section.id }} .dip__cell {
+      min-height: {{ height_m }}px;
+    }
+
+    #shopify-section-{{ section.id }} .dip__overlay {
+      top: 24px;
+      left: 18px;
+      right: 18px;
+      gap: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .dip__cell-title {
+      font-size: {{ title_size_mobile }}px !important;
+      max-width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .dip__cell-cta {
+      min-height: 56px;
+      min-width: min(230px, 86%);
+      padding: 0 28px;
+      font-size: {{ cta_size_mobile }}px !important;
+    }
+  }
+</style>
+
+<section class="dip" data-section-id="{{ section.id }}"{% if section.settings.enable_sticky_layer_scroll %} data-sticky-layer{% endif %}>
+  <div class="dip__grid">
+    {%- for i in (1..columns) -%}
+      {%- assign img_key = 'image_' | append: i -%}
+      {%- assign title_key = 'title_' | append: i -%}
+      {%- assign cta_text_key = 'cta_text_' | append: i -%}
+      {%- assign img = section.settings[img_key] -%}
+      {%- assign title = section.settings[title_key] -%}
+      {%- assign cta_text = section.settings[cta_text_key] -%}
+
+      <div class="dip__cell is-locked">
+        {%- if img != blank -%}
+          {%- assign max_w = img.width | at_most: 2000 -%}
+          {%- assign img_alt = img.alt | default: title | default: 'banner' | escape -%}
+          {%- if columns == 3 -%}
+            {%- assign cell_sizes = '33vw' -%}
+          {%- elsif columns == 2 -%}
+            {%- assign cell_sizes = '50vw' -%}
+          {%- else -%}
+            {%- assign cell_sizes = '100vw' -%}
+          {%- endif -%}
+          {{ img | image_url: width: max_w | image_tag:
+            loading: 'lazy',
+            widths: '400,600,900,1200,1500,1800,2000',
+            sizes: cell_sizes,
+            alt: img_alt,
+            class: 'dip__cell-img'
+          }}
+        {%- else -%}
+          <div class="dip__placeholder">Sélectionnez une image</div>
+        {%- endif -%}
+
+        <div class="dip__overlay">
+          {%- if title != blank -%}
+            <p class="dip__cell-title">{{ title | escape }}</p>
+          {%- endif -%}
+
+          {%- if cta_text != blank -%}
+            <span class="dip__cell-cta is-locked" aria-disabled="true">
+              {{ cta_text | escape }}
+              <svg class="dip__lock-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 10V8a5 5 0 0 1 10 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </span>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Diptyque image + CTA",
+  "tag": "section",
+  "class": "diptyque-cta-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Images collées côte à côte avec un grand titre fixe centré en haut et un CTA centré sous le titre. Tous les boutons CTA sont verrouillés automatiquement."
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_layer_scroll",
+      "label": "Activer le Sticky Scroll / superposition",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "columns",
+      "label": "Nombre d'images",
+      "options": [
+        { "value": "2", "label": "2 images" },
+        { "value": "3", "label": "3 images" }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "header",
+      "content": "Image 1 — verrouillée"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_1",
+      "label": "Grand titre image 1",
+      "default": "Chapitre 0."
+    },
+    {
+      "type": "text",
+      "id": "cta_text_1",
+      "label": "Texte du CTA image 1",
+      "default": "Découvrir"
+    },
+    {
+      "type": "url",
+      "id": "cta_link_1",
+      "label": "Lien ignoré car CTA verrouillé"
+    },
+    {
+      "type": "header",
+      "content": "Image 2 — verrouillée"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_2",
+      "label": "Grand titre image 2",
+      "default": "Chapitre 1."
+    },
+    {
+      "type": "text",
+      "id": "cta_text_2",
+      "label": "Texte du CTA image 2",
+      "default": "Découvrir"
+    },
+    {
+      "type": "url",
+      "id": "cta_link_2",
+      "label": "Lien ignoré car CTA verrouillé"
+    },
+    {
+      "type": "header",
+      "content": "Image 3 — verrouillée"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title_3",
+      "label": "Grand titre image 3",
+      "default": "Chapitre 2."
+    },
+    {
+      "type": "text",
+      "id": "cta_text_3",
+      "label": "Texte du CTA image 3",
+      "default": "Découvrir"
+    },
+    {
+      "type": "url",
+      "id": "cta_link_3",
+      "label": "Lien ignoré car CTA verrouillé"
+    },
+    {
+      "type": "header",
+      "content": "Grand titre"
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "Police du grand titre",
+      "options": [
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" },
+        { "value": "serif", "label": "Serif (Cormorant)" },
+        { "value": "serif-italic", "label": "Serif Italique" }
+      ],
+      "default": "sans"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "Taille du grand titre desktop",
+      "min": 48,
+      "max": 180,
+      "step": 2,
+      "default": 118,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Taille du grand titre mobile",
+      "min": 34,
+      "max": 110,
+      "step": 2,
+      "default": 74,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du grand titre",
+      "default": "#2d35ff"
+    },
+    {
+      "type": "header",
+      "content": "Boutons CTA"
+    },
+    {
+      "type": "select",
+      "id": "cta_font",
+      "label": "Police des boutons",
+      "options": [
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" },
+        { "value": "serif", "label": "Serif (Cormorant)" },
+        { "value": "serif-italic", "label": "Serif Italique" }
+      ],
+      "default": "sans"
+    },
+    {
+      "type": "range",
+      "id": "cta_size_desktop",
+      "label": "Taille des boutons desktop",
+      "min": 12,
+      "max": 34,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "cta_size_mobile",
+      "label": "Taille des boutons mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Fond bouton actif",
+      "default": "#3cff00"
+    },
+    {
+      "type": "color",
+      "id": "cta_color",
+      "label": "Texte bouton actif",
+      "default": "#0b0b0b"
+    },
+    {
+      "type": "color",
+      "id": "locked_cta_bg_color",
+      "label": "Fond bouton verrouillé",
+      "default": "#d8d8d8"
+    },
+    {
+      "type": "color",
+      "id": "locked_cta_color",
+      "label": "Texte bouton verrouillé",
+      "default": "#777777"
+    },
+    {
+      "type": "header",
+      "content": "Dimensions"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond section",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap entre les images (px)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "label": "Hauteur (desktop)",
+      "min": 420,
+      "max": 1100,
+      "step": 20,
+      "default": 760,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Hauteur (mobile)",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "default": 620,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Diptyque image + CTA"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,120 @@
+@media screen and (min-width: 990px) {
+  .fc-side-text {
+    word-spacing: -0.45em !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .product-grid.card-grid {
+    inset-inline-start: -500px !important;
+    width: calc(100% + 500px) !important;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  [id$="__featured_collection_tCCQPT"] .product-grid.card-grid {
+    inset-inline-start: -560px !important;
+    width: calc(100% + 560px) !important;
+  }
+}
+
+@media screen and (max-width: 849px) {
+  #MainContent .features-multiview-section .fmv__panels,
+  #MainContent [id*="__features_multiview_"] .fmv__panels {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  [id$="__featured_collection_tCCQPT"] > .section,
+  [id$="__featured_collection_tCCQPT"] .section.slider-section-padding {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .section,
+  [id$="__featured_collection_tCCQPT"] .page-width,
+  [id$="__featured_collection_tCCQPT"] slider-element {
+    overflow: visible !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .fc-side-text {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    writing-mode: horizontal-tb !important;
+    -webkit-writing-mode: horizontal-tb !important;
+    display: block !important;
+    width: 100% !important;
+    order: 0 !important;
+    margin: 0 0 18px 0 !important;
+    padding: 0 20px !important;
+    font-size: 30px !important;
+    line-height: 1.05 !important;
+    letter-spacing: 0.08em !important;
+    word-spacing: 0 !important;
+    text-align: left !important;
+    white-space: normal !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .page-width {
+    order: 1 !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .page-width--full {
+    padding-inline-start: 20px !important;
+    padding-inline-end: 20px !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] slider-element,
+  [id$="__featured_collection_tCCQPT"] motion-list.product-grid.card-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .product-grid.card-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    inset-inline-start: auto !important;
+    transform: none !important;
+    gap: 16px 10px !important;
+    overflow: visible !important;
+  }
+
+  [id$="__featured_collection_tCCQPT"] .product-grid.card-grid > .card {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #MainContent [class^="section-"][class*=" feature-"]:has([class*="feature-tabs-icons-"]) {
+    margin-bottom: 0 !important;
+  }
+
+  #MainContent [class^="section-"][class*=" feature-"]:has([class*="feature-tabs-icons-"]) > [class*="-settings"] {
+    padding-bottom: 8px !important;
+  }
+}
+
+#MainContent .diptyque-cta-section .dip__overlay {
+  inset: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  padding: clamp(22px, 3vw, 52px) clamp(16px, 2vw, 34px) clamp(24px, 2.8vw, 48px) !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+
+@media screen and (max-width: 749px) {
+  #MainContent .diptyque-cta-section .dip__overlay {
+    padding: 24px 18px 18px !important;
+  }
+}

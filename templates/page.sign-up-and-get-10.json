@@ -1,0 +1,123 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-page": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "title-xl tracking-heading",
+        "heading_alignment": "text-left",
+        "heading_tag": "h1",
+        "text_size": "text-base",
+        "padding_top": 72,
+        "padding_bottom": 120,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "image_with_text_CV3qd6": {
+      "type": "image-with-text",
+      "name": "t:sections.image-with-text.name",
+      "settings": {
+        "image": "shopify://shop_images/9f88653e7e358d8b914c3afe93f312f6.jpg",
+        "image_height": "450px",
+        "image_width": "large",
+        "layout": "image_first",
+        "text_alignment": "center",
+        "content_position": "align-self-center",
+        "image_mobile": "shopify://shop_images/9f88653e7e358d8b914c3afe93f312f6.jpg",
+        "image_height_mobile": "200px",
+        "text_alignment_mobile": "left",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_background_2": "",
+        "gradient_background_2": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 8,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": true,
+        "parallax_direction": "zoom"
+      }
+    },
+    "newsletter_Qi4xEy": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_HgjCBW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sign up and save 10% !",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "text_FwYKq6": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Be the first to know when we launch. (check your spam)</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "form_BUJQML": {
+          "type": "form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_HgjCBW",
+        "text_FwYKq6",
+        "form_BUJQML"
+      ],
+      "name": "t:sections.newsletter.name",
+      "settings": {
+        "content_width": "medium",
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "main-page",
+    "image_with_text_CV3qd6",
+    "newsletter_Qi4xEy"
+  ]
+}

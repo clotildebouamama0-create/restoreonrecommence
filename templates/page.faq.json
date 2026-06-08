@@ -1,0 +1,289 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "heading_size": "title-xl",
+        "heading_alignment": "text-left",
+        "heading_tag": "h1",
+        "text_size": "text-base",
+        "padding_top": 72,
+        "padding_bottom": 120,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Because You Deserve to Understand Everything",
+            "heading_size": "title-md",
+            "heading_tag": "h1",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Baïa Wellness, we’re not just selling you a product.<br/><br/>We’re here to help you transform your hormonal balance.</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 0,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "empty-space": {
+      "type": "empty-space",
+      "settings": {
+        "desktop_height": 120,
+        "mobile_height": 44,
+        "color_background": "",
+        "gradient_background": ""
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "rich-text-1": {
+          "type": "rich-text",
+          "settings": {
+            "heading": "Shipping",
+            "text": "<p><em>Everything you need to know about getting your wellness tea delivered</em></p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>Where do you ship ?</strong>",
+            "text": "<p>We offer worldwide shipping. Your wellness journey knows no borders!</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>Why does shipping sometimes take longer than expected?</strong>",
+            "text": "<p>As our tea is a natural herbal product, customs may occasionally hold packages for verification, which can add extra time to delivery. We're a small business doing our best to optimize our logistics, and we truly appreciate your patience and understanding. If your order is significantly delayed, please don't hesitate to contact us at <a href=\"mailto:hello@baiawellness.com\">hello@baiawellness.com</a> – we're here to help track it down and keep you updated.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>Do you provide tracking ?</strong>",
+            "text": "<p>Yes! You'll receive a tracking number via email once your order ships.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "rich-text-3": {
+          "type": "rich-text",
+          "settings": {
+            "heading": "Products",
+            "text": "<p>Below are some common questions about our products</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question-10": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>Who can consume this brew?</strong>",
+            "text": "<p>This Brew is ideal for women experiencing hormonal imbalances at any life stage, including those with irregular periods, scanty flow, PCOS/PCOD, thyroid issues, perimenopause, or menopause.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question-11": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>When should you start drinking it ?</strong>",
+            "text": "<p>• If your periods are irregular or you’re in menopause/post-menopause, you can start anytime to support hormonal balance.<br/><br/>• If your periods are regular, begin on the first day of your cycle.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question-12": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>What’s the best time to drink the brew?</strong>",
+            "text": "<p>The best time to take the brew is first thing in the morning and before sleeping. You can also take it alongside your breakfast.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_g8RiJD": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>How long does it take to see results?</strong>",
+            "text": "<p>It takes 3–6 months to see results alongside lifestyle changes.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_qMeBRB": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>How many cups can I consume in a day?</strong>",
+            "text": "<p>We recommend 2–3 cups daily.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_Dj6wC4": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>Can pregnant women consume it?</strong>",
+            "text": "<p>We do not recommend taking it during pregnancy.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_HQKLVP": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>Can lactating mothers consume it ?</strong>",
+            "text": "<p>We recommend lactating mothers to consume it 6 months post pregnancy.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "question_iFg4LT": {
+          "type": "question",
+          "settings": {
+            "title": "<strong>What happens once I stop taking the brew, will my symptoms resurface ?</strong>",
+            "text": "<p>Your symptoms should not resurface provided you are also following a healthy lifestyle .</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Didn’t find your answer?",
+            "text": "<p>Don't hestitate to contact us</p>",
+            "show_phone": false,
+            "avatar_height": 60,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "rich-text-1",
+        "question-1",
+        "question-2",
+        "question-4",
+        "rich-text-3",
+        "question-10",
+        "question-11",
+        "question-12",
+        "question_g8RiJD",
+        "question_qMeBRB",
+        "question_Dj6wC4",
+        "question_HQKLVP",
+        "question_iFg4LT",
+        "contact"
+      ],
+      "settings": {
+        "style": "with-border",
+        "heading": "",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "color_overlay": "#ffffff",
+        "overlay_opacity": 4,
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "rich-text",
+    "empty-space",
+    "faq"
+  ]
+}

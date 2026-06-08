@@ -1,0 +1,618 @@
+{%- liquid
+  assign badge_text = section.settings.badge_text
+  assign heading_main = section.settings.heading_main
+  assign heading_accent = section.settings.heading_accent
+  assign description = section.settings.description
+  assign button_label = section.settings.button_label
+  assign button_link = section.settings.button_link
+
+  assign bg_color = section.settings.background_color
+  if bg_color == blank
+    assign bg_color = '#fffcf0'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#1a1a1a'
+  endif
+  assign accent_color = section.settings.accent_color
+  if accent_color == blank
+    assign accent_color = '#7e57c2'
+  endif
+  assign button_bg = section.settings.button_background
+  if button_bg == blank
+    assign button_bg = '#3b1972'
+  endif
+  assign button_fg = section.settings.button_text_color
+  if button_fg == blank
+    assign button_fg = '#ffffff'
+  endif
+
+  assign card_radius = section.settings.card_radius | default: 18
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .pvc { background: {{ bg_color }}; color: {{ text_color }}; position: relative; z-index: 1; }
+  #shopify-section-{{ section.id }} .pvc::before { display: none !important; content: none !important; }
+  #shopify-section-{{ section.id }} .pvc > * { position: relative; z-index: 2; }
+  #shopify-section-{{ section.id }} .pvc .pvc__cta { background: {{ button_bg }}; color: {{ button_fg }}; }
+  #shopify-section-{{ section.id }} .pvc .pvc__accent { color: {{ accent_color }}; }
+  #shopify-section-{{ section.id }} .pvc,
+  #shopify-section-{{ section.id }} .pvc *,
+  #shopify-section-{{ section.id }} .pvc [data-animate],
+  #shopify-section-{{ section.id }} .pvc animate-element {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+</style>
+
+<section class="pvc section--padding slider-section-padding" data-section-id="{{ section.id }}">
+  <div class="pvc__inner page-width{% if section.settings.full_width %} page-width--full{% endif %}">
+    <div class="pvc__grid">
+
+      {%- comment %} ---------------- LEFT : TEXT ---------------- {%- endcomment %}
+      <div class="pvc__text">
+        {%- if badge_text != blank -%}
+          <span class="pvc__badge">
+            <span class="pvc__badge-dot"></span>
+            {{ badge_text | escape }}
+          </span>
+        {%- endif -%}
+
+        <div class="pvc__heading" role="heading" aria-level="2">
+          {%- if heading_main != blank -%}
+            <span class="pvc__heading-main">{{ heading_main | escape }}</span>
+          {%- endif -%}
+          {%- if heading_accent != blank -%}
+            <span class="pvc__accent pvc__heading-accent"> {{ heading_accent | escape }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- if description != blank -%}
+          <p class="pvc__description">{{ description | escape }}</p>
+        {%- endif -%}
+
+        {%- if button_label != blank -%}
+          <a class="pvc__cta" href="{{ button_link | default: '#' }}">
+            {{- button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment %} ---------------- RIGHT : COVERFLOW VIDEO CARDS ---------------- {%- endcomment %}
+      <div class="pvc__cards-wrap">
+        <div class="pvc__stage" data-pvc-stage data-active="0">
+          {%- for block in section.blocks -%}
+            <article class="pvc__card" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <div class="pvc__card-media">
+                {%- if block.settings.video != blank -%}
+                  <video
+                    class="pvc__card-video"
+                    autoplay muted loop playsinline preload="metadata"
+                    {% if block.settings.cover_image != blank %}poster="{{ block.settings.cover_image | image_url: width: 800 }}"{% endif %}
+                  >
+                    <source src="{{ block.settings.video.sources[1].url | default: block.settings.video.sources[0].url }}" type="video/mp4">
+                  </video>
+                {%- elsif block.settings.video_url != blank -%}
+                  <video
+                    class="pvc__card-video"
+                    autoplay muted loop playsinline preload="metadata"
+                    {% if block.settings.cover_image != blank %}poster="{{ block.settings.cover_image | image_url: width: 800 }}"{% endif %}
+                  >
+                    <source src="{{ block.settings.video_url }}" type="video/mp4">
+                  </video>
+                {%- elsif block.settings.cover_image != blank -%}
+                  {%- assign cover_alt = block.settings.title | default: 'video' | escape -%}
+                  {{ block.settings.cover_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'pvc__card-video', alt: cover_alt }}
+                {%- else -%}
+                  <div class="pvc__card-video pvc__card-video--placeholder">
+                    {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+
+                <span class="pvc__card-overlay" aria-hidden="true"></span>
+
+                {%- if block.settings.eyebrow != blank -%}
+                  <span class="pvc__card-eyebrow">{{ block.settings.eyebrow | escape }}</span>
+                {%- endif -%}
+
+                {%- if block.settings.title != blank or block.settings.text != blank -%}
+                  <div class="pvc__card-bottom">
+                    {%- if block.settings.title != blank -%}
+                      <p class="pvc__card-title">{{ block.settings.title | escape }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <p class="pvc__card-text">{{ block.settings.text | escape }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+          <div class="pvc__nav">
+            <button type="button" class="pvc__nav-btn" data-pvc-prev aria-label="Précédent">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button type="button" class="pvc__nav-btn pvc__nav-btn--active" data-pvc-next aria-label="Suivant">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .pvc__inner {
+    width: 100%;
+  }
+  .pvc__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media screen and (min-width: 990px) {
+    .pvc__grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 24px;
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .pvc__cards-wrap {
+      padding-inline-start: 32px;
+    }
+  }
+
+  /* ---------- LEFT TEXT ---------- */
+  .pvc__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    max-width: 500px;
+  }
+  .pvc__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.06);
+    color: {{ text_color }};
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .pvc__badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: {{ text_color }};
+    display: inline-block;
+  }
+  .pvc__heading,
+  .pvc__heading-main,
+  .pvc__heading-accent {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  }
+  .pvc__heading {
+    font-size: clamp(22px, 2.6vw, 32px) !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+    color: {{ text_color }};
+    margin: 0;
+  }
+  .pvc__heading-accent {
+    font-style: italic;
+    font-weight: 600;
+  }
+  .pvc__description {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: {{ text_color }};
+    opacity: 0.85;
+    margin: 0;
+  }
+  .pvc__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 13px 26px;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ---------- RIGHT VIDEO CARDS (COVERFLOW) ---------- */
+  .pvc__cards-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .pvc__stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 30px 0;
+    min-height: 540px;
+  }
+  @media screen and (max-width: 749px) {
+    .pvc__stage {
+      min-height: 420px;
+    }
+  }
+
+  .pvc__card {
+    flex: 0 0 auto;
+    width: 320px;
+    aspect-ratio: 9 / 13;
+    transition: transform 500ms cubic-bezier(.2,.7,.2,1),
+                filter   500ms ease,
+                opacity  500ms ease,
+                margin   500ms ease;
+    will-change: transform, filter, opacity, margin;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: {{ card_radius }}px;
+  }
+  @media screen and (max-width: 749px) {
+    .pvc__card { width: 240px; }
+  }
+
+  /* States set by JS — ube-nolia coverflow with side cards visibly behind */
+  .pvc__card[data-state="center"] {
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+    z-index: 5;
+  }
+  .pvc__card[data-state="left"] {
+    transform: scale(0.5);
+    filter: blur(3px) brightness(0.85);
+    opacity: 0.6;
+    z-index: 2;
+    margin-right: -210px;
+  }
+  .pvc__card[data-state="right"] {
+    transform: scale(0.5);
+    filter: blur(3px) brightness(0.85);
+    opacity: 0.6;
+    z-index: 2;
+    margin-left: -210px;
+  }
+  .pvc__card[data-state="far-left"],
+  .pvc__card[data-state="far-right"] {
+    transform: scale(0.6);
+    filter: blur(12px) brightness(0.75);
+    opacity: 0;
+    z-index: 1;
+    margin: 0 -180px;
+    pointer-events: none;
+  }
+  /* Hide labels on side cards so only the focused video shows text */
+  .pvc__card[data-state="left"] .pvc__card-eyebrow,
+  .pvc__card[data-state="left"] .pvc__card-bottom,
+  .pvc__card[data-state="right"] .pvc__card-eyebrow,
+  .pvc__card[data-state="right"] .pvc__card-bottom,
+  .pvc__card[data-state="far-left"] .pvc__card-eyebrow,
+  .pvc__card[data-state="far-left"] .pvc__card-bottom,
+  .pvc__card[data-state="far-right"] .pvc__card-eyebrow,
+  .pvc__card[data-state="far-right"] .pvc__card-bottom {
+    opacity: 0;
+  }
+
+  .pvc__card-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: {{ card_radius }}px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+  }
+  .pvc__card-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pvc__card-video--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pvc__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+    pointer-events: none;
+  }
+  .pvc__card-eyebrow {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    color: #ffffff;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .pvc__card-bottom {
+    position: absolute;
+    bottom: 12px;
+    left: 14px;
+    right: 14px;
+    color: #ffffff;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pvc__card-title {
+    margin: 0;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+  }
+  .pvc__card-text {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  /* ---------- NAV BUTTONS ---------- */
+  .pvc__nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .pvc__nav-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: {{ text_color }};
+    padding: 0;
+    transition: border-color 150ms ease, color 150ms ease;
+  }
+  .pvc__nav-btn:hover { border-color: rgba(0, 0, 0, 0.3); }
+  .pvc__nav-btn--active { border-color: {{ accent_color }}; color: {{ accent_color }}; }
+</style>
+
+<script>
+  (function () {
+    const sectionEl = document.querySelector('[data-section-id="{{ section.id }}"]');
+    if (!sectionEl) return;
+    const stage = sectionEl.querySelector('[data-pvc-stage]');
+    const prev = sectionEl.querySelector('[data-pvc-prev]');
+    const next = sectionEl.querySelector('[data-pvc-next]');
+    if (!stage) return;
+    const cards = Array.from(stage.querySelectorAll('.pvc__card'));
+    if (!cards.length) return;
+
+    let active = parseInt(stage.getAttribute('data-active') || '0', 10) || 0;
+
+    function update() {
+      const total = cards.length;
+      cards.forEach((card, i) => {
+        let diff = i - active;
+        if (diff > total / 2) diff -= total;
+        if (diff < -total / 2) diff += total;
+        let state = 'far-right';
+        if (diff === 0) state = 'center';
+        else if (diff === -1) state = 'left';
+        else if (diff === 1) state = 'right';
+        else if (diff < -1) state = 'far-left';
+        card.setAttribute('data-state', state);
+        // Use CSS order so left card sits visually before center,
+        // and right card after, regardless of DOM order.
+        if (state === 'left') card.style.order = '1';
+        else if (state === 'center') card.style.order = '2';
+        else if (state === 'right') card.style.order = '3';
+        else if (state === 'far-left') card.style.order = '0';
+        else card.style.order = '4';
+      });
+      stage.setAttribute('data-active', String(active));
+    }
+
+    function go(delta) {
+      const total = cards.length;
+      active = (active + delta + total) % total;
+      update();
+    }
+
+    if (prev) prev.addEventListener('click', () => go(-1));
+    if (next) next.addEventListener('click', () => go(1));
+    cards.forEach((card, i) => {
+      card.addEventListener('click', () => {
+        if (i === active) return;
+        active = i;
+        update();
+      });
+    });
+
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Processus en vidéos",
+  "tag": "section",
+  "class": "process-video-cards",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Pleine largeur",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Couleur de fond",
+      "default": "#fffcf0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur d'accent (italique du titre)",
+      "default": "#7e57c2"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Couleur du bouton",
+      "default": "#3b1972"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Couleur du texte du bouton",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Rayon des coins",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Bloc texte (côté gauche)"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Étiquette",
+      "default": "Fournisseur Ube"
+    },
+    {
+      "type": "text",
+      "id": "heading_main",
+      "label": "Titre",
+      "default": "Un processus premium,"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Suite du titre (en italique coloré)",
+      "default": "de la ferme à la poudre"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Chaque tubercule est soigneusement sélectionné et trié selon des critères stricts de couleur, de texture et de fraîcheur avant le traitement."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texte du bouton",
+      "default": "Essayez maintenant"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien du bouton"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape vidéo",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Vidéo (uploadée)"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "URL d'une vidéo MP4 externe (alternative)"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Image de couverture (poster)"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Étiquette (en haut)",
+          "default": "ÉTAPE 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Sélection et tri"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description courte",
+          "default": "Chaque tubercule est soigneusement sélectionné selon des critères stricts."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Processus en vidéos",
+      "blocks": [
+        { "type": "step", "settings": { "eyebrow": "ÉTAPE 1", "title": "Sélection et tri" } },
+        { "type": "step", "settings": { "eyebrow": "ÉTAPE 2", "title": "Transformation" } },
+        { "type": "step", "settings": { "eyebrow": "ÉTAPE 3", "title": "Conditionnement" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

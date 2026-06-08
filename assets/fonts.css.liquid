@@ -1,0 +1,99 @@
+/* ============================================================================
+ * Founders Grotesk font family — uploaded to Shopify Files
+ * Hosted CDN URLs (provided 2026-05-27)
+ * ============================================================================ */
+
+/* ---- Founders Grotesk (sans, proportional) ---- */
+@font-face {
+  font-family: 'Founders Grotesk';
+  src: url('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/founders-grotesk-light.woff2?v=1779888367') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Founders Grotesk';
+  src: url('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/founders-grotesk-light-italic.woff2?v=1779888368') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Founders Grotesk';
+  src: url('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/founders-grotesk-regular.woff2?v=1779888368') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Founders Grotesk';
+  src: url('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/founders-grotesk-regular-italic.woff2?v=1779888368') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---- Founders Grotesk Mono (monospace, used for titles) ---- */
+@font-face {
+  font-family: 'Founders Grotesk Mono';
+  src: url('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/founders-grotesk-mono-light.woff2?v=1779888368') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Founders Grotesk Mono';
+  src: url('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/founders-grotesk-mono-regular.woff2?v=1779888368') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
+ * FontBaia1 / FontBaia2 — DISABLED
+ * These old fonts are no longer used. All references in section CSS will
+ * automatically fall back to the next font in the font-family stack
+ * (which we've made sure is always Founders Grotesk or a real serif).
+ *
+ * If you want to re-enable them later, add @font-face declarations here
+ * pointing to your uploaded woff2 files.
+ * ============================================================================ */
+
+/* ============================================================================
+ * Global text rules
+ *   Titles      → Founders Grotesk Mono Regular
+ *   Body / desc → Founders Grotesk Regular
+ *   Subtitles   → can use .subtitle class for Mono Light, otherwise inherits
+ * ============================================================================ */
+
+h1, h2, h3, h4, h5, h6,
+.heading,
+.heading *,
+split-words,
+split-words *,
+.words,
+.word,
+.char,
+.splitting {
+  font-family: 'Founders Grotesk Mono', 'FontBaia1', ui-monospace, monospace !important;
+  font-weight: 400;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+/* Prevent split-words from adding visual padding that creates fake "extra space" between words */
+split-words { display: inline; }
+split-words .word { display: inline-block; margin: 0 !important; padding: 0 !important; }
+split-words .word + .word { margin-left: 0.28em !important; }
+
+body, p, span, li, a, button, input, textarea, select, label, div {
+  font-family: 'Founders Grotesk', 'FontBaia2', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Optional helper class — applies Mono Light for sub-titles */
+.subtitle,
+.mono-light,
+.product__vendor,
+.luxury-vendor {
+  font-family: 'Founders Grotesk Mono', 'FontBaia1', ui-monospace, monospace !important;
+  font-weight: 300 !important;
+}

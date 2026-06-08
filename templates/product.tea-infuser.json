@@ -1,0 +1,435 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "title_LQMfmd": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-md",
+            "title_size_mobile": "product-title-md",
+            "title_tag": "h2",
+            "show_price": true,
+            "show_rating": true
+          }
+        },
+        "description_NDJR8a": {
+          "type": "description",
+          "settings": {
+            "text_size": "text-sm"
+          }
+        },
+        "buy_buttons_K3UipJ": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_price": false,
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true,
+            "enable_back_in_stock": false,
+            "show_back_in_stock_name": false,
+            "show_back_in_stock_phone": false
+          }
+        },
+        "liquid_34Tfdf": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<div class=\"trust-badges-minimal\">\n  <span class=\"mini-badge\">\n    <span class=\"dot-pink\"></span>\n    Free UK shipping\n  </span>\n  <span class=\"mini-badge\">Secure payment</span>\n</div>\n\n<style>\n  .trust-badges-minimal {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    gap: 8px;\n    margin: 8px auto 0 auto;\n    flex-wrap: wrap;\n  }\n  \n  .mini-badge {\n    display: inline-flex;\n    align-items: center;\n    gap: 4px;\n    font-size: 0.65rem;\n    font-weight: 600;\n    color: #666;\n    background: #f5f5f5;\n    padding: 3px 8px;\n    border-radius: 4px;\n  }\n  \n  .mini-badge-red {\n    background: #fef2f2;\n    color: #99004e;\n  }\n  \n  .dot-pink {\n    width: 6px;\n    height: 6px;\n    background: #99004e;\n    border-radius: 50%;\n    flex-shrink: 0;\n  }\n  \n  @media (max-width: 468px) {\n    .mini-badge {\n      font-size: 0.6rem;\n      padding: 2px 6px;\n    }\n    \n    .dot-pink {\n      width: 5px;\n      height: 5px;\n    }\n  }\n</style>"
+          }
+        }
+      },
+      "block_order": [
+        "title_LQMfmd",
+        "description_NDJR8a",
+        "buy_buttons_K3UipJ",
+        "liquid_34Tfdf"
+      ],
+      "custom_css": [],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_size": 51,
+        "gallery_layout": "thumbnail",
+        "thumbnail_position": "beside",
+        "image_ratio": "adapt",
+        "image_zoom": "none",
+        "hide_variants": false,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "mobile_layout": "full_width",
+        "image_ratio_mobile": "adapt_first",
+        "mobile_thumbnail": true,
+        "padding_top": 60,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": true
+      }
+    },
+    "custom_liquid_qFjDJX": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Product tabs custom",
+      "settings": {
+        "liquid": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <link href=\"https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&display=swap\" rel=\"stylesheet\">\n  <style>\n    .product-tabs-wrapper {\n      position: relative;\n      margin: 0rem !important;\n      padding: 0rem !important;\n      width: 100% !important;\n      max-width: 100% !important;\n    }\n    \n    .product-tabs-wrapper *,\n    .product-tabs-wrapper *::before,\n    .product-tabs-wrapper *::after {\n      box-sizing: border-box;\n    }\n    \n    .product-tabs-container,\n    .product-tabs-container * {\n      font-family: 'Unbounded', sans-serif;\n    }\n\n    /* Floating decoration circles */\n    .deco-circle {\n      position: absolute;\n      border-radius: 50%;\n      z-index: 0;\n      opacity: 0.4;\n      animation: float 6s ease-in-out infinite;\n      display: none;\n    }\n\n    @media (min-width: 769px) {\n      .deco-circle {\n        display: block;\n      }\n    }\n\n    .deco-circle.c1 {\n      width: 200px;\n      height: 200px;\n      background: radial-gradient(circle, rgba(241, 51, 34, 0.3), transparent);\n      top: -50px;\n      left: -80px;\n      animation-delay: 0s;\n    }\n\n    .deco-circle.c2 {\n      width: 150px;\n      height: 150px;\n      background: radial-gradient(circle, rgba(255, 182, 193, 0.3), transparent);\n      bottom: -40px;\n      right: -60px;\n      animation-delay: 2s;\n    }\n\n    @keyframes float {\n      0%, 100% { transform: translateY(0) scale(1); }\n      50% { transform: translateY(-20px) scale(1.05); }\n    }\n\n    .product-tabs-container {\n      background: white;\n      border-radius: 24px;\n      overflow: hidden;\n      box-shadow: \n        0 20px 50px rgba(241, 51, 34, 0.12),\n        0 10px 25px rgba(0, 0, 0, 0.05);\n      position: relative;\n      z-index: 1;\n      margin-top: -35px;\n    }\n\n    /* Desktop Tabs - Pill Style */\n    .tabs-nav {\n      display: flex;\n      padding: 8px;\n      gap: 6px;\n      background: #fafafa;\n      border-radius: 24px 24px 0 0;\n      justify-content: center;\n    }\n\n    .tab-btn {\n      flex: 0 0 auto;\n      padding: 12px 24px;\n      background: transparent;\n      border: none;\n      border-radius: 50px;\n      cursor: pointer;\n      display: flex;\n      align-items: center;\n      gap: 10px;\n      font-family: 'Unbounded', sans-serif;\n      font-size: 12px;\n      font-weight: 600;\n      color: #999;\n      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n      position: relative;\n    }\n\n    .tab-btn:hover {\n      color: #f13322;\n      transform: translateY(-2px);\n    }\n\n    .tab-btn.active {\n      background: linear-gradient(135deg, #f13322 0%, #ff6b5e 100%);\n      color: white;\n      box-shadow: \n        0 4px 16px rgba(241, 51, 34, 0.35),\n        0 2px 8px rgba(241, 51, 34, 0.2);\n      transform: translateY(-2px);\n    }\n\n    .tab-icon {\n      width: 24px;\n      height: 24px;\n      display: block;\n      filter: grayscale(1) brightness(1.5);\n      transition: filter 0.3s ease;\n    }\n\n    .tab-btn:hover .tab-icon,\n    .tab-btn.active .tab-icon {\n      filter: brightness(0) invert(1);\n    }\n\n    /* Tab Content */\n    .tab-content {\n      display: none;\n      padding: 32px;\n      animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);\n    }\n\n    .tab-content.active {\n      display: block;\n    }\n\n    @keyframes fadeInUp {\n      from {\n        opacity: 0;\n        transform: translateY(30px) scale(0.95);\n      }\n      to {\n        opacity: 1;\n        transform: translateY(0) scale(1);\n      }\n    }\n\n    .tab-content h3 {\n      font-size: 24px;\n      color: #f13322;\n      margin-bottom: 28px;\n      font-weight: 700;\n      text-align: center;\n      position: relative;\n      display: inline-block;\n      width: 100%;\n    }\n\n    .tab-content h3::after {\n      content: '';\n      position: absolute;\n      bottom: -8px;\n      left: 50%;\n      transform: translateX(-50%);\n      width: 60px;\n      height: 3px;\n      background: linear-gradient(90deg, #f13322, #ffb6c1, #f13322);\n      border-radius: 2px;\n    }\n\n    /* How It Works - Card Style */\n    .usage-steps {\n      background: linear-gradient(135deg, #fff5f7 0%, #fff 100%);\n      padding: 28px;\n      border-radius: 20px;\n      box-shadow: \n        0 10px 30px rgba(241, 51, 34, 0.08),\n        inset 0 1px 0 rgba(255, 255, 255, 0.8);\n      border: 2px solid #ffe8ec;\n      position: relative;\n      overflow: hidden;\n    }\n\n    .usage-steps::before {\n      content: '📖';\n      position: absolute;\n      font-size: 80px;\n      opacity: 0.05;\n      right: 20px;\n      top: 20px;\n      transform: rotate(-15deg);\n    }\n\n    .usage-steps strong {\n      display: block;\n      font-size: 16px;\n      color: #f13322;\n      margin-bottom: 16px;\n    }\n\n    .usage-steps p {\n      color: #572237;\n      font-size: 13px;\n      line-height: 2;\n      padding: 12px 18px;\n      margin-bottom: 8px;\n      background: white;\n      border-radius: 12px;\n      box-shadow: 0 2px 8px rgba(241, 51, 34, 0.06);\n      border-left: 3px solid #f13322;\n      transition: all 0.3s ease;\n      position: relative;\n      z-index: 1;\n    }\n\n    .usage-steps p:hover {\n      transform: translateX(4px);\n      box-shadow: 0 4px 16px rgba(241, 51, 34, 0.12);\n    }\n\n    /* Certifications Grid */\n    .certifications-grid {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n      gap: 20px;\n      margin-bottom: 24px;\n    }\n\n    .cert-badge {\n      background: white;\n      padding: 24px;\n      border-radius: 20px;\n      box-shadow: 0 8px 24px rgba(241, 51, 34, 0.08);\n      border: 2px solid #ffe8ec;\n      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);\n      text-align: center;\n      position: relative;\n      overflow: hidden;\n    }\n\n    .cert-badge::before {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      height: 3px;\n      background: linear-gradient(90deg, #f13322, #ff6b5e, #ffb6c1);\n      opacity: 0;\n      transition: opacity 0.3s ease;\n    }\n\n    .cert-badge:hover {\n      transform: translateY(-8px) scale(1.02);\n      box-shadow: 0 16px 40px rgba(241, 51, 34, 0.15);\n      border-color: #f13322;\n    }\n\n    .cert-badge:hover::before {\n      opacity: 1;\n    }\n\n    .cert-icon {\n      font-size: 48px;\n      margin-bottom: 12px;\n      display: block;\n    }\n\n    .cert-title {\n      font-size: 14px;\n      font-weight: 700;\n      color: #f13322;\n      margin-bottom: 8px;\n    }\n\n    .cert-desc {\n      font-size: 12px;\n      color: #666;\n      line-height: 1.5;\n    }\n\n    /* Results Grid - New Design */\n    .results-grid {\n      display: grid;\n      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));\n      gap: 24px;\n    }\n\n    .result-card {\n      background: linear-gradient(135deg, #fff9fa 0%, #fff 100%);\n      padding: 28px;\n      border-radius: 20px;\n      box-shadow: 0 8px 24px rgba(241, 51, 34, 0.08);\n      border: 2px solid #ffe8ec;\n      transition: all 0.4s ease;\n      position: relative;\n      overflow: hidden;\n    }\n\n    .result-card::before {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      height: 3px;\n      background: linear-gradient(90deg, #f13322, #ff6b5e, #ffb6c1);\n      border-radius: 20px 20px 0 0;\n    }\n\n    .result-card:hover {\n      transform: translateY(-6px);\n      box-shadow: 0 16px 40px rgba(241, 51, 34, 0.15);\n      border-color: #f13322;\n    }\n\n    .result-badge {\n      display: inline-block;\n      background: linear-gradient(135deg, #f13322, #ff6b5e);\n      color: white;\n      font-size: 11px;\n      font-weight: 700;\n      padding: 6px 16px;\n      border-radius: 50px;\n      margin-bottom: 20px;\n      box-shadow: 0 4px 12px rgba(241, 51, 34, 0.25);\n      letter-spacing: 0.5px;\n    }\n\n    .result-benefit {\n      margin-bottom: 18px;\n    }\n\n    .result-benefit:last-child {\n      margin-bottom: 0;\n    }\n\n    .benefit-title {\n      font-size: 16px;\n      font-weight: 700;\n      color: #f13322;\n      margin-bottom: 8px;\n      line-height: 1.3;\n    }\n\n    .benefit-desc {\n      font-size: 12px;\n      color: #666;\n      line-height: 1.6;\n    }\n\n    /* Shipping - Info Blocks */\n    .info-grid {\n      display: grid;\n      grid-template-columns: repeat(2, 1fr);\n      gap: 16px;\n      margin-bottom: 24px;\n    }\n\n    .info-item {\n      background: linear-gradient(135deg, #fff9fa 0%, #fff 100%);\n      padding: 20px;\n      border-radius: 16px;\n      border: 2px solid #ffe8ec;\n      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n      position: relative;\n      overflow: hidden;\n    }\n\n    .info-item::before {\n      content: '';\n      position: absolute;\n      top: 0;\n      right: 0;\n      width: 60px;\n      height: 60px;\n      background: radial-gradient(circle, rgba(241, 51, 34, 0.08), transparent);\n      border-radius: 50%;\n    }\n\n    .info-item:hover {\n      transform: scale(1.03) rotate(1deg);\n      border-color: #f13322;\n      box-shadow: 0 12px 32px rgba(241, 51, 34, 0.15);\n    }\n\n    .info-item strong {\n      display: block;\n      font-size: 14px;\n      color: #f13322;\n      margin-bottom: 8px;\n      position: relative;\n      z-index: 1;\n    }\n\n    .info-item p {\n      color: #572237;\n      font-size: 12px;\n      line-height: 1.6;\n      position: relative;\n      z-index: 1;\n    }\n\n    .returns-section {\n      background: linear-gradient(135deg, #f13322 0%, #ff6b5e 100%);\n      padding: 24px;\n      border-radius: 20px;\n      box-shadow: \n        0 12px 36px rgba(241, 51, 34, 0.3),\n        inset 0 2px 0 rgba(255, 255, 255, 0.2);\n      position: relative;\n      overflow: hidden;\n    }\n\n    .returns-section::before {\n      content: '🔄';\n      position: absolute;\n      font-size: 80px;\n      opacity: 0.1;\n      right: -10px;\n      bottom: -20px;\n    }\n\n    .returns-section strong {\n      display: block;\n      font-size: 16px;\n      color: white;\n      margin-bottom: 10px;\n      position: relative;\n      z-index: 1;\n    }\n\n    .returns-section p {\n      color: rgba(255, 255, 255, 0.95);\n      font-size: 13px;\n      line-height: 1.6;\n      position: relative;\n      z-index: 1;\n    }\n\n    /* Mobile Accordion */\n    .accordion-mobile {\n      display: none;\n    }\n\n    @media (max-width: 768px) {\n      .product-tabs-container {\n        border-radius: 12px;\n      }\n\n      .tabs-nav {\n        display: none;\n      }\n\n      .tab-content {\n        display: none !important;\n      }\n\n      .accordion-mobile {\n        display: block;\n        padding: 3px;\n      }\n\n      .accordion-item {\n        background: white;\n        margin-bottom: 7px;\n        border-radius: 12px;\n        overflow: hidden;\n        border: 3px solid #ffe8ec;\n        box-shadow: 0 4px 12px rgba(241, 51, 34, 0.08);\n        transition: all 0.4s ease;\n      }\n\n      .accordion-item.active {\n        border-color: #f13322;\n        box-shadow: 0 8px 24px rgba(241, 51, 34, 0.2);\n      }\n\n      .accordion-header {\n        padding: 4px 13px;\n        display: flex;\n        align-items: center;\n        gap: 4px;\n        cursor: pointer;\n        background: linear-gradient(135deg, #fff9fa 0%, #fff 100%);\n        transition: background 0.3s ease;\n      }\n\n      .accordion-header:active {\n        background: #fff5f7;\n      }\n\n      .accordion-icon {\n        width: 35px;\n        height: 40px;\n        display: block;\n        flex-shrink: 0;\n      }\n\n      .accordion-title {\n        flex: 1;\n        font-size: 12px;\n        font-weight: 800;\n        color: #f13322;\n        letter-spacing: 0.3px;\n      }\n\n      .accordion-toggle {\n        width: 24px;\n        height: 24px;\n        border-radius: 50%;\n        background: linear-gradient(135deg, #f13322, #ff6b5e);\n        display: flex !important;\n        align-items: center;\n        justify-content: center;\n        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n        flex-shrink: 0;\n        position: relative;\n        box-shadow: 0 3px 10px rgba(241, 51, 34, 0.35);\n      }\n\n      .accordion-toggle::before,\n      .accordion-toggle::after {\n        content: '';\n        position: absolute;\n        background: white;\n        border-radius: 2px;\n      }\n\n      .accordion-toggle::before {\n        width: 10px;\n        height: 2px;\n        transition: transform 0.3s ease;\n      }\n\n      .accordion-toggle::after {\n        width: 2px;\n        height: 10px;\n        transition: transform 0.3s ease, opacity 0.3s ease;\n      }\n\n      .accordion-item.active .accordion-toggle::before {\n        transform: rotate(180deg);\n      }\n\n      .accordion-item.active .accordion-toggle::after {\n        opacity: 0;\n        transform: rotate(90deg);\n      }\n\n      .accordion-content {\n        max-height: 0;\n        overflow: hidden;\n        transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;\n      }\n\n      .accordion-content.active {\n        max-height: 30000px;\n        padding: 0 12px 14px;\n      }\n\n      .accordion-content h3 {\n        font-size: 11px;\n        margin-bottom: 10px;\n        color: #f13322;\n        font-weight: 700;\n      }\n\n      .tab-content h3::after {\n        width: 40px;\n        height: 2px;\n        bottom: -6px;\n      }\n\n      .usage-steps {\n        padding: 14px;\n        border-radius: 10px;\n      }\n\n      .usage-steps::before {\n        font-size: 30px;\n        right: 8px;\n        top: 8px;\n      }\n\n      .usage-steps strong {\n        font-size: 11px;\n        margin-bottom: 10px;\n      }\n\n      .usage-steps p {\n        font-size: 10px;\n        line-height: 1.6;\n        padding: 8px 12px;\n        margin-bottom: 5px;\n        border-radius: 8px;\n        border-left-width: 2px;\n      }\n\n      .certifications-grid {\n        grid-template-columns: 1fr;\n        gap: 12px;\n      }\n\n      .cert-badge {\n        padding: 16px;\n        border-radius: 12px;\n      }\n\n      .cert-icon {\n        font-size: 32px;\n        margin-bottom: 8px;\n      }\n\n      .cert-title {\n        font-size: 11px;\n        margin-bottom: 6px;\n      }\n\n      .cert-desc {\n        font-size: 10px;\n      }\n\n      .results-grid {\n        grid-template-columns: 1fr;\n        gap: 14px;\n      }\n\n      .result-card {\n        padding: 18px;\n        border-radius: 14px;\n      }\n\n      .result-badge {\n        font-size: 9px;\n        padding: 4px 12px;\n        margin-bottom: 14px;\n      }\n\n      .result-benefit {\n        margin-bottom: 12px;\n      }\n\n      .benefit-title {\n        font-size: 13px;\n        margin-bottom: 6px;\n      }\n\n      .benefit-desc {\n        font-size: 10px;\n        line-height: 1.5;\n      }\n\n      .info-grid {\n        grid-template-columns: 1fr;\n        gap: 10px;\n        margin-bottom: 12px;\n      }\n\n      .info-item {\n        padding: 12px;\n        border-radius: 10px;\n      }\n\n      .info-item::before {\n        width: 35px;\n        height: 35px;\n      }\n\n      .info-item strong {\n        font-size: 10px;\n        margin-bottom: 5px;\n      }\n\n      .info-item p {\n        font-size: 9px;\n        line-height: 1.4;\n      }\n\n      .returns-section {\n        padding: 12px;\n        border-radius: 10px;\n      }\n\n      .returns-section::before {\n        font-size: 50px;\n        right: -5px;\n        bottom: -12px;\n      }\n\n      .returns-section strong {\n        font-size: 11px;\n        margin-bottom: 6px;\n      }\n\n      .returns-section p {\n        font-size: 10px;\n        line-height: 1.4;\n      }\n    }\n  </style>\n</head>\n<body>\n\n<div class=\"product-tabs-wrapper\">\n  <div class=\"deco-circle c1\"></div>\n  <div class=\"deco-circle c2\"></div>\n\n  <div class=\"product-tabs-container\">\n    <!-- Desktop Navigation - Pill Tabs -->\n    <div class=\"tabs-nav\">\n      <button class=\"tab-btn active\" data-tab=\"howitworks\">\n        <img class=\"tab-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/15.png?v=1766158575\" alt=\"HOW TO USE ?\">\n        <span>HOW TO USE ?</span>\n      </button>\n      <button class=\"tab-btn\" data-tab=\"certifications\">\n        <img class=\"tab-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/16.png?v=1766158575\" alt=\"CERTIFICATIONS\">\n        <span>CERTIFICATIONS</span>\n      </button>\n      <button class=\"tab-btn\" data-tab=\"results\">\n        <img class=\"tab-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/17_3ff5832b-dd12-4a6b-9be8-f1eb3074d2f2.png?v=1766158575\" alt=\"RESULTS\">\n        <span>RESULTS</span>\n      </button>\n      <button class=\"tab-btn\" data-tab=\"shipping\">\n        <img class=\"tab-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/18_c1137139-70e0-4ba1-b542-9334a3a2b2e2.png?v=1766158575\" alt=\"SHIPPING\">\n        <span>SHIPPING & RETURNS</span>\n      </button>\n    </div>\n\n    <!-- Desktop Tab Contents -->\n    <div class=\"tab-content active\" data-content=\"howitworks\">\n      <div class=\"usage-steps\">\n        <strong>📖 How to Use:</strong>\n        <p>Take 2 capsules daily</p>\n        <p>Preferably in the morning with a glass of water</p>\n        <p>Take with meals for better absorption</p>\n        <p>Recommended 3-month course for optimal results</p>\n      </div>\n    </div>\n\n    <div class=\"tab-content\" data-content=\"certifications\">\n      <h3>Certifications & Guarantees</h3>\n      <div class=\"certifications-grid\">\n        <div class=\"cert-badge\">\n          <span class=\"cert-icon\">🌱</span>\n          <div class=\"cert-title\">100% Natural</div>\n          <div class=\"cert-desc\">Natural ingredients, no chemical additives</div>\n        </div>\n        <div class=\"cert-badge\">\n          <span class=\"cert-icon\">🔬</span>\n          <div class=\"cert-title\">Lab Tested</div>\n          <div class=\"cert-desc\">Controlled and certified by independent laboratories</div>\n        </div>\n        <div class=\"cert-badge\">\n          <span class=\"cert-icon\">🥕</span>\n          <div class=\"cert-title\">Vegan</div>\n          <div class=\"cert-desc\">100% plant-based formula</div>\n        </div>\n        <div class=\"cert-badge\">\n          <span class=\"cert-icon\">🚫</span>\n          <div class=\"cert-title\">GMO-Free</div>\n          <div class=\"cert-desc\">Non-genetically modified ingredients</div>\n        </div>\n        <div class=\"cert-badge\">\n          <span class=\"cert-icon\">🇫🇷</span>\n          <div class=\"cert-title\">Made in France</div>\n          <div class=\"cert-desc\">French production standards</div>\n        </div>\n        <div class=\"cert-badge\">\n          <span class=\"cert-icon\">✅</span>\n          <div class=\"cert-title\">Gluten-Free</div>\n          <div class=\"cert-desc\">Suitable for gluten intolerance</div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"tab-content\" data-content=\"results\">\n      <h3>Expected Results</h3>\n      <div class=\"results-grid\">\n        <div class=\"result-card\">\n          <span class=\"result-badge\">1 MONTH</span>\n          <div class=\"result-benefit\">\n            <div class=\"benefit-title\">Clearer Skin & Calm</div>\n            <div class=\"benefit-desc\">Visibly calmer skin and less acne as androgen levels begin to drop.</div>\n          </div>\n          <div class=\"result-benefit\">\n            <div class=\"benefit-title\">Stress Relief</div>\n            <div class=\"benefit-desc\">Better mood and emotional balance thanks to stress-reducing adaptogens.</div>\n          </div>\n        </div>\n\n        <div class=\"result-card\">\n          <span class=\"result-badge\">2 MONTHS</span>\n          <div class=\"result-benefit\">\n            <div class=\"benefit-title\">Insulin Sensitivity</div>\n            <div class=\"benefit-desc\">Improved response to carbs and sugars—more stable blood sugar.</div>\n          </div>\n          <div class=\"result-benefit\">\n            <div class=\"benefit-title\">Consistent Energy</div>\n            <div class=\"benefit-desc\">Less fatigue through the day with more regulated energy levels.</div>\n          </div>\n        </div>\n\n        <div class=\"result-card\">\n          <span class=\"result-badge\">3+ MONTHS</span>\n          <div class=\"result-benefit\">\n            <div class=\"benefit-title\">Better Sleep</div>\n            <div class=\"benefit-desc\">Fall asleep faster and wake up feeling truly rested.</div>\n          </div>\n          <div class=\"result-benefit\">\n            <div class=\"benefit-title\">Regular Cycles</div>\n            <div class=\"benefit-desc\">Cycles become reliable and hormonal harmony lasts.</div>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"tab-content\" data-content=\"shipping\">\n      <h3>Shipping & Returns</h3>\n      <div class=\"info-grid\">\n        <div class=\"info-item\">\n          <strong>📦 Processing:</strong>\n          <p>Orders processed within 1-2 business days</p>\n        </div>\n        <div class=\"info-item\">\n          <strong>🚚 Delivery:</strong>\n          <p>4-7 days (France) / 6-10 days (Europe)</p>\n        </div>\n        <div class=\"info-item\">\n          <strong>📍 Tracking:</strong>\n          <p>Tracking number provided after dispatch</p>\n        </div>\n        <div class=\"info-item\">\n          <strong>💬 Support:</strong>\n          <p>Our team is available 7 days a week</p>\n        </div>\n      </div>\n      <div class=\"returns-section\">\n        <strong>🔄 Return Policy:</strong>\n        <p>Satisfied or refunded within 90 days. Your satisfaction is our priority.</p>\n      </div>\n    </div>\n\n    <!-- Mobile Accordion -->\n    <div class=\"accordion-mobile\">\n      <div class=\"accordion-item\">\n        <div class=\"accordion-header\">\n          <img class=\"accordion-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/15.png?v=1766158575\" alt=\"HOW TO USE ?\">\n          <span class=\"accordion-title\">HOW TO USE ?</span>\n          <div class=\"accordion-toggle\"></div>\n        </div>\n        <div class=\"accordion-content\">\n          <div class=\"usage-steps\">\n            <strong>📖 How to Use:</strong>\n            <p>Take 2 capsules daily</p>\n            <p>In the morning with water</p>\n            <p>With meals</p>\n            <p>3-month course minimum</p>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"accordion-item\">\n        <div class=\"accordion-header\">\n          <img class=\"accordion-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/16.png?v=1766158575\" alt=\"CERTIFICATIONS\">\n          <span class=\"accordion-title\">CERTIFICATIONS</span>\n          <div class=\"accordion-toggle\"></div>\n        </div>\n        <div class=\"accordion-content\">\n          <h3>Certifications</h3>\n          <div class=\"certifications-grid\">\n            <div class=\"cert-badge\">\n              <span class=\"cert-icon\">🌱</span>\n              <div class=\"cert-title\">100% Natural</div>\n              <div class=\"cert-desc\">No chemical additives</div>\n            </div>\n            <div class=\"cert-badge\">\n              <span class=\"cert-icon\">🔬</span>\n              <div class=\"cert-title\">Lab Tested</div>\n              <div class=\"cert-desc\">Certified by labs</div>\n            </div>\n            <div class=\"cert-badge\">\n              <span class=\"cert-icon\">🥕</span>\n              <div class=\"cert-title\">Vegan</div>\n              <div class=\"cert-desc\">100% plant-based</div>\n            </div>\n            <div class=\"cert-badge\">\n              <span class=\"cert-icon\">🚫</span>\n              <div class=\"cert-title\">GMO-Free</div>\n              <div class=\"cert-desc\">Non-GMO</div>\n            </div>\n            <div class=\"cert-badge\">\n              <span class=\"cert-icon\">🇫🇷</span>\n              <div class=\"cert-title\">Made in France</div>\n              <div class=\"cert-desc\">French production</div>\n            </div>\n            <div class=\"cert-badge\">\n              <span class=\"cert-icon\">✅</span>\n              <div class=\"cert-title\">Gluten-Free</div>\n              <div class=\"cert-desc\">Safe for intolerants</div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"accordion-item\">\n        <div class=\"accordion-header\">\n          <img class=\"accordion-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/17_3ff5832b-dd12-4a6b-9be8-f1eb3074d2f2.png?v=1766158575\" alt=\"RESULTS\">\n          <span class=\"accordion-title\">RESULTS</span>\n          <div class=\"accordion-toggle\"></div>\n        </div>\n        <div class=\"accordion-content\">\n          <h3>Expected Results</h3>\n          <div class=\"results-grid\">\n            <div class=\"result-card\">\n              <span class=\"result-badge\">1 MONTH</span>\n              <div class=\"result-benefit\">\n                <div class=\"benefit-title\">Clearer Skin & Calm</div>\n                <div class=\"benefit-desc\">Calmer skin, less acne</div>\n              </div>\n              <div class=\"result-benefit\">\n                <div class=\"benefit-title\">Stress Relief</div>\n                <div class=\"benefit-desc\">Better mood & balance</div>\n              </div>\n            </div>\n\n            <div class=\"result-card\">\n              <span class=\"result-badge\">2 MONTHS</span>\n              <div class=\"result-benefit\">\n                <div class=\"benefit-title\">Insulin Sensitivity</div>\n                <div class=\"benefit-desc\">Stable blood sugar</div>\n              </div>\n              <div class=\"result-benefit\">\n                <div class=\"benefit-title\">Consistent Energy</div>\n                <div class=\"benefit-desc\">Less fatigue</div>\n              </div>\n            </div>\n\n            <div class=\"result-card\">\n              <span class=\"result-badge\">3+ MONTHS</span>\n              <div class=\"result-benefit\">\n                <div class=\"benefit-title\">Better Sleep</div>\n                <div class=\"benefit-desc\">Fall asleep faster</div>\n              </div>\n              <div class=\"result-benefit\">\n                <div class=\"benefit-title\">Regular Cycles</div>\n                <div class=\"benefit-desc\">Hormonal harmony</div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"accordion-item\">\n        <div class=\"accordion-header\">\n          <img class=\"accordion-icon\" src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/18_c1137139-70e0-4ba1-b542-9334a3a2b2e2.png?v=1766158575\" alt=\"SHIPPING\">\n          <span class=\"accordion-title\">SHIPPING & RETURNS</span>\n          <div class=\"accordion-toggle\"></div>\n        </div>\n        <div class=\"accordion-content\">\n          <h3>Shipping</h3>\n          <div class=\"info-grid\">\n            <div class=\"info-item\">\n              <strong>📦 Processing:</strong>\n              <p>1-2 business days</p>\n            </div>\n            <div class=\"info-item\">\n              <strong>🚚 Delivery:</strong>\n              <p>4-7 days (France)</p>\n            </div>\n            <div class=\"info-item\">\n              <strong>📍 Tracking:</strong>\n              <p>Provided after dispatch</p>\n            </div>\n          </div>\n          <div class=\"returns-section\">\n            <strong>🔄 Returns:</strong>\n            <p>90-day money-back guarantee</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<script>\n  // Desktop Tabs\n  const tabButtons = document.querySelectorAll('.tab-btn');\n  const tabContents = document.querySelectorAll('.tab-content');\n\n  tabButtons.forEach(btn => {\n    btn.addEventListener('click', () => {\n      const targetTab = btn.dataset.tab;\n      \n      tabButtons.forEach(b => b.classList.remove('active'));\n      tabContents.forEach(c => c.classList.remove('active'));\n      \n      btn.classList.add('active');\n      document.querySelector(`[data-content=\"${targetTab}\"]`).classList.add('active');\n    });\n  });\n\n  // Mobile Accordion\n  const accordionHeaders = document.querySelectorAll('.accordion-header');\n\n  accordionHeaders.forEach(header => {\n    header.addEventListener('click', () => {\n      const item = header.parentElement;\n      const content = header.nextElementSibling;\n      const isActive = item.classList.contains('active');\n\n      document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));\n      document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));\n\n      if (!isActive) {\n        item.classList.add('active');\n        content.classList.add('active');\n      }\n    });\n  });\n</script>\n\n</body>\n</html>",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "custom_liquid_XrjNR3": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "What our customers say",
+      "settings": {
+        "liquid": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Customer Reviews</title>\n  <style>\n    * {\n      box-sizing: border-box;\n      margin: 0;\n      padding: 0;\n    }\n\n    body {\n      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n      background: #f8f8f8;\n      padding: 20px;\n    }\n\n    .reviews-wrapper {\n      width: 100%;\n      max-width: 1200px;\n      margin: 0 auto;\n      padding: 20px;\n      background: white;\n      border-radius: 16px;\n    }\n\n    .reviews-title {\n      text-align: center;\n      margin-bottom: 12px;\n    }\n\n    .reviews-title h2 {\n      font-size: 28px;\n      font-weight: 700;\n      background: linear-gradient(135deg, #f13322 0%, #ff6b5e 100%);\n      -webkit-background-clip: text;\n      -webkit-text-fill-color: transparent;\n      background-clip: text;\n      margin-bottom: 8px;\n      line-height: 1.2;\n    }\n\n    .reviews-subtitle {\n      font-size: 14px;\n      color: #666;\n      font-weight: 400;\n      margin-bottom: 20px;\n    }\n\n    .reviews-categories {\n      display: flex;\n      justify-content: center;\n      gap: 10px;\n      margin-bottom: 30px;\n      flex-wrap: wrap;\n    }\n\n    .category-tab {\n      background: rgba(241, 51, 34, 0.06);\n      border: 1.5px solid rgba(241, 51, 34, 0.12);\n      color: #f13322;\n      padding: 8px 20px;\n      border-radius: 50px;\n      font-size: 13px;\n      font-weight: 600;\n      cursor: pointer;\n      transition: all 0.3s ease;\n    }\n\n    .category-tab:hover {\n      background: rgba(241, 51, 34, 0.1);\n      transform: translateY(-1px);\n    }\n\n    .category-tab.active {\n      background: linear-gradient(135deg, #f13322 0%, #ff6b5e 100%);\n      color: white;\n      border-color: #f13322;\n      box-shadow: 0 3px 10px rgba(241, 51, 34, 0.25);\n    }\n\n    .reviews-container {\n      position: relative;\n      overflow: hidden;\n      padding: 10px 0;\n    }\n\n    .reviews-track {\n      display: flex;\n      gap: 20px;\n      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);\n    }\n\n    .review-card {\n      flex: 0 0 calc((100% - 40px) / 3);\n      background: #FFFFFF;\n      border-radius: 16px;\n      padding: 20px;\n      box-shadow: 0 4px 16px rgba(241, 51, 34, 0.08);\n      position: relative;\n      transition: all 0.3s ease;\n      border: 1px solid rgba(241, 51, 34, 0.08);\n      display: flex;\n      flex-direction: column;\n      min-height: 280px;\n    }\n\n    .review-card::before {\n      content: '';\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      height: 3px;\n      background: linear-gradient(90deg, #f13322 0%, #ff6b5e 50%, #ffb6c1 100%);\n      border-radius: 16px 16px 0 0;\n    }\n\n    .review-card:hover {\n      transform: translateY(-5px);\n      box-shadow: 0 8px 24px rgba(241, 51, 34, 0.15);\n    }\n\n    .review-header {\n      display: flex;\n      align-items: center;\n      margin-bottom: 12px;\n    }\n\n    .reviewer-info {\n      display: flex;\n      align-items: center;\n      gap: 12px;\n      flex: 1;\n    }\n\n    .reviewer-avatar {\n      width: 44px;\n      height: 44px;\n      border-radius: 50%;\n      background: linear-gradient(135deg, #f13322 0%, #ff6b5e 100%);\n      display: flex;\n      align-items: center;\n      justify-content: center;\n      color: white;\n      font-size: 18px;\n      font-weight: 700;\n      flex-shrink: 0;\n      box-shadow: 0 2px 8px rgba(241, 51, 34, 0.3);\n    }\n\n    .reviewer-details {\n      flex: 1;\n    }\n\n    .reviewer-name {\n      font-size: 16px;\n      font-weight: 700;\n      color: #2d2d2d;\n      margin-bottom: 4px;\n      line-height: 1.2;\n    }\n\n    .review-date {\n      color: #999;\n      font-size: 12px;\n      font-weight: 500;\n    }\n\n    .review-stars {\n      display: flex;\n      gap: 3px;\n      margin-bottom: 12px;\n    }\n\n    .star {\n      color: #f13322;\n      font-size: 16px;\n      filter: drop-shadow(0 1px 2px rgba(241, 51, 34, 0.25));\n    }\n\n    .review-text {\n      font-size: 14px;\n      line-height: 1.6;\n      color: #444;\n      margin-bottom: 12px;\n      flex-grow: 1;\n    }\n\n    .review-images {\n      display: flex;\n      gap: 8px;\n      margin-bottom: 12px;\n      flex-wrap: wrap;\n    }\n\n    .review-image {\n      width: 70px;\n      height: 70px;\n      border-radius: 8px;\n      overflow: hidden;\n      cursor: pointer;\n      transition: all 0.2s ease;\n      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n      border: 2px solid transparent;\n    }\n\n    .review-image:hover {\n      transform: scale(1.05);\n      border-color: #ffb6c1;\n    }\n\n    .review-image img {\n      width: 100%;\n      height: 100%;\n      object-fit: cover;\n    }\n\n    .verified-badge {\n      display: inline-flex;\n      align-items: center;\n      gap: 5px;\n      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);\n      color: #2E7D32;\n      font-size: 11px;\n      font-weight: 600;\n      padding: 6px 12px;\n      border-radius: 12px;\n      margin-top: auto;\n      align-self: flex-start;\n    }\n\n    .verified-badge svg {\n      width: 10px;\n      height: 10px;\n    }\n\n    .carousel-controls {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      gap: 16px;\n      margin-top: 30px;\n    }\n\n    .carousel-arrow {\n      width: 40px;\n      height: 40px;\n      border-radius: 50%;\n      background: transparent;\n      border: 2px solid #f13322;\n      color: #f13322;\n      cursor: pointer;\n      transition: all 0.25s ease;\n      display: flex;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .carousel-arrow:hover:not(:disabled) {\n      background: linear-gradient(135deg, #f13322, #ff6b5e);\n      color: white;\n      transform: scale(1.05);\n      box-shadow: 0 4px 12px rgba(241, 51, 34, 0.3);\n    }\n\n    .carousel-arrow:disabled {\n      opacity: 0.3;\n      cursor: not-allowed;\n    }\n\n    .carousel-indicators {\n      display: flex;\n      gap: 8px;\n    }\n\n    .indicator {\n      width: 10px;\n      height: 10px;\n      border-radius: 50%;\n      background: #ffb6c1;\n      cursor: pointer;\n      transition: all 0.3s ease;\n      border: none;\n      padding: 0;\n      opacity: 0.5;\n    }\n\n    .indicator:hover {\n      opacity: 0.8;\n      transform: scale(1.1);\n    }\n\n    .indicator.active {\n      background: #f13322;\n      opacity: 1;\n      transform: scale(1.2);\n    }\n\n    .image-lightbox {\n      display: none;\n      position: fixed;\n      top: 0;\n      left: 0;\n      width: 100%;\n      height: 100%;\n      background: rgba(0, 0, 0, 0.9);\n      z-index: 9999;\n      justify-content: center;\n      align-items: center;\n      cursor: pointer;\n    }\n\n    .image-lightbox.active {\n      display: flex;\n    }\n\n    .lightbox-content {\n      max-width: 90%;\n      max-height: 90%;\n      object-fit: contain;\n      border-radius: 8px;\n      box-shadow: 0 10px 50px rgba(241, 51, 34, 0.5);\n    }\n\n    .lightbox-close {\n      position: absolute;\n      top: 20px;\n      right: 30px;\n      color: white;\n      font-size: 40px;\n      font-weight: 300;\n      cursor: pointer;\n      transition: all 0.2s ease;\n    }\n\n    .lightbox-close:hover {\n      color: #ffb6c1;\n      transform: scale(1.1);\n    }\n\n    @media (max-width: 1024px) {\n      .review-card {\n        flex: 0 0 calc((100% - 20px) / 2);\n      }\n    }\n\n    @media (max-width: 768px) {\n      .reviews-wrapper {\n        padding: 15px;\n      }\n\n      .reviews-title h2 {\n        font-size: 22px;\n      }\n\n      .reviews-subtitle {\n        font-size: 12px;\n      }\n\n      .reviews-categories {\n        gap: 8px;\n        margin-bottom: 20px;\n      }\n\n      .category-tab {\n        padding: 6px 16px;\n        font-size: 11px;\n      }\n\n      .review-card {\n        flex: 0 0 100%;\n        min-height: auto;\n      }\n\n      .reviewer-avatar {\n        width: 36px;\n        height: 36px;\n        font-size: 16px;\n      }\n\n      .reviewer-name {\n        font-size: 14px;\n      }\n\n      .review-text {\n        font-size: 13px;\n      }\n\n      .review-image {\n        width: 60px;\n        height: 60px;\n      }\n\n      .carousel-arrow {\n        width: 36px;\n        height: 36px;\n      }\n\n      .carousel-controls {\n        margin-top: 20px;\n      }\n    }\n  </style>\n</head>\n<body>\n\n<div class=\"reviews-wrapper\">\n  <div class=\"reviews-title\">\n    <h2>What Our Customers Say</h2>\n    <p class=\"reviews-subtitle\">Hundreds of women trust us</p>\n  </div>\n\n  <div class=\"reviews-categories\">\n    <button class=\"category-tab active\" data-category=\"all\">All Reviews</button>\n    <button class=\"category-tab\" data-category=\"weight\">Weight</button>\n    <button class=\"category-tab\" data-category=\"hair\">Hair</button>\n    <button class=\"category-tab\" data-category=\"skin\">Skin</button>\n    <button class=\"category-tab\" data-category=\"periods\">Periods</button>\n    <button class=\"category-tab\" data-category=\"fertility\">Fertility</button>\n    <button class=\"category-tab\" data-category=\"mood\">Mood</button>\n    <button class=\"category-tab\" data-category=\"facialhair\">Facial Hair</button>\n  </div>\n\n  <div class=\"reviews-container\">\n    <div class=\"reviews-track\" id=\"reviewsTrack\">\n      \n      <div class=\"review-card\" data-category=\"weight\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">C</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Caroline</div>\n              <div class=\"review-date\">August 9, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          Very high quality product, targeted exactly for people with PCOS and easy to take too. I highly recommend it!\n        </div>\n        <div class=\"review-images\">\n          <div class=\"review-image\" onclick=\"openLightbox('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/12.png?v=1766066809')\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/12.png?v=1766066809\" alt=\"Product photo\">\n          </div>\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n      <div class=\"review-card\" data-category=\"periods\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">E</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Emma</div>\n              <div class=\"review-date\">July 15, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          A natural solution that changed my life! I've been taking this supplement for 3 months and the results are there. My cycle is more regular.\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n      <div class=\"review-card\" data-category=\"mood\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">S</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Sophie</div>\n              <div class=\"review-date\">June 22, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          Excellent product! I noticed a significant improvement in my overall well-being. The capsules are easy to swallow and well tolerated.\n        </div>\n        <div class=\"review-images\">\n          <div class=\"review-image\" onclick=\"openLightbox('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/12.png?v=1766066809')\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/12.png?v=1766066809\" alt=\"Product photo\">\n          </div>\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n      <div class=\"review-card\" data-category=\"hair\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">M</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Marie</div>\n              <div class=\"review-date\">May 10, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          Recommended by my gynecologist. After 2 months of use, I see real benefits. The product quality is impeccable.\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n      <div class=\"review-card\" data-category=\"skin\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">L</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Laura</div>\n              <div class=\"review-date\">April 3, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          Very satisfied with this product. I highly recommend it to all women looking for a natural and effective solution for their well-being.\n        </div>\n        <div class=\"review-images\">\n          <div class=\"review-image\" onclick=\"openLightbox('https://cdn.shopify.com/s/files/1/0868/4496/5201/files/12.png?v=1766066809')\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/12.png?v=1766066809\" alt=\"Product photo\">\n          </div>\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n      <div class=\"review-card\" data-category=\"fertility\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">A</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Alice</div>\n              <div class=\"review-date\">March 28, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          Quality product with transparent composition. I feel better since I take it daily. Very good value for money.\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n      <div class=\"review-card\" data-category=\"facialhair\">\n        <div class=\"review-header\">\n          <div class=\"reviewer-info\">\n            <div class=\"reviewer-avatar\">J</div>\n            <div class=\"reviewer-details\">\n              <div class=\"reviewer-name\">Jessica</div>\n              <div class=\"review-date\">March 15, 2025</div>\n            </div>\n          </div>\n        </div>\n        <div class=\"review-stars\">\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n          <span class=\"star\">★</span>\n        </div>\n        <div class=\"review-text\">\n          Amazing results! My unwanted facial hair growth has significantly reduced. I finally feel confident again.\n        </div>\n        <div class=\"verified-badge\">\n          <svg viewBox=\"0 0 24 24\" fill=\"currentColor\">\n            <path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z\"/>\n          </svg>\n          Verified Purchase\n        </div>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"carousel-controls\">\n    <button class=\"carousel-arrow prev\" id=\"prevBtn\" aria-label=\"Previous\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n        <path d=\"M15 18l-6-6 6-6\"/>\n      </svg>\n    </button>\n    \n    <div class=\"carousel-indicators\" id=\"indicators\"></div>\n    \n    <button class=\"carousel-arrow next\" id=\"nextBtn\" aria-label=\"Next\">\n      <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n        <path d=\"M9 18l6-6-6-6\"/>\n      </svg>\n    </button>\n  </div>\n</div>\n\n<div class=\"image-lightbox\" id=\"imageLightbox\" onclick=\"closeLightbox()\">\n  <span class=\"lightbox-close\">&times;</span>\n  <img class=\"lightbox-content\" id=\"lightboxImage\">\n</div>\n\n<script>\n  (function() {\n    const track = document.getElementById('reviewsTrack');\n    const prevBtn = document.getElementById('prevBtn');\n    const nextBtn = document.getElementById('nextBtn');\n    const indicatorsContainer = document.getElementById('indicators');\n    const categoryTabs = document.querySelectorAll('.category-tab');\n    const allCards = Array.from(track.querySelectorAll('.review-card'));\n    \n    let currentIndex = 0;\n    let currentCategory = 'all';\n    let visibleCards = allCards;\n    \n    function getCardsPerView() {\n      if (window.innerWidth <= 768) return 1;\n      if (window.innerWidth <= 1024) return 2;\n      return 3;\n    }\n    \n    function filterCards() {\n      if (currentCategory === 'all') {\n        visibleCards = allCards;\n      } else {\n        visibleCards = allCards.filter(card => card.dataset.category === currentCategory);\n      }\n      \n      allCards.forEach(card => card.style.display = 'none');\n      visibleCards.forEach(card => card.style.display = 'flex');\n      \n      currentIndex = 0;\n      createIndicators();\n      updateCarousel();\n    }\n    \n    function createIndicators() {\n      const cardsPerView = getCardsPerView();\n      const numIndicators = Math.ceil(visibleCards.length / cardsPerView);\n      indicatorsContainer.innerHTML = '';\n      \n      for (let i = 0; i < numIndicators; i++) {\n        const indicator = document.createElement('button');\n        indicator.className = 'indicator';\n        indicator.setAttribute('aria-label', `Go to page ${i + 1}`);\n        if (i === 0) indicator.classList.add('active');\n        \n        indicator.addEventListener('click', () => {\n          currentIndex = i;\n          updateCarousel();\n        });\n        \n        indicatorsContainer.appendChild(indicator);\n      }\n    }\n    \n    function updateIndicators() {\n      const indicators = indicatorsContainer.querySelectorAll('.indicator');\n      indicators.forEach((indicator, index) => {\n        indicator.classList.toggle('active', index === currentIndex);\n      });\n    }\n    \n    function updateCarousel() {\n      const cardsPerView = getCardsPerView();\n      const maxIndex = Math.max(0, Math.ceil(visibleCards.length / cardsPerView) - 1);\n      \n      currentIndex = Math.min(currentIndex, maxIndex);\n      \n      if (visibleCards.length > 0) {\n        const cardElement = visibleCards[0];\n        const cardWidth = cardElement.offsetWidth;\n        const gap = 20;\n        const offset = -(currentIndex * cardsPerView * (cardWidth + gap));\n        \n        track.style.transform = `translateX(${offset}px)`;\n      }\n      \n      prevBtn.disabled = currentIndex === 0;\n      nextBtn.disabled = currentIndex >= maxIndex;\n      \n      updateIndicators();\n    }\n\n    categoryTabs.forEach(tab => {\n      tab.addEventListener('click', () => {\n        categoryTabs.forEach(t => t.classList.remove('active'));\n        tab.classList.add('active');\n        currentCategory = tab.dataset.category;\n        filterCards();\n      });\n    });\n\n    prevBtn.addEventListener('click', () => {\n      if (currentIndex > 0) {\n        currentIndex--;\n        updateCarousel();\n      }\n    });\n\n    nextBtn.addEventListener('click', () => {\n      const cardsPerView = getCardsPerView();\n      const maxIndex = Math.max(0, Math.ceil(visibleCards.length / cardsPerView) - 1);\n      if (currentIndex < maxIndex) {\n        currentIndex++;\n        updateCarousel();\n      }\n    });\n\n    let resizeTimeout;\n    window.addEventListener('resize', () => {\n      clearTimeout(resizeTimeout);\n      resizeTimeout = setTimeout(() => {\n        createIndicators();\n        updateCarousel();\n      }, 100);\n    });\n\n    filterCards();\n  })();\n\n  function openLightbox(imageUrl) {\n    const lightbox = document.getElementById('imageLightbox');\n    const lightboxImage = document.getElementById('lightboxImage');\n    lightboxImage.src = imageUrl;\n    lightbox.classList.add('active');\n    document.body.style.overflow = 'hidden';\n  }\n\n  function closeLightbox() {\n    const lightbox = document.getElementById('imageLightbox');\n    lightbox.classList.remove('active');\n    document.body.style.overflow = '';\n  }\n\n  document.addEventListener('keydown', function(e) {\n    if (e.key === 'Escape') {\n      closeLightbox();\n    }\n  });\n</script>\n\n</body>\n</html>",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "help-drawer": {
+      "type": "help-drawer",
+      "blocks": {
+        "content-1": {
+          "type": "content",
+          "settings": {
+            "icon": "rocket",
+            "heading": "Shipping Information",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#b45309",
+            "color_background": "#fffbeb",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-2": {
+          "type": "content",
+          "settings": {
+            "icon": "headphone",
+            "heading": "Customer Support",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#0369a1",
+            "color_background": "#f0f9ff",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-3": {
+          "type": "content",
+          "settings": {
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "settings": {
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        }
+      },
+      "block_order": [
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "",
+        "description": ""
+      }
+    },
+    "steps4_zgqiYD": {
+      "type": "steps4",
+      "blocks": {
+        "step_jexH7L": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/baia-stainless-steel-tea-infuser-stick.webp",
+            "text": "<p>Scoop 1 teaspoon (about 2g) </p>"
+          }
+        },
+        "step_wapTre": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/Boiling_water_1.webp",
+            "text": "<p>Pour 200ml hot water (85-90°C)</p>"
+          }
+        },
+        "step_xRmQyy": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/baia-tea-infuser-in-cup.webp",
+            "text": "<p>Cover & steep 5-7 min</p>"
+          }
+        },
+        "step_jBgMCV": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/baia-wellness-tea-ritual_1_1.webp",
+            "text": "<p>Sip slowly and enjoy 1–2 cups daily</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_jexH7L",
+        "step_wapTre",
+        "step_xRmQyy",
+        "step_jBgMCV"
+      ],
+      "name": "SS - Steps #4",
+      "settings": {
+        "heading": "<h2>How it works</h2>",
+        "heading_custom": false,
+        "heading_font": "josefin_sans_n4",
+        "heading_size": 44,
+        "heading_size_mobile": 28,
+        "heading_height": 140,
+        "heading_align": "center",
+        "heading_align_mobile": "center",
+        "body_gap": 64,
+        "body_gap_mobile": 40,
+        "body_mt": 50,
+        "body_mt_mobile": 44,
+        "use_slider": false,
+        "slider_view_mobile": 1.4,
+        "slider_gap_mobile": 18,
+        "image_radius": 32,
+        "image_border_thickness": 2,
+        "image_ratio": "landscape",
+        "image_ratio_mobile": "landscape",
+        "circle_number_size": 40,
+        "circle_number_size_mobile": 44,
+        "number_custom": false,
+        "number_font": "josefin_sans_n4",
+        "number_size": 18,
+        "number_size_mobile": 17,
+        "text_custom": false,
+        "text_font": "josefin_sans_n4",
+        "text_size": 18,
+        "text_size_mobile": 14,
+        "text_height": 110,
+        "text_mt": 18,
+        "text_align": "center",
+        "text_align_mobile": "center",
+        "button": "",
+        "button_url": "",
+        "button_custom": false,
+        "button_font": "josefin_sans_n4",
+        "button_size": 16,
+        "button_size_mobile": 14,
+        "button_height": 100,
+        "button_width": 200,
+        "button_width_mobile": 200,
+        "button_mt": 70,
+        "button_mt_mobile": 32,
+        "button_padding_vertical": 14,
+        "button_padding_vertical_mobile": 14,
+        "button_padding_horizontal": 22,
+        "button_padding_horizontal_mobile": 22,
+        "button_radius": 100,
+        "button_border_thickness": 0,
+        "button_align": "center",
+        "button_align_mobile": "center",
+        "button_style": "non_outline",
+        "image_border_color": "#ac025f",
+        "circle_number_bg_color": "#ac025f",
+        "number_color": "#fdf6f2",
+        "text_color": "#2d0320",
+        "button_color": "#ffffff",
+        "button_hover_color": "#ffffff",
+        "button_bg_color": "#000000",
+        "button_bg_hover_color": "#000000",
+        "button_border_color": "#000000",
+        "button_border_hover_color": "#000000",
+        "heading_color": "#ac025f",
+        "background_color": "#d6d7eb",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 32,
+        "margin_bottom": 28,
+        "padding_top": 56,
+        "padding_bottom": 28,
+        "padding_horizontal": 3,
+        "padding_horizontal_mobile": 2,
+        "full_width": true,
+        "content_width": 110,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "tiktok_carousel_MtnXFU": {
+      "type": "tiktok-carousel",
+      "blocks": {
+        "video_Xw4QL9": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@baiawellness/video/7578972140364385558"
+          }
+        },
+        "video_3JmXyj": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@baiawellness/video/7578075971572616470"
+          }
+        },
+        "video_MNqU9h": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@baiawellness/video/7584915141993532694"
+          }
+        },
+        "video_z7nJDc": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@baiawellness/photo/7584743719916621078"
+          }
+        },
+        "video_Ur6rb7": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.tiktok.com/@baiawellness/video/7582311910587125014"
+          }
+        }
+      },
+      "block_order": [
+        "video_Xw4QL9",
+        "video_3JmXyj",
+        "video_MNqU9h",
+        "video_z7nJDc",
+        "video_Ur6rb7"
+      ],
+      "name": "TikTok Carousel",
+      "settings": {
+        "title": "Follow Us On TikTok",
+        "subtitle": "Discover our last videos !",
+        "text_alignment": "text-left",
+        "accent_color": "#ac0060",
+        "background_color": "#ffffff"
+      }
+    },
+    "1759696233a26750b7": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_9iArBa": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_9iArBa"
+      ],
+      "settings": {
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "product_limit": 6,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "You may also like",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#ac025f",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 32,
+        "padding_bottom": 36,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "custom_liquid_qFjDJX",
+    "custom_liquid_XrjNR3",
+    "help-drawer",
+    "steps4_zgqiYD",
+    "tiktok_carousel_MtnXFU",
+    "1759696233a26750b7",
+    "product-recommendations"
+  ]
+}

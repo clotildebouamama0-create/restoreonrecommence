@@ -1,0 +1,343 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  if bg_color == blank
+    assign bg_color = '#ece9e0'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#1a1a1a'
+  endif
+  assign muted_color = section.settings.muted_color
+  if muted_color == blank
+    assign muted_color = '#5a5a5a'
+  endif
+  assign accent_color = section.settings.accent_color
+  if accent_color == blank
+    assign accent_color = '#1a1a1a'
+  endif
+  assign btn_bg = section.settings.button_bg
+  if btn_bg == blank
+    assign btn_bg = 'transparent'
+  endif
+  assign btn_fg = section.settings.button_fg
+  if btn_fg == blank
+    assign btn_fg = '#1a1a1a'
+  endif
+  assign btn_border = section.settings.button_border
+  if btn_border == blank
+    assign btn_border = '#1a1a1a'
+  endif
+  assign image_radius = section.settings.image_radius | default: 8
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --fs-bg: {{ bg_color }};
+    --fs-fg: {{ text_color }};
+    --fs-muted: {{ muted_color }};
+    --fs-accent: {{ accent_color }};
+    --fs-btn-bg: {{ btn_bg }};
+    --fs-btn-fg: {{ btn_fg }};
+    --fs-btn-border: {{ btn_border }};
+    --fs-image-radius: {{ image_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .fs::before { display: none !important; content: none !important; }
+</style>
+
+<section class="fs slider-section-padding" data-section-id="{{ section.id }}">
+  <div class="fs__inner page-width">
+    <div class="fs__grid">
+
+      <div class="fs__media">
+        {%- if section.settings.image != blank -%}
+          {%- assign img_alt = section.settings.author_name | default: 'Founder' | escape -%}
+          {{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', class: 'fs__image', alt: img_alt, widths: '400,600,800,1000,1200' }}
+        {%- else -%}
+          <div class="fs__image fs__image--ph" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="fs__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="fs__eyebrow">{{ section.settings.eyebrow | escape }}</div>
+        {%- endif -%}
+
+        {%- if section.settings.quote != blank -%}
+          <blockquote class="fs__quote">{{ section.settings.quote }}</blockquote>
+        {%- endif -%}
+
+        {%- if section.settings.author_name != blank or section.settings.author_role != blank -%}
+          <div class="fs__author">
+            {%- if section.settings.author_name != blank -%}
+              <p class="fs__author-name">{{ section.settings.author_name | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.author_role != blank -%}
+              <p class="fs__author-role">{{ section.settings.author_role | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <a class="fs__button" href="{{ section.settings.button_link | default: '#' }}">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .fs {
+    background: var(--fs-bg) !important;
+    color: var(--fs-fg);
+    width: 100%;
+  }
+  .fs__inner { width: 100%; }
+  .fs__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media screen and (min-width: 990px) {
+    .fs__grid {
+      grid-template-columns: minmax(280px, 380px) 1fr;
+      gap: 80px;
+    }
+  }
+
+  .fs__media { min-width: 0; }
+  .fs__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--fs-image-radius);
+  }
+  .fs__image--ph {
+    background: linear-gradient(135deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
+  }
+
+  .fs__content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 620px;
+    min-width: 0;
+  }
+  @media screen and (min-width: 990px) {
+    .fs__content { gap: 22px; }
+  }
+
+  .fs__eyebrow {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fs-fg);
+    margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .fs__quote {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-style: normal;
+    font-size: clamp(20px, 1.9vw, 26px);
+    line-height: 1.45;
+    color: var(--fs-fg);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .fs__quote > *:first-child::before {
+    content: "\201C";
+    margin-inline-end: 0.05em;
+  }
+  .fs__quote > *:last-child::after {
+    content: "\201D";
+    margin-inline-start: 0.05em;
+  }
+  .fs__quote p {
+    margin: 0;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    display: inline;
+  }
+  .fs__quote p + p {
+    display: block;
+    margin-top: 0.6em;
+  }
+
+  .fs__author { margin-top: 4px; }
+  .fs__author-name {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--fs-fg);
+    line-height: 1.3;
+  }
+  .fs__author-role {
+    margin: 2px 0 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--fs-muted);
+    line-height: 1.3;
+  }
+
+  .fs__button {
+    align-self: flex-start;
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fs-btn-bg) !important;
+    color: var(--fs-btn-fg) !important;
+    border: 1px solid var(--fs-btn-border);
+    text-decoration: none;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 14px 30px;
+    border-radius: 6px;
+    transition: background 150ms ease, color 150ms ease, transform 150ms ease;
+  }
+  .fs__button:hover {
+    background: var(--fs-btn-border) !important;
+    color: var(--fs-bg) !important;
+    transform: translateY(-1px);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Histoire de la fondatrice",
+  "tag": "section",
+  "class": "founder-story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo (format portrait recommandé 4:5)"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Rayon des coins (image)",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Petit titre (eyebrow)",
+      "default": "L'HISTOIRE DE LA FONDATRICE"
+    },
+    {
+      "type": "richtext",
+      "id": "quote",
+      "label": "Citation",
+      "default": "<p>J'ai eu envie de créer une marque qui prend soin des femmes au quotidien, avec des produits efficaces, gourmands et formulés avec rigueur. C'est ce qui a donné naissance à Baïa.</p>"
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "Nom",
+      "default": "Clotilde"
+    },
+    {
+      "type": "text",
+      "id": "author_role",
+      "label": "Rôle",
+      "default": "Fondatrice"
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texte du bouton",
+      "default": "DÉCOUVRIR NOTRE HISTOIRE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Fond du bouton",
+      "default": "#ece9e0"
+    },
+    {
+      "type": "color",
+      "id": "button_fg",
+      "label": "Texte du bouton",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_border",
+      "label": "Bordure du bouton",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de section",
+      "default": "#ece9e0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur principale du texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur secondaire (rôle)",
+      "default": "#5a5a5a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur d'accent",
+      "default": "#1a1a1a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Histoire de la fondatrice"
+    }
+  ]
+}
+{% endschema %}

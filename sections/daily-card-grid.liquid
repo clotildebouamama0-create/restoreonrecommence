@@ -1,0 +1,360 @@
+{%- liquid
+  assign title_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+  case section.settings.title_font
+    when 'mono'
+      assign title_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Light','Founders Grotesk Mono Regular','Courier New',monospace"
+    when 'system_sans'
+      assign title_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign title_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign title_font_family = "'Courier New',Courier,monospace"
+  endcase
+
+  assign desc_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+  case section.settings.desc_font
+    when 'mono'
+      assign desc_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Light','Founders Grotesk Mono Regular','Courier New',monospace"
+    when 'system_sans'
+      assign desc_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign desc_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign desc_font_family = "'Courier New',Courier,monospace"
+  endcase
+
+  assign card_title_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+  case section.settings.card_title_font
+    when 'mono'
+      assign card_title_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Light','Founders Grotesk Mono Regular','Courier New',monospace"
+    when 'system_sans'
+      assign card_title_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign card_title_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign card_title_font_family = "'Courier New',Courier,monospace"
+  endcase
+
+  assign card_text_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+  case section.settings.card_text_font
+    when 'mono'
+      assign card_text_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Light','Founders Grotesk Mono Regular','Courier New',monospace"
+    when 'system_sans'
+      assign card_text_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign card_text_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign card_text_font_family = "'Courier New',Courier,monospace"
+  endcase
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --dcg-bg: {{ section.settings.section_bg }};
+    --dcg-card-bg: {{ section.settings.card_bg }};
+    --dcg-title-color: {{ section.settings.title_color }};
+    --dcg-desc-color: {{ section.settings.desc_color }};
+    --dcg-card-title-color: {{ section.settings.card_title_color }};
+    --dcg-card-text-color: {{ section.settings.card_text_color }};
+    --dcg-title-font: {{ title_font_family }};
+    --dcg-desc-font: {{ desc_font_family }};
+    --dcg-card-title-font: {{ card_title_font_family }};
+    --dcg-card-text-font: {{ card_text_font_family }};
+    --dcg-title-size: {{ section.settings.title_size }}px;
+    --dcg-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --dcg-title-weight: {{ section.settings.title_weight }};
+    --dcg-desc-size: {{ section.settings.desc_size }}px;
+    --dcg-desc-size-mobile: {{ section.settings.desc_size_mobile }}px;
+    --dcg-desc-weight: {{ section.settings.desc_weight }};
+    --dcg-card-title-size: {{ section.settings.card_title_size }}px;
+    --dcg-card-title-size-mobile: {{ section.settings.card_title_size_mobile }}px;
+    --dcg-card-title-weight: {{ section.settings.card_title_weight }};
+    --dcg-card-text-size: {{ section.settings.card_text_size }}px;
+    --dcg-card-text-size-mobile: {{ section.settings.card_text_size_mobile }}px;
+    --dcg-card-text-weight: {{ section.settings.card_text_weight }};
+    --dcg-section-max-width: {{ section.settings.section_max_width }}px;
+    --dcg-padding-top: {{ section.settings.padding_top }}px;
+    --dcg-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --dcg-padding-x: {{ section.settings.padding_x }}px;
+    --dcg-header-margin-bottom: {{ section.settings.header_margin_bottom }}px;
+    --dcg-title-margin-bottom: {{ section.settings.title_margin_bottom }}px;
+    --dcg-grid-gap: {{ section.settings.grid_gap }}px;
+    --dcg-card-radius: {{ section.settings.card_radius }}px;
+    --dcg-image-height: {{ section.settings.image_height }}px;
+    --dcg-content-padding-y: {{ section.settings.content_padding_y }}px;
+    --dcg-content-padding-x: {{ section.settings.content_padding_x }}px;
+    --dcg-card-title-margin-bottom: {{ section.settings.card_title_margin_bottom }}px;
+    --dcg-card-min-height: {{ section.settings.card_min_height }}px;
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid {
+    background: var(--dcg-bg);
+    padding: var(--dcg-padding-top) var(--dcg-padding-x) var(--dcg-padding-bottom);
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__inner {
+    width: 100%;
+    max-width: var(--dcg-section-max-width);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__header {
+    margin: 0 auto var(--dcg-header-margin-bottom);
+    max-width: {{ section.settings.header_max_width }}px;
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__title {
+    margin: 0 0 var(--dcg-title-margin-bottom);
+    color: var(--dcg-title-color);
+    font-family: var(--dcg-title-font);
+    font-size: var(--dcg-title-size);
+    font-weight: var(--dcg-title-weight);
+    line-height: {{ section.settings.title_line_height | divided_by: 100.0 }};
+    letter-spacing: {{ section.settings.title_letter_spacing | divided_by: 1000.0 }}em;
+    text-transform: {{ section.settings.title_transform }};
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__description {
+    margin: 0;
+    color: var(--dcg-desc-color);
+    font-family: var(--dcg-desc-font);
+    font-size: var(--dcg-desc-size);
+    font-weight: var(--dcg-desc-weight);
+    line-height: {{ section.settings.desc_line_height | divided_by: 100.0 }};
+    letter-spacing: {{ section.settings.desc_letter_spacing | divided_by: 1000.0 }}em;
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__items {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));
+    gap: var(--dcg-grid-gap);
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__card {
+    overflow: hidden;
+    min-height: var(--dcg-card-min-height);
+    border-radius: var(--dcg-card-radius);
+    background: var(--dcg-card-bg);
+    color: var(--dcg-card-text-color);
+    {% if section.settings.card_border_width > 0 %}border: {{ section.settings.card_border_width }}px solid {{ section.settings.card_border_color }};{% endif %}
+    {% if section.settings.card_shadow %}box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);{% endif %}
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__media {
+    width: 100%;
+    height: var(--dcg-image-height);
+    background: {{ section.settings.placeholder_bg }};
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__media img,
+  #shopify-section-{{ section.id }} .daily-card-grid__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: {{ section.settings.image_position }};
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__placeholder {
+    background: {{ section.settings.placeholder_bg }};
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__content {
+    padding: var(--dcg-content-padding-y) var(--dcg-content-padding-x);
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__card-title {
+    margin: 0 0 var(--dcg-card-title-margin-bottom);
+    color: var(--dcg-card-title-color);
+    font-family: var(--dcg-card-title-font);
+    font-size: var(--dcg-card-title-size);
+    font-weight: var(--dcg-card-title-weight);
+    line-height: {{ section.settings.card_title_line_height | divided_by: 100.0 }};
+    letter-spacing: {{ section.settings.card_title_letter_spacing | divided_by: 1000.0 }}em;
+    text-transform: {{ section.settings.card_title_transform }};
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__card-text {
+    margin: 0;
+    color: var(--dcg-card-text-color);
+    font-family: var(--dcg-card-text-font);
+    font-size: var(--dcg-card-text-size);
+    font-weight: var(--dcg-card-text-weight);
+    line-height: {{ section.settings.card_text_line_height | divided_by: 100.0 }};
+    letter-spacing: {{ section.settings.card_text_letter_spacing | divided_by: 1000.0 }}em;
+  }
+
+  #shopify-section-{{ section.id }} .daily-card-grid__card-text p { margin: 0; }
+  #shopify-section-{{ section.id }} .daily-card-grid__card-text p + p { margin-top: 0.8em; }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .daily-card-grid__items {
+      grid-template-columns: repeat({{ section.settings.columns_tablet }}, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .daily-card-grid {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+      padding-left: {{ section.settings.padding_x_mobile }}px;
+      padding-right: {{ section.settings.padding_x_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .daily-card-grid__header {
+      margin-bottom: {{ section.settings.header_margin_bottom_mobile }}px;
+      text-align: {{ section.settings.header_alignment_mobile }};
+    }
+
+    #shopify-section-{{ section.id }} .daily-card-grid__title {
+      font-size: var(--dcg-title-size-mobile);
+      margin-bottom: {{ section.settings.title_margin_bottom_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .daily-card-grid__description { font-size: var(--dcg-desc-size-mobile); }
+
+    #shopify-section-{{ section.id }} .daily-card-grid__items {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, minmax(0, 1fr));
+      gap: {{ section.settings.grid_gap_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .daily-card-grid__media { height: {{ section.settings.image_height_mobile }}px; }
+    #shopify-section-{{ section.id }} .daily-card-grid__content { padding: {{ section.settings.content_padding_y_mobile }}px {{ section.settings.content_padding_x_mobile }}px; }
+    #shopify-section-{{ section.id }} .daily-card-grid__card-title { font-size: var(--dcg-card-title-size-mobile); margin-bottom: {{ section.settings.card_title_margin_bottom_mobile }}px; }
+    #shopify-section-{{ section.id }} .daily-card-grid__card-text { font-size: var(--dcg-card-text-size-mobile); }
+  }
+</style>
+
+<section class="daily-card-grid" {{ section.shopify_attributes }}>
+  <div class="daily-card-grid__inner">
+    {%- if section.settings.title != blank or section.settings.description != blank -%}
+      <div class="daily-card-grid__header">
+        {%- if section.settings.title != blank -%}
+          <{{ section.settings.title_tag }} class="daily-card-grid__title">{{ section.settings.title | escape }}</{{ section.settings.title_tag }}>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="daily-card-grid__description">{{ section.settings.description }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="daily-card-grid__items">
+      {%- for block in section.blocks -%}
+        <article class="daily-card-grid__card" {{ block.shopify_attributes }}>
+          <div class="daily-card-grid__media">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 33vw, (min-width: 750px) 50vw, 100vw', widths: '360, 540, 720, 900, 1200' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'daily-card-grid__placeholder' }}
+            {%- endif -%}
+          </div>
+          <div class="daily-card-grid__content">
+            {%- if block.settings.title != blank -%}
+              <h3 class="daily-card-grid__card-title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="daily-card-grid__card-text">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cartes lifestyle",
+  "settings": [
+    {"type": "header", "content": "Contenu"},
+    {"type": "text", "id": "title", "label": "Titre", "default": "Overal. Elke dag."},
+    {"type": "richtext", "id": "description", "label": "Description"},
+    {"type": "select", "id": "title_tag", "label": "Balise du titre", "default": "h2", "options": [{"value": "h1", "label": "H1"}, {"value": "h2", "label": "H2"}, {"value": "h3", "label": "H3"}, {"value": "div", "label": "Div"}]},
+
+    {"type": "header", "content": "Typographie du titre"},
+    {"type": "select", "id": "title_font", "label": "Police du titre", "default": "grotesk", "options": [{"value": "grotesk", "label": "Founders Grotesk"}, {"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "range", "id": "title_size", "label": "Taille titre desktop", "min": 16, "max": 96, "step": 1, "default": 46, "unit": "px"},
+    {"type": "range", "id": "title_size_mobile", "label": "Taille titre mobile", "min": 14, "max": 64, "step": 1, "default": 32, "unit": "px"},
+    {"type": "range", "id": "title_weight", "label": "Graisse titre", "min": 0, "max": 900, "step": 50, "default": 500},
+    {"type": "range", "id": "title_line_height", "label": "Line-height titre", "min": 80, "max": 160, "step": 5, "default": 100, "unit": "%"},
+    {"type": "range", "id": "title_letter_spacing", "label": "Espacement lettres titre", "min": -50, "max": 200, "step": 5, "default": -30},
+    {"type": "select", "id": "title_transform", "label": "Casse du titre", "default": "none", "options": [{"value": "none", "label": "Normal"}, {"value": "uppercase", "label": "Majuscules"}, {"value": "lowercase", "label": "Minuscules"}]},
+    {"type": "color", "id": "title_color", "label": "Couleur titre", "default": "#1C1C1C"},
+
+    {"type": "header", "content": "Typographie description"},
+    {"type": "select", "id": "desc_font", "label": "Police description", "default": "grotesk", "options": [{"value": "grotesk", "label": "Founders Grotesk"}, {"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "range", "id": "desc_size", "label": "Taille description desktop", "min": 10, "max": 36, "step": 1, "default": 18, "unit": "px"},
+    {"type": "range", "id": "desc_size_mobile", "label": "Taille description mobile", "min": 10, "max": 28, "step": 1, "default": 15, "unit": "px"},
+    {"type": "range", "id": "desc_weight", "label": "Graisse description", "min": 0, "max": 900, "step": 50, "default": 400},
+    {"type": "range", "id": "desc_line_height", "label": "Line-height description", "min": 100, "max": 200, "step": 5, "default": 140, "unit": "%"},
+    {"type": "range", "id": "desc_letter_spacing", "label": "Espacement lettres description", "min": -50, "max": 150, "step": 5, "default": 0},
+    {"type": "color", "id": "desc_color", "label": "Couleur description", "default": "#727272"},
+
+    {"type": "header", "content": "Typographie cards"},
+    {"type": "select", "id": "card_title_font", "label": "Police titre card", "default": "grotesk", "options": [{"value": "grotesk", "label": "Founders Grotesk"}, {"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "select", "id": "card_text_font", "label": "Police texte card", "default": "grotesk", "options": [{"value": "grotesk", "label": "Founders Grotesk"}, {"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "range", "id": "card_title_size", "label": "Taille titre card desktop", "min": 10, "max": 56, "step": 1, "default": 26, "unit": "px"},
+    {"type": "range", "id": "card_title_size_mobile", "label": "Taille titre card mobile", "min": 10, "max": 40, "step": 1, "default": 22, "unit": "px"},
+    {"type": "range", "id": "card_title_weight", "label": "Graisse titre card", "min": 0, "max": 900, "step": 50, "default": 600},
+    {"type": "range", "id": "card_title_line_height", "label": "Line-height titre card", "min": 80, "max": 160, "step": 5, "default": 105, "unit": "%"},
+    {"type": "range", "id": "card_title_letter_spacing", "label": "Espacement lettres titre card", "min": -50, "max": 150, "step": 5, "default": -20},
+    {"type": "select", "id": "card_title_transform", "label": "Casse titre card", "default": "none", "options": [{"value": "none", "label": "Normal"}, {"value": "uppercase", "label": "Majuscules"}, {"value": "lowercase", "label": "Minuscules"}]},
+    {"type": "range", "id": "card_text_size", "label": "Taille texte card desktop", "min": 10, "max": 32, "step": 1, "default": 18, "unit": "px"},
+    {"type": "range", "id": "card_text_size_mobile", "label": "Taille texte card mobile", "min": 10, "max": 26, "step": 1, "default": 16, "unit": "px"},
+    {"type": "range", "id": "card_text_weight", "label": "Graisse texte card", "min": 0, "max": 900, "step": 50, "default": 400},
+    {"type": "range", "id": "card_text_line_height", "label": "Line-height texte card", "min": 100, "max": 200, "step": 5, "default": 145, "unit": "%"},
+    {"type": "range", "id": "card_text_letter_spacing", "label": "Espacement lettres texte card", "min": -50, "max": 150, "step": 5, "default": -10},
+    {"type": "color", "id": "card_title_color", "label": "Couleur titre card", "default": "#1F1F1F"},
+    {"type": "color", "id": "card_text_color", "label": "Couleur texte card", "default": "#707070"},
+
+    {"type": "header", "content": "Mise en page"},
+    {"type": "color", "id": "section_bg", "label": "Fond section", "default": "#F4F4F4"},
+    {"type": "color", "id": "card_bg", "label": "Fond cards", "default": "#E9E9E9"},
+    {"type": "range", "id": "section_max_width", "label": "Largeur max section", "min": 900, "max": 1800, "step": 20, "default": 1320, "unit": "px"},
+    {"type": "range", "id": "header_max_width", "label": "Largeur max titre/description", "min": 300, "max": 1200, "step": 20, "default": 900, "unit": "px"},
+    {"type": "select", "id": "header_alignment", "label": "Alignement header desktop", "default": "center", "options": [{"value": "left", "label": "Gauche"}, {"value": "center", "label": "Centre"}, {"value": "right", "label": "Droite"}]},
+    {"type": "select", "id": "header_alignment_mobile", "label": "Alignement header mobile", "default": "center", "options": [{"value": "left", "label": "Gauche"}, {"value": "center", "label": "Centre"}, {"value": "right", "label": "Droite"}]},
+    {"type": "range", "id": "columns_desktop", "label": "Colonnes desktop", "min": 1, "max": 4, "step": 1, "default": 3},
+    {"type": "range", "id": "columns_tablet", "label": "Colonnes tablette", "min": 1, "max": 3, "step": 1, "default": 2},
+    {"type": "select", "id": "columns_mobile", "label": "Colonnes mobile", "default": "1", "options": [{"value": "1", "label": "1 colonne"}, {"value": "2", "label": "2 colonnes"}]},
+    {"type": "range", "id": "grid_gap", "label": "Gap cards desktop", "min": 0, "max": 80, "step": 2, "default": 20, "unit": "px"},
+    {"type": "range", "id": "grid_gap_mobile", "label": "Gap cards mobile", "min": 0, "max": 50, "step": 1, "default": 16, "unit": "px"},
+    {"type": "range", "id": "padding_top", "label": "Padding haut desktop", "min": 0, "max": 180, "step": 4, "default": 68, "unit": "px"},
+    {"type": "range", "id": "padding_bottom", "label": "Padding bas desktop", "min": 0, "max": 180, "step": 4, "default": 72, "unit": "px"},
+    {"type": "range", "id": "padding_x", "label": "Padding côtés desktop", "min": 0, "max": 120, "step": 4, "default": 40, "unit": "px"},
+    {"type": "range", "id": "padding_top_mobile", "label": "Padding haut mobile", "min": 0, "max": 140, "step": 2, "default": 44, "unit": "px"},
+    {"type": "range", "id": "padding_bottom_mobile", "label": "Padding bas mobile", "min": 0, "max": 140, "step": 2, "default": 44, "unit": "px"},
+    {"type": "range", "id": "padding_x_mobile", "label": "Padding côtés mobile", "min": 0, "max": 60, "step": 1, "default": 18, "unit": "px"},
+    {"type": "range", "id": "header_margin_bottom", "label": "Marge sous header desktop", "min": 0, "max": 120, "step": 2, "default": 60, "unit": "px"},
+    {"type": "range", "id": "header_margin_bottom_mobile", "label": "Marge sous header mobile", "min": 0, "max": 80, "step": 2, "default": 32, "unit": "px"},
+    {"type": "range", "id": "title_margin_bottom", "label": "Marge sous titre desktop", "min": 0, "max": 60, "step": 1, "default": 0, "unit": "px"},
+    {"type": "range", "id": "title_margin_bottom_mobile", "label": "Marge sous titre mobile", "min": 0, "max": 50, "step": 1, "default": 0, "unit": "px"},
+
+    {"type": "header", "content": "Cards et images"},
+    {"type": "range", "id": "card_radius", "label": "Arrondi cards", "min": 0, "max": 60, "step": 1, "default": 10, "unit": "px"},
+    {"type": "range", "id": "card_min_height", "label": "Hauteur minimum card", "min": 0, "max": 900, "step": 10, "default": 0, "unit": "px"},
+    {"type": "range", "id": "image_height", "label": "Hauteur image desktop", "min": 120, "max": 700, "step": 10, "default": 380, "unit": "px"},
+    {"type": "range", "id": "image_height_mobile", "label": "Hauteur image mobile", "min": 120, "max": 520, "step": 10, "default": 280, "unit": "px"},
+    {"type": "select", "id": "image_fit", "label": "Ajustement image", "default": "cover", "options": [{"value": "cover", "label": "Cover"}, {"value": "contain", "label": "Contain"}]},
+    {"type": "select", "id": "image_position", "label": "Position image", "default": "center center", "options": [{"value": "center center", "label": "Centre"}, {"value": "center top", "label": "Haut"}, {"value": "center bottom", "label": "Bas"}, {"value": "left center", "label": "Gauche"}, {"value": "right center", "label": "Droite"}]},
+    {"type": "color", "id": "placeholder_bg", "label": "Fond placeholder", "default": "#DDDDDD"},
+    {"type": "range", "id": "content_padding_y", "label": "Padding contenu vertical desktop", "min": 0, "max": 80, "step": 2, "default": 28, "unit": "px"},
+    {"type": "range", "id": "content_padding_x", "label": "Padding contenu horizontal desktop", "min": 0, "max": 80, "step": 2, "default": 24, "unit": "px"},
+    {"type": "range", "id": "content_padding_y_mobile", "label": "Padding contenu vertical mobile", "min": 0, "max": 60, "step": 1, "default": 22, "unit": "px"},
+    {"type": "range", "id": "content_padding_x_mobile", "label": "Padding contenu horizontal mobile", "min": 0, "max": 60, "step": 1, "default": 20, "unit": "px"},
+    {"type": "range", "id": "card_title_margin_bottom", "label": "Marge sous titre card desktop", "min": 0, "max": 50, "step": 1, "default": 12, "unit": "px"},
+    {"type": "range", "id": "card_title_margin_bottom_mobile", "label": "Marge sous titre card mobile", "min": 0, "max": 40, "step": 1, "default": 10, "unit": "px"},
+    {"type": "range", "id": "card_border_width", "label": "Épaisseur bordure card", "min": 0, "max": 8, "step": 1, "default": 0, "unit": "px"},
+    {"type": "color", "id": "card_border_color", "label": "Couleur bordure card", "default": "#000000"},
+    {"type": "checkbox", "id": "card_shadow", "label": "Ombre légère sur cards", "default": false}
+  ],
+  "blocks": [
+    {"type": "card", "name": "Card", "settings": [{"type": "image_picker", "id": "image", "label": "Image"}, {"type": "text", "id": "title", "label": "Titre", "default": "One bag for everything."}, {"type": "richtext", "id": "text", "label": "Texte", "default": "<p>No need to switch between bags. Your bag carries your day with confidence: from work to workout, groceries, meetings and moments in between.</p>"}]}
+  ],
+  "presets": [
+    {"name": "Cartes lifestyle", "blocks": [{"type": "card", "settings": {"title": "One bag for everything.", "text": "<p>No need to switch between bags. Your bag carries your day with confidence: from work to workout, groceries, meetings and moments in between.</p>"}}, {"type": "card", "settings": {"title": "Everything in place. Nothing in the way.", "text": "<p>Smart compartments keep your essentials organized, not scattered. Because ease isn’t extra: it’s built in.</p>"}}, {"type": "card", "settings": {"title": "Style without effort.", "text": "<p>Minimal design. Clean form. A bag that fits every outfit, every plan, every hour of your day.</p>"}}]}
+  ]
+}
+{% endschema %}

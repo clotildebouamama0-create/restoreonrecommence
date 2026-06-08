@@ -1,0 +1,977 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "order": [
+    "image_with_text_overlay_QP7dD4",
+    "image_with_text_overlay_QjMbig",
+    "hero16_w8x9re",
+    "featured-collections",
+    "video_with_text_8NABkT",
+    "images_with_text_tDRXxj",
+    "scrolling-text-2",
+    "rich_text_nWLPqC",
+    "bentogrid_6jcdxc",
+    "blog_posts_collage_8p8Ekj"
+  ],
+  "sections": {
+    "bentogrid_6jcdxc": {
+      "type": "bentogrid",
+      "blocks": {
+        "item_7rQPHj": {
+          "type": "item",
+          "settings": {
+            "column_width": 2,
+            "row_width": 1,
+            "heading": "<h2><strong>15% to 55%</strong></h2>",
+            "heading_custom": false,
+            "heading_font": "manrope_n4",
+            "heading_size": 40,
+            "heading_size_mobile": 32,
+            "heading_height": 90,
+            "heading_align": "center",
+            "heading_align_mobile": "center",
+            "text": "<p>Fatty liver affects 15% to 55% of women with PCOS and can be improved by diet changes.</p>",
+            "text_custom": false,
+            "text_font": "manrope_n4",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_height": 150,
+            "text_mt": 22,
+            "text_align": "center",
+            "text_align_mobile": "center",
+            "button": "",
+            "button_url": "",
+            "button_custom": false,
+            "button_font": "josefin_sans_n4",
+            "button_size": 16,
+            "button_size_mobile": 16,
+            "button_height": 100,
+            "button_width": 200,
+            "button_width_mobile": 200,
+            "button_mt": 16,
+            "button_mt_mobile": 16,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 24,
+            "button_padding_horizontal_mobile": 24,
+            "button_radius": 4,
+            "button_border_thickness": 1,
+            "button_align": "center",
+            "button_align_mobile": "center",
+            "button_style": "non_outline",
+            "image_position": "right",
+            "image_position_mobile": "right",
+            "image_width": 100,
+            "image_width_mobile": 100,
+            "image_radius": 0,
+            "image_border_thickness": 0,
+            "image_ratio": "square",
+            "image_ratio_mobile": "square",
+            "hide_image": true,
+            "background_color": "#d6d7eb",
+            "background_gradient": "",
+            "item_border_color": "#000000",
+            "item_heading_color": "#2d0320",
+            "item_heading_gradient": "",
+            "item_text_color": "#2d0320",
+            "image_border_color": "#3e3e3e",
+            "button_color": "#ffffff",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#000000",
+            "button_bg_hover_color": "#000000",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#000000"
+          }
+        },
+        "item_JctKVG": {
+          "type": "item",
+          "settings": {
+            "column_width": 2,
+            "row_width": 1,
+            "heading": "<h2><strong>50-70%</strong></h2>",
+            "heading_custom": false,
+            "heading_font": "manrope_n4",
+            "heading_size": 40,
+            "heading_size_mobile": 32,
+            "heading_height": 90,
+            "heading_align": "center",
+            "heading_align_mobile": "center",
+            "text": "<p>It is estimated that 50-70% of women with PCOS have insulin resistance.</p>",
+            "text_custom": false,
+            "text_font": "manrope_n4",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_height": 150,
+            "text_mt": 22,
+            "text_align": "center",
+            "text_align_mobile": "center",
+            "button": "",
+            "button_url": "",
+            "button_custom": false,
+            "button_font": "manrope_n4",
+            "button_size": 16,
+            "button_size_mobile": 16,
+            "button_height": 100,
+            "button_width": 200,
+            "button_width_mobile": 200,
+            "button_mt": 16,
+            "button_mt_mobile": 16,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 24,
+            "button_padding_horizontal_mobile": 24,
+            "button_radius": 4,
+            "button_border_thickness": 1,
+            "button_align": "center",
+            "button_align_mobile": "center",
+            "button_style": "non_outline",
+            "image_position": "right",
+            "image_position_mobile": "right",
+            "image_width": 100,
+            "image_width_mobile": 100,
+            "image_radius": 0,
+            "image_border_thickness": 0,
+            "image_ratio": "square",
+            "image_ratio_mobile": "square",
+            "hide_image": true,
+            "background_color": "#d6d7eb",
+            "background_gradient": "",
+            "item_border_color": "#000000",
+            "item_heading_color": "#2d0320",
+            "item_heading_gradient": "",
+            "item_text_color": "#2d0320",
+            "image_border_color": "#121212",
+            "button_color": "#ffffff",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#000000",
+            "button_bg_hover_color": "#000000",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#000000"
+          }
+        },
+        "item_n8TfxU": {
+          "type": "item",
+          "settings": {
+            "column_width": 2,
+            "row_width": 1,
+            "heading": "<h2><strong>100%</strong></h2>",
+            "heading_custom": false,
+            "heading_font": "manrope_n4",
+            "heading_size": 40,
+            "heading_size_mobile": 32,
+            "heading_height": 90,
+            "heading_align": "center",
+            "heading_align_mobile": "center",
+            "text": "<p>Natural remedies can significantly improve symptoms.</p>",
+            "text_custom": false,
+            "text_font": "manrope_n4",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_height": 150,
+            "text_mt": 22,
+            "text_align": "center",
+            "text_align_mobile": "center",
+            "button": "",
+            "button_url": "",
+            "button_custom": false,
+            "button_font": "josefin_sans_n4",
+            "button_size": 16,
+            "button_size_mobile": 16,
+            "button_height": 100,
+            "button_width": 200,
+            "button_width_mobile": 200,
+            "button_mt": 16,
+            "button_mt_mobile": 16,
+            "button_padding_vertical": 16,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 24,
+            "button_padding_horizontal_mobile": 24,
+            "button_radius": 4,
+            "button_border_thickness": 1,
+            "button_align": "center",
+            "button_align_mobile": "center",
+            "button_style": "non_outline",
+            "image_position": "right",
+            "image_position_mobile": "right",
+            "image_width": 100,
+            "image_width_mobile": 100,
+            "image_radius": 0,
+            "image_border_thickness": 0,
+            "image_ratio": "square",
+            "image_ratio_mobile": "square",
+            "hide_image": true,
+            "background_color": "#d6d7eb",
+            "background_gradient": "",
+            "item_border_color": "#000000",
+            "item_heading_color": "#2d0320",
+            "item_heading_gradient": "",
+            "item_text_color": "#2d0320",
+            "image_border_color": "#3e3e3e",
+            "button_color": "#ffffff",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#000000",
+            "button_bg_hover_color": "#000000",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#000000"
+          }
+        },
+        "item_njBGWM": {
+          "type": "item",
+          "settings": {
+            "column_width": 1,
+            "row_width": 1,
+            "heading": "<h2><strong>6% to 10%</strong></h2>",
+            "heading_custom": false,
+            "heading_font": "manrope_n4",
+            "heading_size": 40,
+            "heading_size_mobile": 32,
+            "heading_height": 90,
+            "heading_align": "center",
+            "heading_align_mobile": "center",
+            "text": "<p>Worldwide, PCOS affects 6% to 10% of women, making it the most common endocrine disorder in women of childbearing age.</p>",
+            "text_custom": false,
+            "text_font": "manrope_n4",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_height": 150,
+            "text_mt": 22,
+            "text_align": "left",
+            "text_align_mobile": "left",
+            "button": "",
+            "button_url": "",
+            "button_custom": false,
+            "button_font": "josefin_sans_n4",
+            "button_size": 15,
+            "button_size_mobile": 16,
+            "button_height": 100,
+            "button_width": 320,
+            "button_width_mobile": 200,
+            "button_mt": 16,
+            "button_mt_mobile": 16,
+            "button_padding_vertical": 30,
+            "button_padding_vertical_mobile": 16,
+            "button_padding_horizontal": 40,
+            "button_padding_horizontal_mobile": 24,
+            "button_radius": 22,
+            "button_border_thickness": 1,
+            "button_align": "center",
+            "button_align_mobile": "center",
+            "button_style": "non_outline_arrow",
+            "image_position": "bottom",
+            "image_position_mobile": "right",
+            "image_width": 100,
+            "image_width_mobile": 100,
+            "image_radius": 0,
+            "image_border_thickness": 0,
+            "image_ratio": "square",
+            "image_ratio_mobile": "square",
+            "hide_image": true,
+            "background_color": "#d6d7eb",
+            "background_gradient": "linear-gradient(0deg, rgba(NaN, NaN, NaN, 1), rgba(255, 204, 75, 1) 100%)",
+            "item_border_color": "#3e3e3e",
+            "item_heading_color": "#2d0320",
+            "item_heading_gradient": "",
+            "item_text_color": "#2d0320",
+            "image_border_color": "#121212",
+            "button_color": "#ffffff",
+            "button_hover_color": "#ffffff",
+            "button_bg_color": "#000000",
+            "button_bg_hover_color": "#000000",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "item_njBGWM",
+        "item_7rQPHj",
+        "item_JctKVG",
+        "item_n8TfxU"
+      ],
+      "name": "SS - Bento Grid",
+      "settings": {
+        "body_columns": "4",
+        "body_gap": 16,
+        "body_gap_mobile": 14,
+        "item_padding_vertical": 32,
+        "item_padding_vertical_mobile": 16,
+        "item_padding_horizontal": 32,
+        "item_padding_horizontal_mobile": 16,
+        "item_radius": 16,
+        "item_border_thickness": 0,
+        "item_opacity": 1,
+        "item_shadow": false,
+        "background_color": "#fff1f2",
+        "background_gradient": "linear-gradient(180deg, rgba(255, 251, 250, 1), rgba(255, 255, 255, 1) 49.281%, rgba(172, 2, 95, 1) 90%, rgba(172, 2, 95, 1) 97%)",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "item_width": 140,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "blog_posts_collage_8p8Ekj": {
+      "type": "blog-posts-collage",
+      "name": "t:sections.blog-posts-collage.name",
+      "settings": {
+        "blog": "infos",
+        "post_limit": 3,
+        "show_view_all": true,
+        "image_ratio": "portrait",
+        "show_tags": false,
+        "show_date": false,
+        "show_comments": false,
+        "show_author": false,
+        "show_excerpt": false,
+        "heading": "HORMONE ACADEMY",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "Blog Posts",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "#ffffff",
+        "color_button_background": "#ac025f",
+        "color_button_gradient": "",
+        "padding_top": 32,
+        "padding_bottom": 12,
+        "divider": false,
+        "full_width": false,
+        "rounded": false
+      }
+    },
+    "featured-collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "all",
+            "products": [
+              "tisane-sopk-desequilibre-hormonal",
+              "tea-ball-infuser",
+              "the-basics-of-pcos-ebook"
+            ],
+            "title": "ALL"
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "accessories",
+            "products": [
+              "tea-ball-infuser"
+            ],
+            "title": "ACCESSORIES"
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "books",
+            "products": [
+              "the-basics-of-pcos-ebook"
+            ],
+            "title": "BOOKS"
+          }
+        },
+        "collection_i6jj8w": {
+          "type": "collection",
+          "settings": {
+            "collection": "tea",
+            "products": [
+              "tisane-sopk-desequilibre-hormonal"
+            ],
+            "title": "TEAS"
+          }
+        }
+      },
+      "block_order": [
+        "collection-1",
+        "collection_i6jj8w",
+        "collection-2",
+        "collection-3"
+      ],
+      "settings": {
+        "product_limit": 6,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "<em><strong> Collection</strong></em>",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "scribble",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "#ac025f",
+        "gradient_highlight": "",
+        "color_button_text": "#fafafa",
+        "color_button_background": "#ac025f",
+        "color_button_gradient": "",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "hero16_w8x9re": {
+      "type": "hero16",
+      "blocks": {
+        "button_y7rwT3": {
+          "type": "button",
+          "settings": {
+            "button": "SHOP NOW !",
+            "url": "",
+            "button_custom": false,
+            "button_font": "josefin_sans_n4",
+            "button_size": 16,
+            "button_size_mobile": 14,
+            "button_height": 100,
+            "button_padding_horizontal": 62,
+            "button_padding_horizontal_mobile": 62,
+            "button_padding_vertical": 26,
+            "button_padding_vertical_mobile": 26,
+            "button_radius": 8,
+            "button_border_thickness": 1,
+            "button_mt": 36,
+            "button_mt_mobile": 24,
+            "button_style": "non_outline_arrow",
+            "button_color": "#ffffff",
+            "button_hover_color": "#000000",
+            "button_bg_color": "#f25547",
+            "button_bg_hover_color": "#fff89c",
+            "button_border_color": "#000000",
+            "button_border_hover_color": "#000000"
+          }
+        },
+        "heading_hz6Xwe": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p><strong>Your Daily Ritual for PCOS Relief</strong></p>",
+            "heading_custom": true,
+            "heading_font": "unbounded_n4",
+            "heading_size": 44,
+            "heading_size_mobile": 28,
+            "heading_height": 130,
+            "heading_mt": 24,
+            "heading_mt_mobile": 24,
+            "heading_color": "#f25547"
+          }
+        },
+        "review_yL9BhG": {
+          "type": "review",
+          "settings": {
+            "review_padding_horizontal": 14,
+            "review_padding_horizontal_mobile": 14,
+            "review_padding_vertical": 14,
+            "review_padding_vertical_mobile": 14,
+            "review_radius": 10,
+            "review_bg_opacity": 0.4,
+            "review_mt": 16,
+            "review_mt_mobile": 10,
+            "stars_count": 4.5,
+            "stars_size": 18,
+            "stars_size_mobile": 14,
+            "review": "<p>Excellent <strong>4.6</strong> | 1,000+ Customers</p>",
+            "review_custom": false,
+            "review_font": "josefin_sans_n4",
+            "review_size": 16,
+            "review_size_mobile": 12,
+            "review_height": 130,
+            "review_color": "#000000",
+            "stars_color": "#ffffff",
+            "stars_bg_color": "#f25547",
+            "review_bg_color": "#ffffff"
+          }
+        },
+        "text_qEaJ96": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Transform your relationship with PCOS through nature's most powerful remedies</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "text_size": 18,
+            "text_size_mobile": 16,
+            "text_height": 150,
+            "text_mt": 16,
+            "text_mt_mobile": 10,
+            "text_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "review_yL9BhG",
+        "heading_hz6Xwe",
+        "text_qEaJ96",
+        "button_y7rwT3"
+      ],
+      "disabled": true,
+      "name": "SS - Hero #16",
+      "settings": {
+        "hero_height": "adapt_first",
+        "hero_fixed_height": 670,
+        "body_layout": "text_image",
+        "body_layout_mobile": "image_text",
+        "body_gap": 44,
+        "body_gap_mobile": 32,
+        "content_align": "left",
+        "content_align_mobile": "center",
+        "content_vertical_align": "center",
+        "image": "shopify://shop_images/Gemini_Generated_Image_ccxzq5ccxzq5ccxz-_1__1.webp",
+        "image_width": 38,
+        "image_ratio_mobile": "square",
+        "image_radius": 46,
+        "background_image": "shopify://shop_images/image_bg.webp",
+        "background_image_mobile": "shopify://shop_images/image_bg.webp",
+        "background_overlay": 0,
+        "background_color": "#ac025f",
+        "background_overlay_color": "#ac025f",
+        "background_gradient": "",
+        "border_color": "#ac025f",
+        "margin_top": 8,
+        "margin_bottom": 20,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "padding_horizontal": 8,
+        "padding_horizontal_mobile": 3.5,
+        "full_width": true,
+        "content_width": 1100,
+        "border_thickness": 3,
+        "section_radius": 0,
+        "lazy": false
+      }
+    },
+    "image_with_text_overlay_QP7dD4": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_tk3dVG": {
+          "type": "heading",
+          "settings": {
+            "heading": "Ready for Hormonal Harmony?",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "subheading_tpmpWx": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "YOUR DAILY RITUAL",
+            "subheading_size": "subtitle-md",
+            "secondary_color": true
+          }
+        },
+        "text_bydw6w": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Support your hormonal health with our 100% organic, naturopath-formulated loose leaf tea.</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_tpmpWx",
+        "heading_tk3dVG",
+        "text_bydw6w"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "transparent_header": true,
+        "image": "shopify://shop_images/Design_sans_titre_5.png",
+        "image_height": "750px",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_mobile": "shopify://shop_images/shoot_pack_tea_simple_size_2.webp",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#fafafa",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#ac025f",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 22,
+        "padding_top": 0,
+        "padding_bottom": 28,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": true,
+        "parallax_direction": "vertical"
+      }
+    },
+    "image_with_text_overlay_QjMbig": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_dx4pL7": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text overlay",
+            "heading_size": "title-lg tracking-heading",
+            "heading_tag": "h2",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "subheading_Tn3Rkp": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Add a tagline",
+            "subheading_size": "subtitle-md",
+            "secondary_color": true
+          }
+        },
+        "text_6hMgEB": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_Tn3Rkp",
+        "heading_dx4pL7",
+        "text_6hMgEB"
+      ],
+      "disabled": true,
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "transparent_header": false,
+        "image": "shopify://shop_images/Gemini_Generated_Image_ccxzq5ccxzq5ccxz.webp",
+        "image_height": "750px",
+        "content_width": "small",
+        "content_position": "md:items-end md:justify-start",
+        "text_alignment": "left",
+        "image_height_mobile": "auto",
+        "content_position_mobile": "items-end justify-start",
+        "text_alignment_mobile": "left",
+        "color_text": "#ffffff",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "#e0a580",
+        "gradient_highlight": "",
+        "color_button_text": "#171717",
+        "color_button_background": "#ffffff",
+        "color_button_gradient": "",
+        "color_overlay": "#171717",
+        "overlay_opacity": 70,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": true,
+        "rounded": false,
+        "enable_parallax": true,
+        "parallax_direction": "vertical"
+      }
+    },
+    "images_with_text_tDRXxj": {
+      "type": "images-with-text",
+      "blocks": {
+        "button_X6mnch": {
+          "type": "button",
+          "settings": {
+            "button_label": "Go Discover",
+            "button_link": "shopify://products/tisane-sopk-desequilibre-hormonal",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": false,
+            "button_icon": true
+          }
+        },
+        "heading_iFwVGy": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em><strong>My Story</strong></em>",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "scribble",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": false
+          }
+        },
+        "text_HKVfrt": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I’m Anaya, the founder of Baia Wellness — and I have PCOS too.<br/><br/>I teamed up with leading naturopaths in the UK and China to create a tea blend that helps ease and reverse PCOS symptoms.<br/><br/>✨ Every cup is made with love, ethically produced by a small family of tea makers in China — bringing fairness, tradition, and healing straight to you.</p>",
+            "text_font": "body",
+            "text_size": "subtext-sm",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "heading_iFwVGy",
+        "text_HKVfrt",
+        "button_X6mnch"
+      ],
+      "name": "t:sections.images-with-text.name",
+      "settings": {
+        "image": "shopify://shop_images/Anaya_pouch_product_story.webp",
+        "image_2": "shopify://shop_images/c1417365458aa69ebf2077f1f00318f1.jpg",
+        "image_ratio": "portrait",
+        "image_width": "medium",
+        "layout": "image_first",
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_highlight": "#d6d7eb",
+        "gradient_highlight": "",
+        "color_button_text": "#ffffff",
+        "color_button_background": "#ac025f",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": true
+      }
+    },
+    "rich_text_nWLPqC": {
+      "type": "rich-text",
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "text_alignment": "left",
+        "text_alignment_mobile": "left",
+        "heading": "<strong>💡 </strong><em><strong>Did you know?</strong></em>",
+        "heading_size": "title-md",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_width": "small",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "button_label": "",
+        "button_link": "",
+        "button_external": false,
+        "button_icon": true,
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#2d0320",
+        "color_background": "#d6d7eb",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 44,
+        "padding_bottom": 36,
+        "divider": false,
+        "narrow": true,
+        "rounded": false
+      }
+    },
+    "scrolling-text-2": {
+      "type": "scrolling-text",
+      "blocks": {
+        "image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Baia_Wellness_REBRANDING.webp",
+            "height": 80,
+            "link": "",
+            "accessibility_info": "",
+            "external": false
+          }
+        },
+        "image-2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Baia_Wellness_REBRANDING.webp",
+            "height": 80,
+            "link": "",
+            "accessibility_info": "",
+            "external": false
+          }
+        },
+        "image-3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Baia_Wellness_REBRANDING.webp",
+            "height": 80,
+            "link": "",
+            "accessibility_info": "",
+            "external": false
+          }
+        },
+        "image-4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Baia_Wellness_REBRANDING.webp",
+            "height": 80,
+            "link": "",
+            "accessibility_info": "",
+            "external": false
+          }
+        }
+      },
+      "block_order": [
+        "image-1",
+        "image-2",
+        "image-3",
+        "image-4"
+      ],
+      "settings": {
+        "direction": "right",
+        "speed": 5,
+        "grid_horizontal": 110,
+        "enable_twin": true,
+        "enable_parallax": true,
+        "color_text": "#ac025f",
+        "color_background": "#d6d7eb",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "padding_top": 12,
+        "padding_bottom": 20,
+        "divider": false,
+        "rounded": false
+      }
+    },
+    "video_with_text_8NABkT": {
+      "type": "video-with-text",
+      "blocks": {
+        "button_VXFNzT": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop our PCOS tea",
+            "button_link": "",
+            "button_style": "primary",
+            "button_size": "md",
+            "button_external": false,
+            "button_icon": true
+          }
+        },
+        "heading_YhygPc": {
+          "type": "heading",
+          "settings": {
+            "heading": "Purely <em>Sourced</em>, Mindfully <em>Blended</em>",
+            "heading_size": "title-md",
+            "heading_tag": "h2",
+            "highlighted_text": "marker",
+            "highlighted_scribble": "circle",
+            "highlighted_reveal": true
+          }
+        },
+        "text_wK38aP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Your hormones shouldn’t dictate your life. Meet your new daily ritual: a blend designed to bring your body back into harmony. Inspired by ancient herbal wisdom and backed by modern wellness, our <strong>PCOS Relief Tea</strong> turns a simple cup of tea into a powerful act of self-care. </p>",
+            "text_font": "body",
+            "text_size": "subtext-md",
+            "text_max_size": 32,
+            "text_line_height": 1.6,
+            "text_letter_spacing": 0,
+            "text_capitalize": false,
+            "secondary_color": false,
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YhygPc",
+        "text_wK38aP",
+        "button_VXFNzT"
+      ],
+      "name": "t:sections.video-with-text.name",
+      "settings": {
+        "video": "shopify://files/videos/Video thé Baïa wellness.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "description": "",
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "image_height": "adapt",
+        "video_width": "medium",
+        "layout": "video_first",
+        "text_alignment": "left",
+        "content_position": "align-self-center",
+        "video_url_mobile": "",
+        "image_height_mobile": "auto",
+        "text_alignment_mobile": "left",
+        "color_text": "#2d0320",
+        "color_background": "#fdf6f2",
+        "gradient_background": "",
+        "color_background_2": "",
+        "gradient_background_2": "",
+        "color_highlight": "#d6d7eb",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "#ac025f",
+        "color_button_gradient": "",
+        "padding_top": 32,
+        "padding_bottom": 36,
+        "divider": false,
+        "full_width": false,
+        "rounded": false,
+        "enable_parallax": false,
+        "parallax_direction": "vertical"
+      }
+    }
+  }
+}

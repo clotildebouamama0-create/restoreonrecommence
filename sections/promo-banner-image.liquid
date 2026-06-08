@@ -1,0 +1,430 @@
+{%- liquid
+  assign heading_main = section.settings.heading_main
+  assign heading_italic = section.settings.heading_italic
+  assign heading_end = section.settings.heading_end
+  assign description = section.settings.description
+  assign button_label = section.settings.button_label
+  assign button_link = section.settings.button_link
+  assign overlay_opacity = section.settings.overlay_opacity | default: 0
+  assign content_align = section.settings.content_align | default: 'left'
+  assign banner_height = section.settings.banner_height | default: 320
+
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#ffffff'
+  endif
+  assign button_bg = section.settings.button_background
+  if button_bg == blank
+    assign button_bg = '#ec4899'
+  endif
+  assign button_fg = section.settings.button_text_color
+  if button_fg == blank
+    assign button_fg = '#ffffff'
+  endif
+  assign heading_font = section.settings.heading_font | default: 'serif'
+  assign heading_weight = section.settings.heading_weight | default: 400
+  assign description_font = section.settings.description_font | default: 'sans'
+-%}
+
+{%- assign banner_height_mobile = section.settings.banner_height_mobile | default: 540 -%}
+{%- assign corner_radius = section.settings.corner_radius | default: 16 -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --pbi-height-desktop: {{ banner_height }}px;
+    --pbi-height-mobile: {{ banner_height_mobile }}px;
+    --pbi-radius: {{ corner_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .pbi { position: relative; z-index: 1; }
+  #shopify-section-{{ section.id }} .pbi::before { display: none !important; content: none !important; }
+  #shopify-section-{{ section.id }} .pbi > * { position: relative; z-index: 2; }
+  #shopify-section-{{ section.id }} .pbi-button { background: {{ button_bg }} !important; color: {{ button_fg }} !important; }
+  #shopify-section-{{ section.id }} .pbi-button:hover { filter: brightness(0.92); }
+</style>
+
+<section class="pbi section--padding slider-section-padding" data-section-id="{{ section.id }}"{% if section.settings.enable_sticky_layer_scroll %} data-sticky-layer{% endif %}>
+  <div class="pbi__inner page-width{% if section.settings.full_width %} page-width--full{% endif %}">
+    <div class="pbi__banner pbi__banner--align-{{ content_align }}">
+
+      {%- if section.settings.background_image != blank -%}
+        {%- assign bg_alt = heading_main | default: 'banner' | escape -%}
+        <picture class="pbi__bg">
+          {%- if section.settings.background_image_mobile != blank -%}
+            <source media="(max-width: 749px)" srcset="{{ section.settings.background_image_mobile | image_url: width: 900 }}">
+          {%- endif -%}
+          {{ section.settings.background_image | image_url: width: 2000 | image_tag: loading: 'lazy', class: 'pbi__bg-img', alt: bg_alt }}
+        </picture>
+      {%- elsif section.settings.background_image_mobile != blank -%}
+        {%- assign bg_alt = heading_main | default: 'banner' | escape -%}
+        {{ section.settings.background_image_mobile | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'pbi__bg-img', alt: bg_alt }}
+      {%- endif -%}
+
+      {%- if overlay_opacity > 0 -%}
+        <span class="pbi__overlay" aria-hidden="true" style="background:rgba(0,0,0,{{ overlay_opacity | divided_by: 100.0 }});"></span>
+      {%- endif -%}
+
+      <div class="pbi__content" style="color:{{ text_color }};">
+        {%- if heading_main != blank or heading_italic != blank or heading_end != blank -%}
+          <div class="pbi__heading" role="heading" aria-level="2">
+            {%- if heading_main != blank -%}<span class="pbi__heading-main">{{ heading_main | escape }}</span>{%- endif -%}
+            {%- if heading_italic != blank -%} <em class="pbi__heading-italic">{{ heading_italic | escape }}</em>{%- endif -%}
+            {%- if heading_end != blank -%} <span class="pbi__heading-end">{{ heading_end | escape }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if description != blank -%}
+          <p class="pbi__description">{{ description | escape }}</p>
+        {%- endif -%}
+
+        {%- if button_label != blank -%}
+          <a class="pbi-button" href="{{ button_link | default: '#' }}">
+            {{- button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .pbi__inner { width: 100%; }
+  #shopify-section-{{ section.id }} .pbi__banner {
+    position: relative;
+    width: 100%;
+    height: var(--pbi-height-desktop);
+    border-radius: var(--pbi-radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    color: inherit;
+  }
+  /* Mobile : taller portrait card, content pinned to the top, centered horizontally */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .pbi__banner {
+      height: var(--pbi-height-mobile) !important;
+      align-items: flex-start !important;
+      justify-content: center !important;
+    }
+    #shopify-section-{{ section.id }} .pbi__content {
+      padding: 36px 24px !important;
+      text-align: center !important;
+      align-items: center !important;
+      max-width: 100% !important;
+    }
+    #shopify-section-{{ section.id }} .pbi__description { text-align: center !important; }
+    #shopify-section-{{ section.id }} .pbi-button { align-self: center !important; }
+  }
+  {% if section.settings.extend_full_viewport %}
+  /* Break out of any parent .page-width constraint and span the
+     entire viewport width, ignoring the global side padding.
+     Zero side padding so the banner truly touches the screen edges. */
+  #shopify-section-{{ section.id }} .pbi__inner {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-inline-start: calc(50% - 50vw) !important;
+    margin-inline-end: calc(50% - 50vw) !important;
+    padding-inline: 0 !important;
+  }
+  #shopify-section-{{ section.id }} .pbi__banner {
+    border-radius: 0 !important;
+  }
+  {% endif %}
+  .pbi__banner--align-left   { justify-content: flex-start; }
+  .pbi__banner--align-center { justify-content: center; }
+  .pbi__banner--align-right  { justify-content: flex-end; }
+
+  .pbi__bg,
+  .pbi__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 0;
+  }
+  .pbi__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .pbi__content {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+  }
+  @media screen and (min-width: 750px) {
+    .pbi__content {
+      padding: 36px 56px;
+    }
+  }
+  .pbi__banner--align-center .pbi__content { text-align: center; align-items: center; }
+  .pbi__banner--align-right  .pbi__content { text-align: right;  align-items: flex-end; }
+
+  #shopify-section-{{ section.id }} .pbi__heading,
+  #shopify-section-{{ section.id }} .pbi__heading-main,
+  #shopify-section-{{ section.id }} .pbi__heading-italic,
+  #shopify-section-{{ section.id }} .pbi__heading-end {
+    font-family: {% if heading_font == 'mono' or heading_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif heading_font == 'sans' or heading_font == 'sans-light' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% else %}'Cormorant Garamond', 'Playfair Display', Georgia, serif{% endif %} !important;
+  }
+  #shopify-section-{{ section.id }} .pbi__heading {
+    margin: 0;
+    font-size: clamp(26px, 3.4vw, 42px);
+    line-height: 1.1;
+    font-weight: {{ heading_weight }} !important;
+    color: inherit;
+  }
+  .pbi__heading > * + * { margin-inline-start: 0.35em; }
+  #shopify-section-{{ section.id }} .pbi__heading-italic {
+    font-style: italic !important;
+    font-weight: {{ heading_weight }} !important;
+    padding: 0 0.05em;
+  }
+  #shopify-section-{{ section.id }} .pbi__description {
+    margin: 0;
+    font-family: {% if description_font == 'mono' or description_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif description_font == 'serif' or description_font == 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', Georgia, serif{% else %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% endif %} !important;
+    font-style: {% if description_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-weight: {% if description_font == 'sans-light' or description_font == 'mono-light' %}300{% else %}400{% endif %} !important;
+    font-size: 14px;
+    line-height: 1.4;
+    color: inherit;
+    opacity: 0.95;
+    max-width: 420px;
+  }
+  .pbi-button {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px 56px;
+    min-width: 220px;
+    border-radius: 14px;
+    margin-top: 8px;
+    transition: filter 150ms ease, transform 150ms ease;
+  }
+  @media screen and (min-width: 750px) {
+    .pbi-button {
+      padding: 18px 72px;
+      min-width: 260px;
+      font-size: 14px;
+    }
+  }
+  .pbi-button:hover { transform: translateY(-1px); }
+  .pbi__banner--align-center .pbi-button { align-self: center; }
+  .pbi__banner--align-right  .pbi-button { align-self: flex-end; }
+</style>
+
+{% schema %}
+{
+  "name": "Bannière promo",
+  "tag": "section",
+  "class": "promo-banner-image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image de fond"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Image desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Image mobile (optionnel)"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Opacité de l'overlay sombre",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_layer_scroll",
+      "label": "Activer le Sticky Scroll / superposition",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Pleine largeur (suit le page-width)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "extend_full_viewport",
+      "label": "Élargir au-delà du padding global",
+      "info": "Étend la bannière sur toute la largeur de l'écran en ignorant le padding latéral du thème.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Hauteur (desktop)",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "label": "Hauteur (mobile)",
+      "info": "Format plus haut pour mobile, comme une carte portrait.",
+      "min": 320,
+      "max": 800,
+      "step": 10,
+      "default": 540,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Rayon des coins",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Alignement du contenu",
+      "options": [
+        { "value": "left", "label": "Gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Droite" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "heading_main",
+      "label": "Début du titre",
+      "default": "Hydration"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Police du titre",
+      "options": [
+        { "value": "serif", "label": "Serif (Cormorant)" },
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" }
+      ],
+      "default": "serif"
+    },
+    {
+      "type": "range",
+      "id": "heading_weight",
+      "label": "Graisse du titre",
+      "info": "300=light, 400=regular, 500=medium, 700=bold, 900=black",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "select",
+      "id": "description_font",
+      "label": "Police de la description",
+      "options": [
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" },
+        { "value": "serif", "label": "Serif (Cormorant)" },
+        { "value": "serif-italic", "label": "Serif Italique" }
+      ],
+      "default": "sans"
+    },
+    {
+      "type": "text",
+      "id": "heading_italic",
+      "label": "Mot en italique (au milieu)",
+      "default": "never"
+    },
+    {
+      "type": "text",
+      "id": "heading_end",
+      "label": "Fin du titre",
+      "default": "tasted this good."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Summer is almost here - feel your best with full-spectrum electrolytes in three delicious flavours."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texte du bouton",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Couleur du bouton",
+      "default": "#ec4899"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Couleur du texte du bouton",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bannière promo"
+    }
+  ]
+}
+{% endschema %}

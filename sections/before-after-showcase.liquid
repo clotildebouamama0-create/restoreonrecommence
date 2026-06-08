@@ -1,0 +1,574 @@
+{%- liquid
+  assign rating_value = section.settings.rating_value | default: '4.3/5'
+  assign rating_count = section.settings.rating_count | default: '235 avis'
+  assign heading = section.settings.heading | default: 'Efficacité prouvée en 28 nuits.'
+  assign subheading = section.settings.subheading | default: 'Un sourire sain et éclatant.'
+
+  assign bg_color = section.settings.background_color
+  if bg_color == blank
+    assign bg_color = '#fffcf0'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#2d0320'
+  endif
+  assign card_bg = section.settings.card_background
+  if card_bg == blank
+    assign card_bg = '#ffffff'
+  endif
+  assign button_bg = section.settings.button_background
+  if button_bg == blank
+    assign button_bg = '#1a1a1a'
+  endif
+  assign button_text_color = section.settings.button_text_color
+  if button_text_color == blank
+    assign button_text_color = '#ffffff'
+  endif
+  assign star_color = section.settings.star_color
+  if star_color == blank
+    assign star_color = '#1a1a1a'
+  endif
+-%}
+
+{%- assign card_radius = section.settings.card_radius | default: 16 -%}
+<style>
+  #shopify-section-{{ section.id }} .bas { background: {{ bg_color }} !important; color: {{ text_color }} !important; position: relative; z-index: 1; }
+  #shopify-section-{{ section.id }} .bas::before { display: none !important; content: none !important; }
+  #shopify-section-{{ section.id }} .bas > * { position: relative; z-index: 2; }
+  #shopify-section-{{ section.id }} .bas .bas__card { background: {{ card_bg }} !important; border-radius: {{ card_radius }}px; }
+  #shopify-section-{{ section.id }} .bas .bas__card-cta { background: {{ button_bg }} !important; color: {{ button_text_color }} !important; }
+  #shopify-section-{{ section.id }} .bas .bas__media,
+  #shopify-section-{{ section.id }} .bas .bas__card-media { border-radius: {{ card_radius }}px; }
+</style>
+
+<section class="bas section--padding slider-section-padding" data-section-id="{{ section.id }}" data-no-title-animation data-bas-version="v16">
+  <div class="bas__inner page-width{% if section.settings.full_width %} page-width--full{% endif %}">
+    <div class="bas__grid">
+
+      {%- comment %} ---------------- LEFT : VIDEO ---------------- {%- endcomment %}
+      <div class="bas__media">
+        {%- if section.settings.video != blank -%}
+          <video
+            class="bas__video"
+            autoplay muted loop playsinline preload="metadata"
+            {% if section.settings.video_cover != blank %}poster="{{ section.settings.video_cover | image_url: width: 1200 }}"{% endif %}
+          >
+            <source src="{{ section.settings.video.sources[1].url | default: section.settings.video.sources[0].url }}" type="video/mp4">
+          </video>
+        {%- elsif section.settings.video_url != blank -%}
+          <video
+            class="bas__video"
+            autoplay muted loop playsinline preload="metadata"
+            {% if section.settings.video_cover != blank %}poster="{{ section.settings.video_cover | image_url: width: 1200 }}"{% endif %}
+          >
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          </video>
+        {%- elsif section.settings.video_cover != blank -%}
+          {%- assign cover_alt = heading | default: 'cover' | escape -%}
+          {{ section.settings.video_cover | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'bas__video', alt: cover_alt }}
+        {%- else -%}
+          <div class="bas__video bas__video--placeholder">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment %} ---------------- RIGHT : CONTENT ---------------- {%- endcomment %}
+      <div class="bas__content">
+        {%- if section.settings.show_rating -%}
+          <div class="bas__rating" style="display:block;">
+            <div class="bas__stars" style="display:flex;gap:2px;align-items:center;margin-bottom:4px;color:{{ star_color }};" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="{{ star_color }}" style="display:block;width:18px;height:18px;flex:0 0 18px;"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="{{ star_color }}" style="display:block;width:18px;height:18px;flex:0 0 18px;"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="{{ star_color }}" style="display:block;width:18px;height:18px;flex:0 0 18px;"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="{{ star_color }}" style="display:block;width:18px;height:18px;flex:0 0 18px;"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="{{ star_color }}" style="display:block;width:18px;height:18px;flex:0 0 18px;"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <div class="bas__rating-text" style="margin:0;font-size:12px;color:{{ text_color }};font-family:'Founders Grotesk',sans-serif;">{{ rating_value }} avis basé sur {{ rating_count }}</div>
+          </div>
+        {%- endif -%}
+
+        <div class="bas__heading" role="heading" aria-level="2" style="display:block !important;margin:8px 0 0 0 !important;font-family:'Cormorant Garamond',serif !important;font-size:26px !important;line-height:1.15 !important;font-weight:700 !important;color:{{ text_color }} !important;opacity:1 !important;visibility:visible !important;height:auto !important;width:auto !important;overflow:visible !important;text-indent:0 !important;">{{ heading | escape }}</div>
+        <div class="bas__subheading" style="display:block !important;margin:4px 0 0 0 !important;font-family:'Founders Grotesk',sans-serif !important;font-size:14px !important;line-height:1.4 !important;color:{{ text_color }} !important;opacity:0.85 !important;visibility:visible !important;height:auto !important;width:auto !important;overflow:visible !important;">{{ subheading | escape }}</div>
+
+        <div class="bas__scroller-wrap">
+          <div class="bas__scroller" data-bas-scroller>
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign block_alt = block.settings.label | default: block.settings.title | default: 'temoignage'
+                assign block_alt = block_alt | escape
+              -%}
+              <article class="bas__card" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  <div class="bas__card-media">
+                    {%- if block.settings.label != blank -%}
+                      <span class="bas__card-label">{{ block.settings.label | escape }}</span>
+                    {%- endif -%}
+                    {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: block_alt, class: 'bas__card-img' }}
+                  </div>
+                {%- endif -%}
+
+                <div class="bas__card-body">
+                  {%- if block.settings.author_name != blank -%}
+                    <span class="bas__card-author">{{ block.settings.author_name | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                    <h3 class="bas__card-title">{{ block.settings.title | escape }}</h3>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p class="bas__card-text">{{ block.settings.text }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.button_label != blank -%}
+                    <a class="bas__card-cta" href="{{ block.settings.button_link | default: '#' }}">
+                      <span>{{ block.settings.button_label | escape }}</span>
+                      <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  {%- endif -%}
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          {%- if section.blocks.size > 2 -%}
+            <button type="button" class="bas__nav bas__nav--prev" aria-label="Précédent" data-bas-prev>
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+            <button type="button" class="bas__nav bas__nav--next" aria-label="Suivant" data-bas-next>
+              <span aria-hidden="true">&#8250;</span>
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Force every element of this section to be visible regardless of
+     theme animations or initial-state CSS. */
+  .bas,
+  .bas *,
+  .bas .bas__heading,
+  .bas .bas__subheading,
+  .bas .bas__rating,
+  .bas .bas__rating-text,
+  .bas .bas__stars,
+  .bas .split-words .word,
+  .bas [data-animate],
+  .bas animate-element {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .bas__inner {
+    width: 100%;
+  }
+  .bas__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+  @media screen and (min-width: 990px) {
+    .bas__grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 32px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Left video */
+  .bas__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 11;
+    overflow: hidden;
+    max-height: 520px;
+  }
+  @media screen and (min-width: 990px) {
+    .bas__media {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 380px;
+      max-height: 480px;
+    }
+  }
+  .bas__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .bas__video--placeholder {
+    background: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Right content */
+  .bas__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+  .bas__rating {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  /* Stars / rating / heading / subheading visuals are inlined in the
+     markup with style="..." attributes so they always render. */
+
+  /* Scroller (carousel) */
+  .bas__scroller-wrap {
+    position: relative;
+    margin-top: 8px;
+  }
+  .bas__scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(240px, 1fr);
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .bas__scroller::-webkit-scrollbar { display: none; }
+
+  @media screen and (min-width: 750px) {
+    .bas__scroller {
+      grid-auto-columns: calc(50% - 8px);
+    }
+  }
+
+  .bas__card {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    scroll-snap-align: start;
+  }
+  .bas__card-media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: rgba(0, 0, 0, 0.04);
+  }
+  .bas__card-label {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    z-index: 5;
+    white-space: nowrap;
+  }
+  .bas__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .bas__card-img--placeholder {
+    background: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Card text */
+  .bas__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .bas__card-author {
+    display: inline-block;
+    align-self: flex-start;
+    background: rgba(0, 0, 0, 0.05);
+    color: {{ text_color }};
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-top: 0;
+  }
+  .bas__card-title {
+    margin: 0;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: {{ text_color }};
+  }
+  .bas__card-text {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: {{ text_color }};
+    opacity: 0.85;
+  }
+  .bas__card-cta {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 9px 14px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+
+  /* Carousel nav buttons */
+  .bas__nav {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 4;
+    color: {{ text_color }};
+    font-size: 22px;
+    line-height: 1;
+    padding: 0;
+  }
+  .bas__nav--prev { left: -10px; }
+  .bas__nav--next { right: -10px; }
+  .bas__nav:hover { background: #f6f6f6; }
+  @media screen and (max-width: 749px) {
+    .bas__nav { display: none; }
+  }
+</style>
+
+<script>
+  (function () {
+    const sectionEl = document.querySelector('[data-section-id="{{ section.id }}"]');
+    if (!sectionEl) return;
+    const scroller = sectionEl.querySelector('[data-bas-scroller]');
+    const prev = sectionEl.querySelector('[data-bas-prev]');
+    const next = sectionEl.querySelector('[data-bas-next]');
+    if (!scroller) return;
+    function step() {
+      const card = scroller.querySelector('.bas__card');
+      if (!card) return scroller.clientWidth;
+      const style = getComputedStyle(scroller);
+      const gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+    if (prev) prev.addEventListener('click', () => scroller.scrollBy({ left: -step(), behavior: 'smooth' }));
+    if (next) next.addEventListener('click', () => scroller.scrollBy({ left:  step(), behavior: 'smooth' }));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Avant / après vidéo",
+  "tag": "section",
+  "class": "before-after-showcase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Pleine largeur",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Couleur de fond",
+      "default": "#fffcf0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#2d0320"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Fond des cartes",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Couleur des boutons",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Couleur du texte des boutons",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Rayon des coins",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Vidéo (côté gauche)"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo (uploadée)"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "URL d'une vidéo MP4 externe (alternative)",
+      "info": "Utilisée si aucune vidéo n'est uploadée ci-dessus."
+    },
+    {
+      "type": "image_picker",
+      "id": "video_cover",
+      "label": "Image de couverture"
+    },
+    {
+      "type": "header",
+      "content": "Texte (côté droit)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Afficher la note",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Couleur des étoiles",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Note",
+      "default": "4,3/5"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Nombre d'avis",
+      "default": "235 avis"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Efficacité prouvée en 28 nuits."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sous-titre",
+      "default": "Un sourire sain et éclatant."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Témoignage",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Étiquette sur l'image",
+          "default": "PHOTOS NON RETOUCHÉES"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Nom du témoignage",
+          "default": "TESS."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre du témoignage",
+          "default": "Je recommande à 200% !"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texte du témoignage",
+          "default": "J'ai commandé le kit et je l'utilise depuis 1 mois, les résultats sont apparus au bout de 2 semaines et cela s'améliore encore tout en restant naturel !"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Texte du bouton",
+          "default": "Commencez aujourd'hui"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Lien du bouton"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avant / après vidéo",
+      "blocks": [
+        { "type": "card" },
+        { "type": "card" },
+        { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

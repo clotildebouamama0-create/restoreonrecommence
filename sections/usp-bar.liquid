@@ -1,0 +1,362 @@
+{%- liquid
+  assign bg_color = section.settings.background_color | default: '#fff5e6'
+  assign text_color = section.settings.text_color | default: '#2d0320'
+  assign divider_color = section.settings.divider_color | default: '#d9c8b0'
+  assign mobile_speed = section.settings.mobile_marquee_speed | default: 3
+  assign blocks_count = section.blocks.size | at_least: 1
+  assign mobile_speed_ms = mobile_speed | times: 1000
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --usp-bg: {{ bg_color }};
+    --usp-fg: {{ text_color }};
+    --usp-divider: {{ divider_color }};
+  }
+  #shopify-section-{{ section.id }} {
+    position: -webkit-sticky;
+    position: sticky;
+    top: var(--header-height, 0px);
+    z-index: 14;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #shopify-section-{{ section.id }}::before,
+  #shopify-section-{{ section.id }}::after {
+    display: none !important;
+    content: none !important;
+  }
+  #shopify-section-{{ section.id }} > .usp-bar { margin: 0 !important; }
+</style>
+
+<div class="usp-bar"
+     data-section-id="{{ section.id }}"
+     role="region"
+     aria-label="{{ section.settings.aria_label | default: 'Avantages' | escape }}">
+
+  <div class="usp-bar__inner usp-bar__inner--desktop">
+    {%- for block in section.blocks -%}
+      <div class="usp-bar__item" {{ block.shopify_attributes }} tabindex="0">
+        <span class="usp-bar__item-content">
+          {%- if block.settings.icon_image != blank -%}
+            <span class="usp-bar__icon">
+              {{- block.settings.icon_image | image_url: width: 48 | image_tag: loading: 'lazy', widths: '24,48,72', alt: '' -}}
+            </span>
+          {%- elsif block.settings.icon_emoji != blank -%}
+            <span class="usp-bar__icon usp-bar__icon--emoji" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
+          {%- endif -%}
+          <span class="usp-bar__label">{{ block.settings.label | escape }}</span>
+        </span>
+        {%- if block.settings.tooltip != blank -%}
+          <span class="usp-bar__tooltip" role="tooltip">{{ block.settings.tooltip }}</span>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="usp-bar__inner usp-bar__inner--mobile usp-rotator"
+       data-usp-rotator
+       data-rotator-speed="{{ mobile_speed_ms }}"
+       aria-live="polite">
+    {%- for block in section.blocks -%}
+      <div class="usp-rotator__item{% if forloop.first %} is-active{% endif %}">
+        <span class="usp-bar__item-content">
+          {%- if block.settings.icon_image != blank -%}
+            <span class="usp-bar__icon">
+              {{- block.settings.icon_image | image_url: width: 48 | image_tag: loading: 'lazy', widths: '24,48,72', alt: '' -}}
+            </span>
+          {%- elsif block.settings.icon_emoji != blank -%}
+            <span class="usp-bar__icon usp-bar__icon--emoji" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
+          {%- endif -%}
+          <span class="usp-bar__label">{{ block.settings.label | escape }}</span>
+        </span>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<style>
+  .usp-bar {
+    width: 100%;
+    background: var(--usp-bg);
+    color: var(--usp-fg);
+    border-top: 1px solid var(--usp-divider);
+    border-bottom: 1px solid var(--usp-divider);
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  /* ============== DESKTOP grid (>= 750px) ============== */
+  .usp-bar__inner--desktop {
+    display: none;
+  }
+  @media screen and (min-width: 750px) {
+    .usp-bar__inner--desktop {
+      display: grid;
+      grid-template-columns: repeat({{ blocks_count }}, 1fr);
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .usp-bar__inner--mobile {
+      display: none !important;
+    }
+  }
+
+  /* ============== MOBILE thin strip rotator (< 750px) ============== */
+  .usp-bar__inner--mobile {
+    position: relative;
+    width: 100%;
+    height: 38px;
+    overflow: hidden;
+  }
+
+  /* Default: hidden. Active item is shown. */
+  .usp-rotator__item {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1;
+    animation: usp-fade-in 450ms ease both;
+  }
+  .usp-rotator__item.is-active {
+    display: flex;
+  }
+
+  @keyframes usp-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .usp-rotator__item .usp-bar__icon {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+  }
+  .usp-rotator__item .usp-bar__icon--emoji {
+    font-size: 14px;
+  }
+  .usp-rotator__item .usp-bar__label {
+    font-size: 13px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100vw - 80px);
+  }
+
+  /* ============== Generic item styling ============== */
+  .usp-bar__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: default;
+    text-align: center;
+  }
+  @media screen and (min-width: 750px) {
+    .usp-bar__inner--desktop .usp-bar__item {
+      border-right: 1px solid var(--usp-divider);
+    }
+    .usp-bar__inner--desktop .usp-bar__item:last-child {
+      border-right: none;
+    }
+  }
+
+  .usp-bar__item-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .usp-bar__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+  }
+  .usp-bar__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .usp-bar__icon--emoji {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .usp-bar__label {
+    font-weight: 700 !important;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* ============== Tooltip (desktop only) ============== */
+  .usp-bar__tooltip {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-4px);
+    background: #ffffff;
+    color: #2d0320;
+    border: 1px solid var(--usp-divider);
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+    white-space: normal;
+    width: max-content;
+    max-width: 280px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 16;
+  }
+  .usp-bar__inner--desktop .usp-bar__item:hover .usp-bar__tooltip,
+  .usp-bar__inner--desktop .usp-bar__item:focus-within .usp-bar__tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  .usp-bar__tooltip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    border-left: 1px solid var(--usp-divider);
+    border-top: 1px solid var(--usp-divider);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .usp-rotator__item { animation: none !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "USP bar",
+  "tag": "section",
+  "class": "usp-bar-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Couleur de fond",
+      "default": "#fff5e6"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#2d0320"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Couleur des séparateurs",
+      "default": "#d9c8b0"
+    },
+    {
+      "type": "header",
+      "content": "Mobile (rotation des USP)"
+    },
+    {
+      "type": "range",
+      "id": "mobile_marquee_speed",
+      "label": "Durée d'affichage de chaque USP (mobile)",
+      "info": "Temps qu'un USP reste affiché avant que le suivant apparaisse.",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3,
+      "unit": "s"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Libellé d'accessibilité",
+      "default": "Nos avantages"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Avantage"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icône (image PNG/SVG)"
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Emoji (optionnel, si pas d'image)",
+          "info": "Ex. ⭐ ✓ ✨"
+        },
+        {
+          "type": "textarea",
+          "id": "tooltip",
+          "label": "Texte affiché au survol (desktop uniquement)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USP bar",
+      "blocks": [
+        {
+          "type": "usp",
+          "settings": {
+            "label": "Rated 'Excellent' on Trustpilot",
+            "icon_emoji": "⭐",
+            "tooltip": "Plus de 110 000 avis 5 étoiles vérifiés."
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "label": "Nutritionist-formulated for real results",
+            "icon_emoji": "✓",
+            "tooltip": "Formules expertes basées sur des ingrédients scientifiquement prouvés."
+          }
+        },
+        {
+          "type": "usp",
+          "settings": {
+            "label": "Uniquely formulated for women",
+            "icon_emoji": "✨",
+            "tooltip": "Conçu pour répondre aux besoins spécifiques des femmes."
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

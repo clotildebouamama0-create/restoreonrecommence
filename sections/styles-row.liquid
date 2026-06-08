@@ -1,0 +1,427 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#1a1a1a'
+  assign muted_color = section.settings.muted_color | default: '#7a7a7a'
+  assign title_font = section.settings.title_font | default: 'serif-italic'
+  assign title_size_d = section.settings.title_size_desktop | default: 36
+  assign title_weight = section.settings.title_weight | default: 400
+  assign title = section.settings.title
+  assign subtitle = section.settings.subtitle
+  assign image_ratio = section.settings.image_ratio | default: '3-4'
+  assign show_index = section.settings.show_index
+  assign cards_gap = section.settings.cards_gap | default: 2
+  assign hover_zoom = section.settings.hover_zoom
+  assign cards = section.blocks | where: 'type', 'card'
+  assign cards_size = cards.size | at_least: 1
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ bg }};
+    color: {{ text_color }};
+  }
+  #shopify-section-{{ section.id }} .srl,
+  #shopify-section-{{ section.id }} .srl * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  #shopify-section-{{ section.id }} .srl::before { display: none !important; content: none !important; }
+
+  .srl {
+    display: block;
+    width: 100%;
+    padding: clamp(40px, 5vw, 88px) 0 clamp(48px, 5vw, 88px);
+  }
+  .srl__header {
+    text-align: center;
+    margin: 0 auto clamp(32px, 4vw, 56px);
+    padding: 0 24px;
+    max-width: 880px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  #shopify-section-{{ section.id }} .srl__title,
+  #shopify-section-{{ section.id }} h2.srl__title {
+    font-family: {% if title_font == 'mono' or title_font == 'mono-light' %}'Founders Grotesk Mono', ui-monospace, monospace{% elsif title_font == 'serif-italic' or title_font == 'serif' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% elsif title_font == 'sans2' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% else %}'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif{% endif %} !important;
+    font-style: {% if title_font == 'serif-italic' %}italic{% else %}normal{% endif %} !important;
+    font-size: {{ title_size_d }}px !important;
+    font-weight: {{ title_weight }} !important;
+    letter-spacing: {% if title_font == 'mono' or title_font == 'mono-light' %}0{% else %}-0.005em{% endif %} !important;
+    line-height: 1.15 !important;
+    color: {{ text_color }} !important;
+    margin: 0 !important;
+  }
+  .srl__subtitle {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: {{ muted_color }};
+    margin: 0;
+  }
+  .srl__divider {
+    width: 28px;
+    height: 1px;
+    background: {{ text_color }};
+    opacity: 0.25;
+    margin: 6px 0 2px;
+  }
+
+  /* Cards row */
+  .srl__cards {
+    display: grid;
+    grid-template-columns: repeat({{ cards_size }}, 1fr);
+    gap: {{ cards_gap }}px;
+    width: 100vw;
+    margin-inline-start: calc(50% - 50vw);
+    margin-inline-end: calc(50% - 50vw);
+    padding: 0;
+  }
+  .srl__card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    background: transparent;
+    position: relative;
+  }
+  .srl__card-image {
+    position: relative;
+    width: 100%;
+    {% case image_ratio %}
+      {% when '1-1' %}aspect-ratio: 1 / 1;
+      {% when '4-5' %}aspect-ratio: 4 / 5;
+      {% when '3-4' %}aspect-ratio: 3 / 4;
+      {% when '2-3' %}aspect-ratio: 2 / 3;
+      {% when '9-16' %}aspect-ratio: 9 / 16;
+    {% endcase %}
+    overflow: hidden;
+    background: #ece9e0;
+  }
+  .srl__card-image img,
+  .srl__card-image picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: absolute;
+    inset: 0;
+    transition: transform 700ms ease;
+  }
+  {% if hover_zoom %}
+    .srl__card:hover .srl__card-image img { transform: scale(1.04); }
+  {% endif %}
+
+  .srl__card-footer {
+    padding: 18px clamp(12px, 1.5vw, 24px) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .srl__card-index {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: {{ muted_color }};
+    margin: 0;
+    line-height: 1;
+  }
+  .srl__card-label {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: {{ text_color }};
+    margin: 0;
+    line-height: 1.3;
+  }
+  .srl__card-sublabel {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    color: {{ muted_color }};
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Tablet — 3 cols (shows first 3 cleanly) */
+  @media screen and (max-width: 1199px) and (min-width: 750px) {
+    .srl__cards {
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: auto;
+    }
+  }
+  /* Mobile — horizontal scroll snap */
+  @media screen and (max-width: 749px) {
+    .srl__cards {
+      grid-template-columns: none;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 6px;
+      padding: 0 6px;
+      width: 100vw;
+      margin-inline-start: calc(50% - 50vw);
+      margin-inline-end: calc(50% - 50vw);
+      scrollbar-width: none;
+    }
+    .srl__cards::-webkit-scrollbar { display: none; }
+    .srl__card {
+      flex: 0 0 78%;
+      scroll-snap-align: start;
+    }
+    .srl__card-footer { padding: 14px 6px 0; }
+    #shopify-section-{{ section.id }} .srl__title { font-size: clamp({{ title_size_d | times: 0.6 | round }}px, 6.5vw, {{ title_size_d }}px) !important; }
+  }
+</style>
+
+<section class="srl" data-section-id="{{ section.id }}">
+  {%- if title != blank or subtitle != blank -%}
+    <header class="srl__header">
+      {%- if title != blank -%}
+        <h2 class="srl__title">{{ title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.show_divider -%}
+        <span class="srl__divider" aria-hidden="true"></span>
+      {%- endif -%}
+      {%- if subtitle != blank -%}
+        <p class="srl__subtitle">{{ subtitle }}</p>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <div class="srl__cards">
+    {%- for block in cards -%}
+      {%- assign label = block.settings.label -%}
+      {%- assign sublabel = block.settings.sublabel -%}
+      {%- assign link = block.settings.link -%}
+      {%- assign img = block.settings.image -%}
+      {%- assign tag = 'div' -%}
+      {%- if link != blank -%}{% assign tag = 'a' %}{%- endif -%}
+
+      <{{ tag }} class="srl__card"
+        {% if link != blank %} href="{{ link }}"{% endif %}
+        {{ block.shopify_attributes }}
+      >
+        <div class="srl__card-image">
+          {%- if img != blank -%}
+            {%- liquid
+              assign max_w = img.width | at_most: 1800
+              assign img_alt = img.alt | default: label | default: title | escape
+              # Adaptive sizes based on actual number of cards in row.
+              # Desktop : 100vw / N. Tablet (3 cols) : 100vw/3 = 33vw. Mobile : 78vw.
+              assign desktop_vw = 100 | divided_by: cards_size | plus: 2
+              assign tablet_vw = 34
+              capture sizes_attr
+                echo '(max-width: 749px) 78vw, (max-width: 1199px) '
+                echo tablet_vw
+                echo 'vw, '
+                echo desktop_vw
+                echo 'vw'
+              endcapture
+            -%}
+            {{ img | image_url: width: max_w | image_tag:
+              loading: 'lazy',
+              widths: '400,600,800,1000,1200,1500,1800',
+              sizes: sizes_attr,
+              alt: img_alt
+            }}
+          {%- endif -%}
+        </div>
+        <div class="srl__card-footer">
+          {%- if show_index -%}
+            <p class="srl__card-index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</p>
+          {%- endif -%}
+          {%- if label != blank -%}
+            <p class="srl__card-label">{{ label | escape }}</p>
+          {%- endif -%}
+          {%- if sublabel != blank -%}
+            <p class="srl__card-sublabel">{{ sublabel | escape }}</p>
+          {%- endif -%}
+        </div>
+      </{{ tag }}>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ligne de looks",
+  "tag": "section",
+  "class": "styles-row-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Titre"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Un sac, cinq looks"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Tout porter, le porter avec élégance."
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "Police du titre",
+      "options": [
+        { "value": "serif-italic", "label": "Serif Italique (FontBaia1)" },
+        { "value": "serif", "label": "Serif (FontBaia1)" },
+        { "value": "sans", "label": "Founders Grotesk" },
+        { "value": "sans-light", "label": "Founders Grotesk Light" },
+        { "value": "sans2", "label": "Founders Grotesk (alias)" },
+        { "value": "mono", "label": "Founders Grotesk Mono" },
+        { "value": "mono-light", "label": "Founders Grotesk Mono Light" }
+      ],
+      "default": "serif-italic"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "label": "Taille titre (desktop)",
+      "min": 18,
+      "max": 80,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_weight",
+      "label": "Graisse du titre",
+      "info": "300 = light, 400 = regular, 500 = medium, 700 = bold, 900 = black",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Afficher une ligne fine entre titre et sous-titre",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Cartes"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Format des images",
+      "options": [
+        { "value": "1-1", "label": "Carré 1:1" },
+        { "value": "4-5", "label": "Portrait 4:5" },
+        { "value": "3-4", "label": "Portrait 3:4 (recommandé)" },
+        { "value": "2-3", "label": "Portrait 2:3" },
+        { "value": "9-16", "label": "Portrait 9:16 (très vertical)" }
+      ],
+      "default": "3-4"
+    },
+    {
+      "type": "range",
+      "id": "cards_gap",
+      "label": "Espace entre les cartes (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 2,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_zoom",
+      "label": "Zoom léger au survol",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_index",
+      "label": "Afficher un numéro (01, 02…) au-dessus du libellé",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Titre et libellés",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Sous-titre, sous-libellés (gris)",
+      "default": "#7a7a7a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Look",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (portrait recommandé)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Bandoulière"
+        },
+        {
+          "type": "text",
+          "id": "sublabel",
+          "label": "Sous-libellé (optionnel)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien (optionnel)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ligne de looks",
+      "blocks": [
+        { "type": "card", "settings": { "label": "Valise compagnon" } },
+        { "type": "card", "settings": { "label": "Sac à dos" } },
+        { "type": "card", "settings": { "label": "Bandoulière" } },
+        { "type": "card", "settings": { "label": "Épaule" } },
+        { "type": "card", "settings": { "label": "Main" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

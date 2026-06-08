@@ -1,0 +1,15 @@
+@media screen and (min-width: 990px) {
+  #MainContent .fc-side-text ~ .page-width .product-grid.card-grid,
+  #MainContent .section:has(.fc-side-text) .product-grid.card-grid {
+    inset-inline-start: -320px !important;
+    width: calc(100% + 320px) !important;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  #MainContent .fc-side-text ~ .page-width .product-grid.card-grid,
+  #MainContent .section:has(.fc-side-text) .product-grid.card-grid {
+    inset-inline-start: -340px !important;
+    width: calc(100% + 340px) !important;
+  }
+}

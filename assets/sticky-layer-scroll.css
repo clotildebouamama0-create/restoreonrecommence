@@ -1,0 +1,56 @@
+/* Sticky Scroll / layered sections
+   Homepage only: product pages can reuse the same sections without sticky layering. */
+@media screen and (min-width: 750px) {
+  body.template-index .shopify-section[data-sticky-layer],
+  body.template-index .shopify-section:has(> [data-sticky-layer]),
+  body.template-index [id*="__fullwidth_banner_"],
+  body.template-index [id$="__image_with_text_overlay_4eDMjY"],
+  body.template-index [id$="__featured_collection_tCCQPT"],
+  body.template-index [id$="__diptyque_cta_pWamhW"],
+  body.template-index [id$="__promo_banner_image_URfFw4"],
+  body.template-index [id$="__video_with_text_overlay_HndKwt"],
+  body.template-index [id$="__founder_quote_story_iEaEbm"],
+  body.template-index [id$="__curved_marquee_rTETNE"],
+  body.template-index [id$="__promo_banner_image_f6UkJr"] {
+    position: sticky !important;
+    top: var(--sticky-layer-top, 0px) !important;
+    z-index: var(--sticky-layer-z, 1) !important;
+    transform: translateZ(0);
+    isolation: isolate;
+    background: inherit;
+  }
+
+  body.template-index .shopify-section:has(> [data-sticky-layer]) > [data-sticky-layer] {
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  body.template-index .shopify-section[data-sticky-layer] > *,
+  body.template-index .shopify-section:has(> [data-sticky-layer]) > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  body.template-index [id$="__promo_banner_image_URfFw4"] .pbi,
+  body.template-index [id$="__promo_banner_image_f6UkJr"] .pbi,
+  body.template-index .shopify-section:has(> .pbi[data-sticky-layer]) > .pbi {
+    min-height: 0 !important;
+    padding-block: 0 !important;
+  }
+
+  body.template-index [id$="__promo_banner_image_URfFw4"] .pbi__banner,
+  body.template-index [id$="__promo_banner_image_f6UkJr"] .pbi__banner,
+  body.template-index .shopify-section:has(> .pbi[data-sticky-layer]) .pbi__banner {
+    min-height: 0 !important;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  body.template-index .shopify-section[data-sticky-layer],
+  body.template-index .shopify-section:has(> [data-sticky-layer]),
+  body.template-index [data-sticky-layer] {
+    position: relative !important;
+    top: auto !important;
+  }
+}

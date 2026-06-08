@@ -1,0 +1,221 @@
+{% comment %} Section stats chiffres clés {% endcomment %}
+
+<style>
+  #stats-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+  }
+
+  #stats-{{ section.id }} .stats-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  #stats-{{ section.id }} .stats-heading {
+    text-align: center;
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 {{ section.settings.heading_mb }}px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  #stats-{{ section.id }} .stats-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size }}, 1fr);
+    gap: 2rem;
+  }
+
+  #stats-{{ section.id }} .stat-item {
+    text-align: center;
+  }
+
+  #stats-{{ section.id }} .stat-number {
+    display: block;
+    font-size: {{ section.settings.number_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.number_color }};
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  #stats-{{ section.id }} .stat-label {
+    display: block;
+    font-size: {{ section.settings.label_size }}px;
+    font-weight: 500;
+    color: {{ section.settings.label_color }};
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  #stats-{{ section.id }} .stats-footnote {
+    text-align: center;
+    font-size: 13px;
+    color: {{ section.settings.footnote_color }};
+    margin-top: {{ section.settings.heading_mb }}px;
+  }
+
+  @media (max-width: 768px) {
+    #stats-{{ section.id }} .stats-heading {
+      font-size: {{ section.settings.heading_size | times: 0.65 | round }}px;
+    }
+
+    #stats-{{ section.id }} .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem 1rem;
+    }
+
+    #stats-{{ section.id }} .stat-number {
+      font-size: {{ section.settings.number_size | times: 0.75 | round }}px;
+    }
+
+    #stats-{{ section.id }} .stat-label {
+      font-size: {{ section.settings.label_size | times: 0.9 | round }}px;
+    }
+  }
+</style>
+
+<div id="stats-{{ section.id }}">
+  <div class="stats-inner">
+
+    {% if section.settings.heading != blank %}
+      <h2 class="stats-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="stats-grid">
+      {% for block in section.blocks %}
+        <div class="stat-item" {{ block.shopify_attributes }}>
+          <span class="stat-number">{{ block.settings.number }}</span>
+          <span class="stat-label">{{ block.settings.label }}</span>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.footnote != blank %}
+      <p class="stats-footnote">{{ section.settings.footnote }}</p>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Stats / Chiffres clés",
+  "settings": [
+    { "type": "header", "content": "Contenu" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "YOUR COFFEE SHOULD DO MORE."
+    },
+    {
+      "type": "text",
+      "id": "footnote",
+      "label": "Note de bas de page",
+      "default": "*Based on a comprehensive anonymous customer survey with 35,000+ participants, Jan 2026"
+    },
+    { "type": "header", "content": "Typographie" },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Taille du titre",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_mb",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Espace sous le titre",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Taille des chiffres",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Taille des labels",
+      "default": 14
+    },
+    { "type": "header", "content": "Mise en page" },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1600,
+      "step": 40,
+      "unit": "px",
+      "label": "Largeur max du contenu",
+      "default": 1080
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding haut",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bas",
+      "default": 80
+    },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "bg_color", "label": "Fond", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color", "label": "Titre", "default": "#111111" },
+    { "type": "color", "id": "number_color", "label": "Chiffres", "default": "#ff3e8a" },
+    { "type": "color", "id": "label_color", "label": "Labels", "default": "#111111" },
+    { "type": "color", "id": "footnote_color", "label": "Note de bas", "default": "#888888" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Chiffre",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Chiffre", "default": "+30M" },
+        { "type": "text", "id": "label", "label": "Description", "default": "Over 30 million servings sold world-wide." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats / Chiffres clés",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "+30M", "label": "Over 30 million servings sold world-wide." } },
+        { "type": "stat", "settings": { "number": "93%", "label": "Reported consistent improvements in focus." } },
+        { "type": "stat", "settings": { "number": "88%", "label": "Reported consistent improvements in energy." } },
+        { "type": "stat", "settings": { "number": "95%", "label": "Said they would recommend to a friend." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

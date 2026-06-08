@@ -1,0 +1,612 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  if bg_color == blank
+    assign bg_color = '#cee9e6'
+  endif
+  assign card_bg = section.settings.card_bg
+  if card_bg == blank
+    assign card_bg = '#e1eeec'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#1a3b3a'
+  endif
+  assign muted_color = section.settings.muted_color
+  if muted_color == blank
+    assign muted_color = '#5a7a78'
+  endif
+  assign accent_color = section.settings.accent_color
+  if accent_color == blank
+    assign accent_color = '#1a1a1a'
+  endif
+  assign star_color = section.settings.star_color
+  if star_color == blank
+    assign star_color = '#1a3b3a'
+  endif
+  assign card_radius = section.settings.card_radius | default: 18
+  assign reviews_anchor = section.settings.reviews_anchor | default: '#judgeme_product_reviews'
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --rc-bg: {{ bg_color }};
+    --rc-card-bg: {{ card_bg }};
+    --rc-text: {{ text_color }};
+    --rc-muted: {{ muted_color }};
+    --rc-accent: {{ accent_color }};
+    --rc-star: {{ star_color }};
+    --rc-radius: {{ card_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .rc::before { display: none !important; content: none !important; }
+</style>
+
+<section class="rc slider-section-padding" data-section-id="{{ section.id }}">
+  <div class="rc__inner page-width">
+
+    {%- if section.settings.show_summary -%}
+      <div class="rc__summary">
+        <div class="rc__summary-stars" aria-label="{{ section.settings.summary_rating | default: '4.7' | escape }} étoiles sur 5">
+          {%- assign rating_int = section.settings.summary_rating | default: '4.7' | times: 1.0 -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= rating_int -%}
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+            {%- else -%}
+              {%- assign frac = i | minus: rating_int -%}
+              {%- if frac > 0 and frac < 1 -%}
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <defs><linearGradient id="rcStar-{{ section.id }}-{{ i }}"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="currentColor" stop-opacity="0.25"/></linearGradient></defs>
+                  <path fill="url(#rcStar-{{ section.id }}-{{ i }})" d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/>
+                </svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="currentColor" opacity="0.25" aria-hidden="true"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <p class="rc__summary-text">
+          <strong>{{ section.settings.summary_rating | default: '4.7' | escape }}/5</strong>
+          {%- if section.settings.summary_label != blank -%}
+            <span class="rc__summary-label">{{ section.settings.summary_label | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.summary_count != blank -%}
+            <a class="rc__summary-link" href="{{ reviews_anchor }}">{{ section.settings.summary_count | escape }}</a>
+          {%- endif -%}
+        </p>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <div class="rc__heading" role="heading" aria-level="2">{{ section.settings.heading }}</div>
+    {%- endif -%}
+
+    <div class="rc__viewport">
+      <div class="rc__track">
+        {%- for block in section.blocks -%}
+          {%- assign rating = block.settings.rating | default: 5 -%}
+          <article class="rc__card" {{ block.shopify_attributes }}>
+
+            {%- if block.settings.image != blank -%}
+              {%- assign card_alt = block.settings.author | default: 'review' | escape -%}
+              <div class="rc__image-wrap">
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'rc__image', alt: card_alt }}
+              </div>
+            {%- endif -%}
+
+            <div class="rc__card-head">
+              {%- if block.settings.show_avatar -%}
+                {%- assign initials = block.settings.author | default: 'A' | truncate: 2, '' | upcase -%}
+                <span class="rc__avatar" aria-hidden="true">{{ initials }}</span>
+              {%- endif -%}
+
+              <div class="rc__author-block">
+                {%- if block.settings.author != blank -%}
+                  <p class="rc__author">{{ block.settings.author | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.date != blank -%}
+                  <p class="rc__date">{{ block.settings.date | escape }}</p>
+                {%- endif -%}
+              </div>
+
+              <div class="rc__card-stars" aria-label="{{ rating }} étoiles sur 5">
+                {%- for i in (1..5) -%}
+                  {%- if i <= rating -%}
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+                  {%- else -%}
+                    <svg viewBox="0 0 24 24" fill="currentColor" opacity="0.25" aria-hidden="true"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <p class="rc__title">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <p class="rc__text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="rc__nav">
+      {%- if section.blocks.size > 1 -%}
+        <button class="rc__arrow rc__arrow--prev" type="button" data-rc-prev aria-label="Précédent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="rc__arrow rc__arrow--next" type="button" data-rc-next aria-label="Suivant">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank -%}
+        <a class="rc__cta" href="{{ reviews_anchor }}">{{ section.settings.cta_label | escape }}</a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .rc {
+    background: var(--rc-bg) !important;
+    color: var(--rc-text);
+    width: 100%;
+  }
+  .rc__inner { width: 100%; }
+
+  .rc__summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 14px;
+    color: var(--rc-text);
+  }
+  .rc__summary-stars {
+    display: inline-flex;
+    color: var(--rc-star);
+    line-height: 0;
+    gap: 1px;
+  }
+  .rc__summary-stars svg { width: 18px; height: 18px; display: block; }
+  .rc__summary-text {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    color: var(--rc-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .rc__summary-link {
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .rc__summary-link:hover { opacity: 0.75; }
+  .rc__summary-label { color: var(--rc-muted); }
+
+  .rc__heading {
+    text-align: center;
+    margin: 0 auto 24px;
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.15;
+    color: var(--rc-text);
+    font-weight: 600;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .rc__heading em,
+  .rc__heading i {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-style: italic;
+  }
+  .rc__heading p { margin: 0; }
+
+  .rc__viewport {
+    overflow-x: auto;
+    overflow-y: visible;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+  .rc__viewport::-webkit-scrollbar { display: none; }
+
+  .rc__track {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .rc__card {
+    flex: 0 0 280px;
+    width: 280px;
+    background: var(--rc-card-bg) !important;
+    border-radius: var(--rc-radius);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+  @media screen and (min-width: 750px) {
+    .rc__card {
+      flex: 0 0 320px;
+      width: 320px;
+      padding: 18px;
+    }
+  }
+  @media screen and (min-width: 990px) {
+    .rc__card {
+      flex: 0 0 calc((100% - 32px) / 3);
+      width: calc((100% - 32px) / 3);
+    }
+  }
+
+  .rc__image-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.04);
+  }
+  .rc__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .rc__card-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+  }
+  .rc__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.08);
+    color: var(--rc-text);
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    flex: 0 0 36px;
+  }
+  .rc__author-block { min-width: 0; }
+  .rc__author {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: var(--rc-text);
+    font-size: 14px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .rc__date {
+    margin: 2px 0 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: var(--rc-muted);
+  }
+  .rc__card-stars {
+    display: inline-flex;
+    color: var(--rc-star);
+    gap: 1px;
+    line-height: 0;
+    flex: 0 0 auto;
+  }
+  .rc__card-stars svg { width: 14px; height: 14px; display: block; }
+
+  .rc__title {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: var(--rc-text);
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .rc__text {
+    margin: 0;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--rc-text);
+    font-size: 13px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .rc__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+  .rc__arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid var(--rc-text);
+    background: transparent;
+    color: var(--rc-text);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .rc__arrow:hover {
+    background: var(--rc-text);
+    color: var(--rc-card-bg);
+  }
+  .rc__arrow svg { width: 16px; height: 16px; }
+  .rc__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--rc-text);
+    color: var(--rc-text) !important;
+    text-decoration: none;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border-radius: 999px;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .rc__cta:hover {
+    background: var(--rc-text);
+    color: var(--rc-card-bg) !important;
+  }
+</style>
+
+<script>
+  (function() {
+    var SECTION_ID = '{{ section.id }}';
+    function init() {
+      var root = document.querySelector('#shopify-section-' + SECTION_ID);
+      if (!root) return;
+      var viewport = root.querySelector('.rc__viewport');
+      var prev = root.querySelector('[data-rc-prev]');
+      var next = root.querySelector('[data-rc-next]');
+      if (!viewport) return;
+
+      function step() {
+        var card = viewport.querySelector('.rc__card');
+        if (!card) return viewport.clientWidth * 0.8;
+        return card.getBoundingClientRect().width + 16;
+      }
+      if (prev) prev.addEventListener('click', function() {
+        viewport.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+      if (next) next.addEventListener('click', function() {
+        viewport.scrollBy({ left: step(), behavior: 'smooth' });
+      });
+
+      // Smooth scroll for anchor links to the reviews section
+      root.querySelectorAll('a[href^="#"]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          var target = document.querySelector(link.getAttribute('href'));
+          if (!target) return;
+          e.preventDefault();
+          var rect = target.getBoundingClientRect();
+          var top = window.scrollY + rect.top - 100;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    document.addEventListener('shopify:section:load', function(e) {
+      if (e && e.detail && e.detail.sectionId === SECTION_ID) init();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Carrousel d'avis (cartes)",
+  "tag": "section",
+  "class": "reviews-cards",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Résumé en haut"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_summary",
+      "label": "Afficher la note + nombre d'avis (haut)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "summary_rating",
+      "label": "Note globale (ex: 4.7)",
+      "default": "4.7"
+    },
+    {
+      "type": "text",
+      "id": "summary_label",
+      "label": "Label entre note et avis (ex: d'après)",
+      "default": "d'après"
+    },
+    {
+      "type": "text",
+      "id": "summary_count",
+      "label": "Nombre d'avis (lien souligné)",
+      "default": "1003 avis"
+    },
+    {
+      "type": "header",
+      "content": "Titre"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Titre principal (HTML autorisé, <em> pour italique)",
+      "default": "<p>Elles ont <em>adopté</em> Baïa</p>"
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texte du bouton",
+      "default": "Voir tous nos avis"
+    },
+    {
+      "type": "text",
+      "id": "reviews_anchor",
+      "label": "Ancre vers la section des avis Judge.me",
+      "info": "Par défaut #judgeme_product_reviews. Vérifie le bon ID si tu utilises un autre app/widget.",
+      "default": "#judgeme_product_reviews"
+    },
+    {
+      "type": "header",
+      "content": "Apparence"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Rayon des coins (cartes)",
+      "min": 0,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de section",
+      "default": "#cee9e6"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond des cartes",
+      "default": "#e1eeec"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#1a3b3a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur secondaire",
+      "default": "#5a7a78"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur d'accent",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Couleur des étoiles",
+      "default": "#1a3b3a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Auteur"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_avatar",
+          "label": "Afficher l'avatar (initiales)",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nom",
+          "default": "Anna"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "19/04/2026"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Note",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "header",
+          "content": "Contenu"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo (optionnel — affichée en haut de carte)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre court",
+          "default": "Une révélation !"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texte de l'avis"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Carrousel d'avis (cartes)",
+      "blocks": [
+        { "type": "review", "settings": { "author": "Del", "date": "19/04/2026", "rating": 3, "title": "On continue", "text": "J'ai commencé sur les conseils d'amies qui ont trouvé ça magique." } },
+        { "type": "review", "settings": { "author": "Anonyme", "date": "19/04/2026", "rating": 5, "title": "Une révélation !", "text": "Je me sens enfin bien, et le meilleur est que cette année j'ai rencontré un nouveau gynécologue." } },
+        { "type": "review", "settings": { "author": "Ana", "date": "18/04/2026", "rating": 3, "title": "Efficacité vu avant 3 mois", "text": "Ça va faire 2 mois que je le prends, je vois déjà une différence sur mes symptômes." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

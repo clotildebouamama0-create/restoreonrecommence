@@ -1,0 +1,324 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#ffffff'
+  assign card_bg = section.settings.card_bg | default: '#f3f3f3'
+  assign text_color = section.settings.text_color | default: '#1a1a1a'
+  assign muted_color = section.settings.muted_color | default: '#6a6a6a'
+  assign title_font = section.settings.title_font | default: 'sans'
+  assign caption_font = section.settings.caption_font | default: 'sans'
+  assign title_size = section.settings.title_size | default: 26
+  assign caption_size = section.settings.caption_size | default: 13
+  assign title = section.settings.title
+  assign image_ratio = section.settings.image_ratio | default: '1-1'
+  assign gap_px = section.settings.gap_px | default: 6
+  assign cards = section.blocks | where: 'type', 'card'
+  assign cards_size = cards.size | at_least: 1
+-%}
+
+{%- capture font_title -%}{% case title_font %}{% when 'serif' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% when 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% when 'sans2' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% else %}'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif{% endcase %}{%- endcapture -%}
+{%- capture font_caption -%}{% case caption_font %}{% when 'serif' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% when 'serif-italic' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% when 'sans2' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% else %}'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif{% endcase %}{%- endcapture -%}
+
+<style>
+  #shopify-section-{{ section.id }} { background: {{ bg }}; color: {{ text_color }}; }
+  #shopify-section-{{ section.id }} .fdg,
+  #shopify-section-{{ section.id }} .fdg * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  #shopify-section-{{ section.id }} .fdg::before { display: none !important; content: none !important; }
+
+  .fdg {
+    display: block;
+    width: 100%;
+    padding: clamp(40px, 5vw, 80px) 0;
+  }
+  .fdg__header {
+    text-align: center;
+    margin: 0 auto clamp(28px, 3vw, 44px);
+    padding: 0 24px;
+    max-width: 1100px;
+  }
+  .fdg__title {
+    font-family: {{ font_title }};
+    {% if title_font == 'serif-italic' %}font-style: italic;{% endif %}
+    font-size: {{ title_size }}px;
+    font-weight: {% if title_font == 'sans2' %}700{% elsif title_font == 'sans' %}500{% else %}400{% endif %};
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+    color: {{ text_color }};
+    margin: 0;
+  }
+
+  .fdg__grid {
+    display: grid;
+    grid-template-columns: repeat({{ cards_size }}, 1fr);
+    gap: {{ gap_px }}px;
+    width: 100vw;
+    margin-inline-start: calc(50% - 50vw);
+    margin-inline-end: calc(50% - 50vw);
+  }
+  .fdg__card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .fdg__card-image {
+    position: relative;
+    width: 100%;
+    {% case image_ratio %}
+      {% when '1-1' %}aspect-ratio: 1 / 1;
+      {% when '4-5' %}aspect-ratio: 4 / 5;
+      {% when '3-4' %}aspect-ratio: 3 / 4;
+      {% when '5-4' %}aspect-ratio: 5 / 4;
+      {% when '4-3' %}aspect-ratio: 4 / 3;
+      {% when '3-2' %}aspect-ratio: 3 / 2;
+    {% endcase %}
+    overflow: hidden;
+    background: {{ card_bg }};
+  }
+  .fdg__card-image img,
+  .fdg__card-image picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: absolute;
+    inset: 0;
+    transition: transform 700ms ease;
+  }
+  .fdg__card:hover .fdg__card-image img { transform: scale(1.03); }
+
+  .fdg__caption {
+    font-family: {{ font_caption }};
+    {% if caption_font == 'serif-italic' %}font-style: italic;{% endif %}
+    font-size: {{ caption_size }}px;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    color: {{ text_color }};
+    margin: 16px 12px 0;
+    line-height: 1.45;
+  }
+
+  /* Tablet — 2 cols */
+  @media screen and (max-width: 1199px) and (min-width: 750px) {
+    .fdg__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  /* Mobile — horizontal scroll snap */
+  @media screen and (max-width: 749px) {
+    .fdg__grid {
+      grid-template-columns: none;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 6px;
+      padding: 0 12px;
+      scrollbar-width: none;
+    }
+    .fdg__grid::-webkit-scrollbar { display: none; }
+    .fdg__card { flex: 0 0 72%; scroll-snap-align: start; }
+    .fdg__title { font-size: {{ title_size | times: 0.7 | round }}px; }
+    .fdg__caption { margin: 12px 4px 0; font-size: {{ caption_size | minus: 1 }}px; }
+  }
+</style>
+
+<section class="fdg" data-section-id="{{ section.id }}">
+  {%- if title != blank -%}
+    <header class="fdg__header">
+      <h2 class="fdg__title">{{ title }}</h2>
+    </header>
+  {%- endif -%}
+
+  <div class="fdg__grid">
+    {%- for block in cards -%}
+      {%- assign caption = block.settings.caption -%}
+      {%- assign link = block.settings.link -%}
+      {%- assign img = block.settings.image -%}
+      {%- assign tag = 'div' -%}
+      {%- if link != blank -%}{% assign tag = 'a' %}{%- endif -%}
+      <{{ tag }} class="fdg__card"
+        {% if link != blank %} href="{{ link }}"{% endif %}
+        {{ block.shopify_attributes }}
+      >
+        <div class="fdg__card-image">
+          {%- if img != blank -%}
+            {%- assign max_w = img.width | at_most: 1500 -%}
+            {%- assign desktop_vw = 100 | divided_by: cards_size | plus: 2 -%}
+            {%- capture sizes_attr -%}(max-width: 749px) 72vw, (max-width: 1199px) 52vw, {{ desktop_vw }}vw{%- endcapture -%}
+            {{ img | image_url: width: max_w | image_tag:
+              loading: 'lazy',
+              widths: '400,600,800,1000,1200,1500',
+              sizes: sizes_attr,
+              alt: img.alt | default: caption | escape
+            }}
+          {%- endif -%}
+        </div>
+        {%- if caption != blank -%}
+          <p class="fdg__caption">{{ caption | escape }}</p>
+        {%- endif -%}
+      </{{ tag }}>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Détails produit (grille)",
+  "tag": "section",
+  "class": "feature-details-grid-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Titre"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Pensé pour la mode et la fonctionnalité. Pour le travail. Pour les études."
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "Police du titre",
+      "options": [
+        { "value": "sans", "label": "Sans système (Helvetica)" },
+        { "value": "sans2", "label": "Sans (FontBaia2)" },
+        { "value": "serif", "label": "Serif (FontBaia1)" },
+        { "value": "serif-italic", "label": "Serif italique (FontBaia1)" }
+      ],
+      "default": "sans"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Taille du titre (px)",
+      "min": 18,
+      "max": 60,
+      "step": 1,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Cartes (détails)"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Format des images",
+      "options": [
+        { "value": "1-1", "label": "Carré 1:1 (recommandé)" },
+        { "value": "4-5", "label": "Portrait 4:5" },
+        { "value": "3-4", "label": "Portrait 3:4" },
+        { "value": "5-4", "label": "Paysage 5:4" },
+        { "value": "4-3", "label": "Paysage 4:3" },
+        { "value": "3-2", "label": "Paysage 3:2" }
+      ],
+      "default": "1-1"
+    },
+    {
+      "type": "range",
+      "id": "gap_px",
+      "label": "Espace entre les images (px)",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 6,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "caption_font",
+      "label": "Police des légendes",
+      "options": [
+        { "value": "sans", "label": "Sans système (Helvetica)" },
+        { "value": "sans2", "label": "Sans (FontBaia2)" },
+        { "value": "serif", "label": "Serif (FontBaia1)" },
+        { "value": "serif-italic", "label": "Serif italique (FontBaia1)" }
+      ],
+      "default": "sans"
+    },
+    {
+      "type": "range",
+      "id": "caption_size",
+      "label": "Taille des légendes (px)",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "default": 13,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond des images (placeholder)",
+      "default": "#f3f3f3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Titre et légendes",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Gris secondaire",
+      "default": "#6a6a6a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Détail",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image gros plan"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Légende sous l'image",
+          "default": "Base renforcée pour une protection extra"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien (optionnel)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Détails produit (grille)",
+      "blocks": [
+        { "type": "card", "settings": { "caption": "Base renforcée pour une protection extra" } },
+        { "type": "card", "settings": { "caption": "Cuir de vachette ciré à la main" } },
+        { "type": "card", "settings": { "caption": "Séparateurs amovibles personnalisables" } },
+        { "type": "card", "settings": { "caption": "Double zip + fermeture magnétique cachée" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

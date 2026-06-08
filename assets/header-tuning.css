@@ -1,0 +1,116 @@
+/* Header tuning: thicker header + refined desktop navigation */
+
+.shopify-section-group-header-group .header,
+.header-section .header,
+.header {
+  min-height: 106px !important;
+}
+
+.shopify-section-group-header-group .header.section--padding,
+.header-section .header.section--padding,
+.header.section--padding,
+.shopify-section-group-header-group sticky-header,
+.shopify-section-group-header-group header,
+#shopify-section-sections--30215075987793__header .header {
+  padding-top: 29px !important;
+  padding-bottom: 29px !important;
+}
+
+.header__navigation,
+.header__menu,
+.header__menu > ul,
+.header nav,
+.header nav ul {
+  align-items: center !important;
+}
+
+.header__navigation a,
+.header__navigation summary,
+.header__navigation button,
+.header__menu a,
+.header__menu summary,
+.header__menu button,
+.header__menu .menu__item,
+.header__menu .menu__item .btn-text,
+.header__menu summary .menu__item,
+.header__menu summary .menu__item .btn-text,
+.header nav a,
+.header nav summary,
+.header nav button,
+.header nav span,
+#shopify-section-sections--30215075987793__header .header__menu a,
+#shopify-section-sections--30215075987793__header .header__menu .btn-text {
+  font-family: 'Founders Grotesk Mono Light', 'Founders Grotesk Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 16px !important;
+  line-height: 1.15 !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.24em !important;
+  text-transform: uppercase !important;
+}
+
+.header__icons,
+.header__buttons,
+.header__actions {
+  align-items: center !important;
+}
+
+.header__icons svg,
+.header__buttons svg,
+.header__actions svg,
+.header a[href*="search"] svg,
+.header button[aria-label*="Search"] svg,
+.header button[aria-label*="Recherche"] svg,
+.header .icon,
+.header .icon svg,
+.header [class*="search"] svg,
+.header [class*="account"] svg,
+.header [class*="cart"] svg,
+#shopify-section-sections--30215075987793__header svg {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  stroke-width: 1.8px !important;
+}
+
+.header__icons a,
+.header__icons button,
+.header__buttons a,
+.header__buttons button,
+.header__actions a,
+.header__actions button,
+.header .header__icon,
+.header [class*="icon"]:is(a, button) {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+}
+
+@media screen and (max-width: 1023px) {
+  .shopify-section-group-header-group .header,
+  .header-section .header,
+  .header {
+    min-height: 82px !important;
+  }
+
+  .shopify-section-group-header-group .header.section--padding,
+  .header-section .header.section--padding,
+  .header.section--padding,
+  .shopify-section-group-header-group sticky-header,
+  .shopify-section-group-header-group header {
+    padding-top: 17px !important;
+    padding-bottom: 17px !important;
+  }
+
+  .header__icons svg,
+  .header__buttons svg,
+  .header__actions svg,
+  .header .icon,
+  .header .icon svg {
+    width: 27px !important;
+    height: 27px !important;
+    min-width: 27px !important;
+    min-height: 27px !important;
+  }
+}

@@ -1,0 +1,554 @@
+{%- liquid
+  assign bg = section.settings.bg_color | default: '#f7f3ec'
+  assign card_bg = section.settings.card_bg | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#1a1a1a'
+  assign muted_color = section.settings.muted_color | default: '#7a7a7a'
+  assign accent_color = section.settings.accent_color | default: '#7a5a3a'
+  assign divider_color = section.settings.divider_color | default: '#e2dccf'
+  assign title_font = section.settings.title_font | default: 'serif-italic'
+  assign image_position = section.settings.image_position | default: 'left'
+  assign image = section.settings.image
+  assign image_caption = section.settings.image_caption
+  assign eyebrow = section.settings.eyebrow
+  assign title = section.settings.title
+  assign description = section.settings.description
+  assign cta_text = section.settings.cta_text
+  assign cta_link = section.settings.cta_link
+  assign cta_style = section.settings.cta_style | default: 'underline'
+  assign specs = section.blocks | where: 'type', 'spec'
+  assign badges = section.blocks | where: 'type', 'badge'
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ bg }};
+    color: {{ text_color }};
+  }
+  #shopify-section-{{ section.id }} .mts,
+  #shopify-section-{{ section.id }} .mts * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  #shopify-section-{{ section.id }} .mts::before { display: none !important; content: none !important; }
+
+  .mts {
+    display: block;
+    width: 100%;
+    padding: clamp(48px, 6vw, 96px) 0;
+  }
+  .mts__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 4vw, 64px);
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(40px, 5vw, 88px);
+    align-items: center;
+  }
+  .mts--right .mts__inner {
+    grid-template-columns: 1fr 1.1fr;
+  }
+  .mts--right .mts__image-wrap { order: 2; }
+  .mts--right .mts__content { order: 1; }
+
+  /* ====== Image side ====== */
+  .mts__image-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mts__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #ece9e0;
+  }
+  .mts__image img,
+  .mts__image picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .mts__image-caption {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 11.5px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: {{ muted_color }};
+    margin: 0;
+    text-align: center;
+  }
+
+  /* ====== Content side ====== */
+  .mts__content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2vw, 28px);
+    min-width: 0;
+  }
+  .mts__eyebrow {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: {{ accent_color }};
+    margin: 0;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mts__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: {{ accent_color }};
+  }
+  .mts__title {
+    font-family: {% if title_font == 'serif-italic' or title_font == 'serif' %}'Cormorant Garamond', 'Playfair Display', 'Times New Roman', Georgia, serif{% elsif title_font == 'sans2' %}'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif{% else %}'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif{% endif %};
+    font-style: {% if title_font == 'serif-italic' %}italic{% else %}normal{% endif %};
+    font-size: clamp(30px, 3.6vw, 48px);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1.15;
+    color: {{ text_color }};
+    margin: 0;
+  }
+  .mts__description {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    line-height: 1.65;
+    color: {{ text_color }};
+    opacity: 0.86;
+    margin: 0;
+    max-width: 540px;
+  }
+
+  /* ====== Specs list ====== */
+  .mts__specs {
+    list-style: none;
+    margin: clamp(8px, 1vw, 16px) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .mts__spec {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid {{ divider_color }};
+    position: relative;
+  }
+  .mts__spec:last-child { border-bottom: 1px solid {{ divider_color }}; }
+
+  .mts__spec-icon {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: {{ accent_color }};
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .mts__spec-icon svg {
+    width: 11px;
+    height: 11px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mts__spec-body {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .mts__spec-title {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: {{ text_color }};
+    margin: 0;
+    line-height: 1.35;
+  }
+  .mts__spec-sub {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+    color: {{ muted_color }};
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ====== Badges row (certifications, origines) ====== */
+  .mts__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px 26px;
+    margin-top: 6px;
+    align-items: center;
+  }
+  .mts__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {{ muted_color }};
+  }
+  .mts__badge img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ====== CTA ====== */
+  .mts__cta-wrap {
+    margin-top: 8px;
+  }
+  .mts__cta {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 200ms ease, background 200ms ease;
+  }
+  .mts__cta--underline {
+    color: {{ accent_color }};
+    padding-bottom: 3px;
+    border-bottom: 1px solid {{ accent_color }};
+  }
+  .mts__cta--filled {
+    color: #ffffff;
+    background: {{ accent_color }};
+    padding: 16px 28px;
+  }
+  .mts__cta:hover { opacity: 0.78; }
+
+  /* ====== Mobile ====== */
+  @media screen and (max-width: 849px) {
+    .mts { padding: 48px 0; }
+    .mts__inner {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 0 20px;
+    }
+    .mts--right .mts__image-wrap { order: 1; }
+    .mts--right .mts__content { order: 2; }
+    .mts__title { font-size: clamp(28px, 7vw, 36px); }
+    .mts__description { font-size: 14px; }
+    .mts__spec-title { font-size: 14px; }
+    .mts__spec-sub { font-size: 13px; }
+    .mts__badges { gap: 14px 20px; }
+  }
+</style>
+
+<section class="mts mts--{{ image_position }}" data-section-id="{{ section.id }}">
+  <div class="mts__inner">
+    <div class="mts__image-wrap">
+      <div class="mts__image">
+        {%- if image != blank -%}
+          {%- assign max_w = image.width | at_most: 1600 -%}
+          {%- assign img_alt = image.alt | default: title | escape -%}
+          {{ image | image_url: width: max_w | image_tag:
+            loading: 'lazy',
+            widths: '500,700,900,1100,1400,1600',
+            sizes: '(max-width: 849px) 100vw, 50vw',
+            alt: img_alt
+          }}
+        {%- else -%}
+          <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;color:{{ muted_color }};font-size:14px;">
+            Sélectionnez une image
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if image_caption != blank -%}
+        <p class="mts__image-caption">{{ image_caption | escape }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="mts__content">
+      {%- if eyebrow != blank -%}
+        <p class="mts__eyebrow">{{ eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if title != blank -%}
+        <h2 class="mts__title">{{ title }}</h2>
+      {%- endif -%}
+      {%- if description != blank -%}
+        <p class="mts__description">{{ description }}</p>
+      {%- endif -%}
+
+      {%- if specs.size > 0 -%}
+        <ul class="mts__specs">
+          {%- for spec in specs -%}
+            <li class="mts__spec" {{ spec.shopify_attributes }}>
+              <span class="mts__spec-icon" aria-hidden="true">
+                {%- if spec.settings.custom_icon != blank -%}
+                  {{ spec.settings.custom_icon | image_url: width: 60 | image_tag: alt: '', loading: 'lazy' }}
+                {%- else -%}
+                  <svg viewBox="0 0 24 24"><polyline points="4 12 10 18 20 6"/></svg>
+                {%- endif -%}
+              </span>
+              <div class="mts__spec-body">
+                {%- if spec.settings.title != blank -%}
+                  <p class="mts__spec-title">{{ spec.settings.title | escape }}</p>
+                {%- endif -%}
+                {%- if spec.settings.sub != blank -%}
+                  <p class="mts__spec-sub">{{ spec.settings.sub | escape }}</p>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if badges.size > 0 -%}
+        <div class="mts__badges">
+          {%- for badge in badges -%}
+            <div class="mts__badge" {{ badge.shopify_attributes }}>
+              {%- if badge.settings.icon != blank -%}
+                <img src="{{ badge.settings.icon | image_url: width: 80 }}" alt="{{ badge.settings.label | escape }}" loading="lazy">
+              {%- endif -%}
+              {%- if badge.settings.label != blank -%}
+                <span>{{ badge.settings.label | escape }}</span>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if cta_text != blank -%}
+        <div class="mts__cta-wrap">
+          {%- if cta_link != blank -%}
+            <a href="{{ cta_link }}" class="mts__cta mts__cta--{{ cta_style }}">{{ cta_text | escape }}</a>
+          {%- else -%}
+            <span class="mts__cta mts__cta--{{ cta_style }}">{{ cta_text | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Spécificités matière",
+  "tag": "section",
+  "class": "material-specs-section",
+  "max_blocks": 14,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (texture / matière)",
+      "info": "Portrait recommandé (ex: 1000×1250 px). Privilégier un gros plan sur la matière."
+    },
+    {
+      "type": "text",
+      "id": "image_caption",
+      "label": "Légende sous l'image (optionnel)",
+      "default": "Cuir pleine fleur, tannage végétal"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Position de l'image",
+      "options": [
+        { "value": "left", "label": "À gauche" },
+        { "value": "right", "label": "À droite" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sur-titre (eyebrow)",
+      "default": "LA MATIÈRE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Un cuir d'exception"
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "Police du titre",
+      "options": [
+        { "value": "serif-italic", "label": "Serif italique (FontBaia1) — luxe" },
+        { "value": "serif", "label": "Serif (FontBaia1)" },
+        { "value": "sans2", "label": "Sans (FontBaia2)" },
+        { "value": "sans", "label": "Sans système" }
+      ],
+      "default": "serif-italic"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Sélectionné dans les meilleures tanneries européennes, notre cuir pleine fleur conjugue souplesse, robustesse et patine naturelle. Chaque pièce révèle, avec le temps, le caractère unique de la matière."
+    },
+    {
+      "type": "header",
+      "content": "CTA (optionnel)"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du CTA"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du CTA"
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "Style du CTA",
+      "options": [
+        { "value": "underline", "label": "Lien souligné (minimaliste)" },
+        { "value": "filled", "label": "Bouton plein" }
+      ],
+      "default": "underline"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de la section",
+      "default": "#f7f3ec"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond (réservé future option)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texte principal",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Texte secondaire (gris)",
+      "default": "#7a7a7a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (eyebrow, checkmark, CTA)",
+      "default": "#7a5a3a"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Lignes de séparation",
+      "default": "#e2dccf"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spécification (checkmark)",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Cuir pleine fleur"
+        },
+        {
+          "type": "text",
+          "id": "sub",
+          "label": "Sous-titre / description courte",
+          "default": "La plus noble partie de la peau, conservant son grain naturel"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Icône personnalisée (optionnel)",
+          "info": "Si vide, un checkmark rond sera utilisé."
+        }
+      ]
+    },
+    {
+      "type": "badge",
+      "name": "Badge / certification",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icône / logo"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "MADE IN FRANCE"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spécificités matière",
+      "blocks": [
+        { "type": "spec", "settings": { "title": "Cuir pleine fleur", "sub": "La couche supérieure de la peau, la plus noble et la plus résistante" } },
+        { "type": "spec", "settings": { "title": "Tannage végétal", "sub": "Procédé naturel à base d'écorces et plantes, sans chrome ni métaux lourds" } },
+        { "type": "spec", "settings": { "title": "Origine européenne", "sub": "Tanneries certifiées Italie & France pour un savoir-faire d'excellence" } },
+        { "type": "spec", "settings": { "title": "Finition main", "sub": "Polissage des tranches et lustrage finalisés artisanalement" } },
+        { "type": "spec", "settings": { "title": "Patine évolutive", "sub": "Une matière vivante qui se bonifie avec le temps et l'usage" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

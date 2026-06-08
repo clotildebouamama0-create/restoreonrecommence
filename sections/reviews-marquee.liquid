@@ -1,0 +1,483 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  if bg_color == blank
+    assign bg_color = '#fffcf0'
+  endif
+  assign card_bg = section.settings.card_bg
+  if card_bg == blank
+    assign card_bg = '#ffffff'
+  endif
+  assign title_color = section.settings.title_color
+  if title_color == blank
+    assign title_color = '#1a1a1a'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#3a3a3a'
+  endif
+  assign meta_color = section.settings.meta_color
+  if meta_color == blank
+    assign meta_color = '#7a7a7a'
+  endif
+  assign star_color = section.settings.star_color
+  if star_color == blank
+    assign star_color = '#ec4899'
+  endif
+
+  assign speed_desktop = section.settings.speed_desktop | default: 40
+  assign speed_mobile = section.settings.speed_mobile | default: 28
+  assign card_width = section.settings.card_width | default: 360
+  assign card_width_mobile = section.settings.card_width_mobile | default: 280
+  assign card_radius = section.settings.card_radius | default: 16
+  assign gap = section.settings.gap | default: 20
+  assign card_height = section.settings.card_height | default: 220
+  assign card_height_mobile = section.settings.card_height_mobile | default: 220
+  assign direction = section.settings.direction | default: 'left'
+
+  assign blocks_count = section.blocks.size
+  if blocks_count == 0
+    assign blocks_count = 1
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --rmq-bg: {{ bg_color }};
+    --rmq-card-bg: {{ card_bg }};
+    --rmq-title-color: {{ title_color }};
+    --rmq-text-color: {{ text_color }};
+    --rmq-meta-color: {{ meta_color }};
+    --rmq-star-color: {{ star_color }};
+    --rmq-speed-desktop: {{ speed_desktop }}s;
+    --rmq-speed-mobile: {{ speed_mobile }}s;
+    --rmq-card-w: {{ card_width }}px;
+    --rmq-card-w-m: {{ card_width_mobile }}px;
+    --rmq-card-h: {{ card_height }}px;
+    --rmq-card-h-m: {{ card_height_mobile }}px;
+    --rmq-gap: {{ gap }}px;
+    --rmq-radius: {{ card_radius }}px;
+  }
+  #shopify-section-{{ section.id }} .rmq::before { display: none !important; content: none !important; }
+
+  .rmq {
+    position: relative;
+    width: 100%;
+    background: var(--rmq-bg) !important;
+    padding-block: 48px;
+  }
+  @media screen and (min-width: 750px) {
+    .rmq { padding-block: 72px; }
+  }
+
+  .rmq__heading-wrap {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-inline: 16px;
+  }
+  .rmq__eyebrow {
+    display: inline-block;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rmq-meta-color);
+    margin: 0 0 10px;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .rmq__title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.15;
+    color: var(--rmq-title-color);
+    margin: 0;
+    font-weight: 600;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .rmq__viewport {
+    overflow: hidden;
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .rmq__track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--rmq-gap);
+    width: max-content;
+    will-change: transform;
+    animation: rmq-scroll-{{ direction }} var(--rmq-speed-mobile) linear infinite;
+  }
+  @media screen and (min-width: 750px) {
+    .rmq__track {
+      animation-duration: var(--rmq-speed-desktop);
+    }
+  }
+  .rmq__track:hover { animation-play-state: paused; }
+  .rmq[data-paused="true"] .rmq__track { animation-play-state: paused; }
+
+  @keyframes rmq-scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-50% - (var(--rmq-gap) / 2))); }
+  }
+  @keyframes rmq-scroll-right {
+    from { transform: translateX(calc(-50% - (var(--rmq-gap) / 2))); }
+    to   { transform: translateX(0); }
+  }
+
+  .rmq__card {
+    flex: 0 0 var(--rmq-card-w-m);
+    width: var(--rmq-card-w-m);
+    min-height: var(--rmq-card-h-m);
+    background: var(--rmq-card-bg) !important;
+    border-radius: var(--rmq-radius);
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    box-sizing: border-box;
+  }
+  @media screen and (min-width: 750px) {
+    .rmq__card {
+      flex: 0 0 var(--rmq-card-w);
+      width: var(--rmq-card-w);
+      min-height: var(--rmq-card-h);
+      padding: 26px 26px 22px;
+    }
+  }
+
+  .rmq__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--rmq-star-color);
+    line-height: 1;
+  }
+  .rmq__stars svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .rmq__card-title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-weight: 700;
+    color: var(--rmq-title-color);
+    font-size: 18px;
+    line-height: 1.2;
+    margin: 4px 0 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .rmq__card-text {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--rmq-text-color);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .rmq__card-meta {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+  .rmq__author {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    color: var(--rmq-title-color);
+    font-size: 14px;
+    margin: 0;
+  }
+  .rmq__product {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--rmq-meta-color);
+    font-size: 13px;
+    margin: 2px 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rmq__track { animation: none !important; }
+  }
+</style>
+
+<section class="rmq" data-section-id="{{ section.id }}">
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="rmq__heading-wrap">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="rmq__eyebrow">{{ section.settings.eyebrow | escape }}</div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <div class="rmq__title" role="heading" aria-level="2">{{ section.settings.heading | escape }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="rmq__viewport">
+    <div class="rmq__track">
+      {%- for pass in (1..2) -%}
+        {%- for block in section.blocks -%}
+          {%- assign rating = block.settings.rating | default: 5 -%}
+          <article class="rmq__card" {{ block.shopify_attributes }} aria-hidden="{% if pass == 2 %}true{% else %}false{% endif %}">
+            <div class="rmq__stars" aria-label="{{ rating }} étoiles sur 5">
+              {%- for i in (1..5) -%}
+                {%- if i <= rating -%}
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="rmq__card-title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <p class="rmq__card-text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.author != blank or block.settings.product_name != blank -%}
+              <div class="rmq__card-meta">
+                {%- if block.settings.author != blank -%}
+                  <p class="rmq__author">{{ block.settings.author | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.product_name != blank -%}
+                  <p class="rmq__product">{{ block.settings.product_name | escape }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrousel d'avis",
+  "tag": "section",
+  "class": "reviews-marquee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Texte d'introduction"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Petit titre (eyebrow)",
+      "default": "TÉMOIGNAGES"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre principal",
+      "default": "Ce qu'ils en pensent"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Sens de défilement",
+      "options": [
+        { "value": "left", "label": "Vers la gauche" },
+        { "value": "right", "label": "Vers la droite" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "speed_desktop",
+      "label": "Durée d'un cycle (desktop)",
+      "info": "Plus la valeur est grande, plus le défilement est lent.",
+      "min": 10,
+      "max": 120,
+      "step": 2,
+      "default": 40,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "speed_mobile",
+      "label": "Durée d'un cycle (mobile)",
+      "min": 8,
+      "max": 90,
+      "step": 2,
+      "default": 28,
+      "unit": "s"
+    },
+    {
+      "type": "header",
+      "content": "Cartes"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Largeur carte (desktop)",
+      "min": 240,
+      "max": 520,
+      "step": 10,
+      "default": 360,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_width_mobile",
+      "label": "Largeur carte (mobile)",
+      "min": 200,
+      "max": 360,
+      "step": 5,
+      "default": 280,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Hauteur min carte (desktop)",
+      "min": 160,
+      "max": 360,
+      "step": 10,
+      "default": 220,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_height_mobile",
+      "label": "Hauteur min carte (mobile)",
+      "min": 160,
+      "max": 360,
+      "step": 10,
+      "default": 220,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Rayon des coins",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Espacement entre cartes",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond de section",
+      "default": "#fffcf0"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond des cartes",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Couleur des titres",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#3a3a3a"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Couleur secondaire (produit)",
+      "default": "#7a7a7a"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Couleur des étoiles",
+      "default": "#ec4899"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Note (étoiles)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre de l'avis",
+          "default": "Love it"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texte de l'avis",
+          "default": "I really like the curiosity box, the selection is very good!"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Nom de l'auteur",
+          "default": "Almudena Suarez"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Produit / catégorie",
+          "default": "Curiosity Collection Box"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Carrousel d'avis",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review", "settings": { "title": "Delicious!", "text": "Being a major hot chocolate fan, I've tried many different brands and without doubt this is the best.", "author": "Linda", "product_name": "Original Choc" } },
+        { "type": "review", "settings": { "title": "Best blend ever", "text": "Smooth, balanced and naturally energizing — exactly what I was looking for.", "author": "Marie", "product_name": "Daily Boost" } },
+        { "type": "review", "settings": { "title": "A must have", "text": "I drink it every morning, the taste is amazing and I feel less bloated.", "author": "Sophie", "product_name": "Beauty Latte" } },
+        { "type": "review", "settings": { "title": "Top quality", "text": "Premium ingredients, great packaging and the brand is super transparent.", "author": "Camille", "product_name": "PCOS Herbal Tea" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

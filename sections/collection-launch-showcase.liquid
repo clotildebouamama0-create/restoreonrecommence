@@ -1,0 +1,213 @@
+{%- liquid
+  assign section_id = 'CollectionLaunchShowcase-' | append: section.id
+
+  assign title_weight = section.settings.title_weight | at_least: 1
+  assign description_weight = section.settings.description_weight | at_least: 1
+  assign button_weight = section.settings.button_weight | at_least: 1
+  assign product_title_weight = section.settings.product_title_weight | at_least: 1
+  assign product_subtitle_weight = section.settings.product_subtitle_weight | at_least: 1
+  assign product_price_weight = section.settings.product_price_weight | at_least: 1
+
+  assign title_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Regular','Courier New',monospace"
+  case section.settings.title_font
+    when 'grotesk'
+      assign title_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+    when 'system_sans'
+      assign title_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign title_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign title_font_family = "'Courier New',Courier,monospace"
+  endcase
+
+  assign description_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+  case section.settings.description_font
+    when 'mono'
+      assign description_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Regular','Courier New',monospace"
+    when 'system_sans'
+      assign description_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign description_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign description_font_family = "'Courier New',Courier,monospace"
+  endcase
+
+  assign button_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+  case section.settings.button_font
+    when 'mono'
+      assign button_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Regular','Courier New',monospace"
+    when 'system_sans'
+      assign button_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign button_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign button_font_family = "'Courier New',Courier,monospace"
+  endcase
+
+  assign product_font_family = "'Founders Grotesk Mono','Founders Grotesk Mono Regular','Courier New',monospace"
+  case section.settings.product_font
+    when 'grotesk'
+      assign product_font_family = "'Founders Grotesk','Founders Grotesk Regular',Arial,sans-serif"
+    when 'system_sans'
+      assign product_font_family = "Arial,Helvetica,sans-serif"
+    when 'serif'
+      assign product_font_family = "Georgia,'Times New Roman',serif"
+    when 'system_mono'
+      assign product_font_family = "'Courier New',Courier,monospace"
+  endcase
+-%}
+
+<section
+  id="{{ section_id }}"
+  class="collection-launch-showcase"
+  style="--cls-bg:{{ section.settings.background_color }};--cls-text:{{ section.settings.text_color }};--cls-button-bg:{{ section.settings.button_background }};--cls-button-text:{{ section.settings.button_text_color }};--cls-card-bg:{{ section.settings.card_background }};--cls-title-size:{{ section.settings.title_size }}px;--cls-description-size:{{ section.settings.description_size }}px;--cls-card-width:{{ section.settings.card_width }}px;--cls-mobile-card-width:{{ section.settings.mobile_card_width }}px;--cls-section-height:{{ section.settings.section_height }}px;--cls-title-font:{{ title_font_family }};--cls-description-font:{{ description_font_family }};--cls-button-font:{{ button_font_family }};--cls-product-font:{{ product_font_family }};--cls-title-weight:{{ title_weight }};--cls-description-weight:{{ description_weight }};--cls-button-weight:{{ button_weight }};--cls-product-title-weight:{{ product_title_weight }};--cls-product-subtitle-weight:{{ product_subtitle_weight }};--cls-product-price-weight:{{ product_price_weight }};"
+>
+  <div class="collection-launch-showcase__inner">
+    <div class="collection-launch-showcase__content">
+      {%- if section.settings.title != blank -%}
+        <h2 class="collection-launch-showcase__title">{{ section.settings.title | escape | newline_to_br }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="collection-launch-showcase__description">{{ section.settings.description | newline_to_br }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a class="collection-launch-showcase__button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-launch-showcase__center-media">
+      {%- if section.settings.center_image != blank -%}
+        {{ section.settings.center_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '360,540,720,900,1000,1200', class: 'collection-launch-showcase__center-image' }}
+      {%- else -%}
+        <div class="collection-launch-showcase__placeholder">{{ 'image' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="collection-launch-showcase__products" aria-label="{{ section.settings.title | escape }}">
+      <div class="collection-launch-showcase__rail">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- assign chosen_product = block.settings.product -%}
+            {%- if chosen_product != blank -%}
+              <article class="collection-launch-showcase__card" {{ block.shopify_attributes }}>
+                <a class="collection-launch-showcase__card-link" href="{{ chosen_product.url }}" aria-label="{{ chosen_product.title | escape }}">
+                  <div class="collection-launch-showcase__card-image-wrap">
+                    {%- if section.settings.show_badge -%}<span class="collection-launch-showcase__badge">{{ section.settings.badge_label | escape }}</span>{%- endif -%}
+                    {%- if section.settings.show_heart -%}
+                      <span class="collection-launch-showcase__heart" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6c-1.7-1.7-4.5-1.7-6.2 0L12 7.2 9.4 4.6c-1.7-1.7-4.5-1.7-6.2 0-1.8 1.8-1.8 4.7 0 6.5L12 20l8.8-8.9c1.8-1.8 1.8-4.7 0-6.5Z"/></svg></span>
+                    {%- endif -%}
+                    {%- if chosen_product.featured_media -%}
+                      {{ chosen_product.featured_media | image_url: width: 700 | image_tag: loading: 'lazy', widths: '240,360,480,600,700,900', class: 'collection-launch-showcase__card-image' }}
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'collection-launch-showcase__card-image collection-launch-showcase__card-image--placeholder' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="collection-launch-showcase__card-info">
+                    <h3 class="collection-launch-showcase__card-title">{{ chosen_product.title | escape }}</h3>
+                    {%- if section.settings.show_vendor -%}
+                      <p class="collection-launch-showcase__card-subtitle">{{ chosen_product.vendor | escape }}</p>
+                    {%- elsif block.settings.subtitle != blank -%}
+                      <p class="collection-launch-showcase__card-subtitle">{{ block.settings.subtitle | escape }}</p>
+                    {%- endif -%}
+                    <p class="collection-launch-showcase__card-price">{{ chosen_product.price | money }}</p>
+                  </div>
+                </a>
+              </article>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..4) -%}
+            <article class="collection-launch-showcase__card">
+              <div class="collection-launch-showcase__card-image-wrap"><span class="collection-launch-showcase__badge">{{ section.settings.badge_label | escape }}</span>{{ 'product-1' | placeholder_svg_tag: 'collection-launch-showcase__card-image collection-launch-showcase__card-image--placeholder' }}</div>
+              <div class="collection-launch-showcase__card-info"><h3 class="collection-launch-showcase__card-title">Produit {{ i }}</h3><p class="collection-launch-showcase__card-subtitle">Collection</p><p class="collection-launch-showcase__card-price">{{ 3000 | money }}</p></div>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }}{position:relative!important;z-index:120!important;margin-top:0!important;background:var(--cls-bg,#eeeeed)!important;isolation:isolate!important}
+  #{{ section_id }}{position:relative;background:var(--cls-bg);color:var(--cls-text);overflow:hidden;min-height:0;z-index:1}
+  #{{ section_id }} .collection-launch-showcase__inner{min-height:min(var(--cls-section-height),500px);display:grid;grid-template-columns:minmax(300px,31%) minmax(240px,27%) minmax(360px,42%);align-items:center;gap:clamp(18px,2.6vw,42px);padding:clamp(24px,3vw,36px) 0 clamp(24px,3vw,36px) clamp(28px,4vw,72px)}
+  #{{ section_id }} .collection-launch-showcase__content{max-width:430px;align-self:center}
+  #{{ section_id }} .collection-launch-showcase__title{margin:0 0 20px;font-family:var(--cls-title-font);font-size:var(--cls-title-size);line-height:.9;font-weight:var(--cls-title-weight);letter-spacing:-.055em;text-transform:uppercase}
+  #{{ section_id }} .collection-launch-showcase__description{max-width:390px;margin:0;font-family:var(--cls-description-font);font-size:var(--cls-description-size);line-height:1.18;font-weight:var(--cls-description-weight);letter-spacing:-.025em}
+  #{{ section_id }} .collection-launch-showcase__button{display:inline-flex;align-items:center;justify-content:center;min-width:174px;height:46px;margin-top:26px;padding:0 28px;background:var(--cls-button-bg);color:var(--cls-button-text);font-family:var(--cls-button-font);font-size:18px;line-height:1;font-weight:var(--cls-button-weight);text-transform:uppercase;text-decoration:none;transition:transform .2s ease,opacity .2s ease}
+  #{{ section_id }} .collection-launch-showcase__button:hover{transform:translateY(-1px);opacity:.9}
+  #{{ section_id }} .collection-launch-showcase__center-media{width:100%;height:min(calc(var(--cls-section-height) - 120px),390px);display:flex;align-items:center;justify-content:center;align-self:center}
+  #{{ section_id }} .collection-launch-showcase__center-image,#{{ section_id }} .collection-launch-showcase__placeholder svg{width:100%;height:100%;object-fit:contain;display:block}
+  #{{ section_id }} .collection-launch-showcase__placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:.35}
+  #{{ section_id }} .collection-launch-showcase__products{min-width:0;width:100%;overflow:hidden;align-self:center}
+  #{{ section_id }} .collection-launch-showcase__rail{display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:0;padding:0 clamp(24px,3vw,48px) 10px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #{{ section_id }} .collection-launch-showcase__rail::-webkit-scrollbar{display:none}
+  #{{ section_id }} .collection-launch-showcase__card{flex:0 0 var(--cls-card-width);width:var(--cls-card-width);scroll-snap-align:start}
+  #{{ section_id }} .collection-launch-showcase__card-link{color:inherit;text-decoration:none;display:block}
+  #{{ section_id }} .collection-launch-showcase__card-image-wrap{position:relative;width:100%;aspect-ratio:1/1;background:var(--cls-card-bg);overflow:hidden}
+  #{{ section_id }} .collection-launch-showcase__card-image{width:100%;height:100%;display:block;object-fit:contain;object-position:center;mix-blend-mode:multiply}
+  #{{ section_id }} .collection-launch-showcase__card-image--placeholder{padding:35px;opacity:.45}
+  #{{ section_id }} .collection-launch-showcase__badge{position:absolute;top:16px;left:16px;z-index:2;background:#111;color:#fff;padding:2px 5px 3px;font-family:var(--cls-product-font);font-size:17px;line-height:1;letter-spacing:-.03em;font-weight:var(--cls-product-subtitle-weight)}
+  #{{ section_id }} .collection-launch-showcase__heart{position:absolute;top:15px;right:16px;z-index:2;color:#111;line-height:0}
+  #{{ section_id }} .collection-launch-showcase__card-info{padding-top:16px;font-family:var(--cls-product-font)}
+  #{{ section_id }} .collection-launch-showcase__card-title{margin:0 0 3px;font-family:var(--cls-product-font);font-size:18px;line-height:1;font-weight:var(--cls-product-title-weight);text-transform:uppercase;letter-spacing:-.035em}
+  #{{ section_id }} .collection-launch-showcase__card-subtitle{margin:0;font-size:16px;line-height:1.1;letter-spacing:-.03em;font-weight:var(--cls-product-subtitle-weight)}
+  #{{ section_id }} .collection-launch-showcase__card-price{margin:22px 0 0;font-size:18px;line-height:1;font-weight:var(--cls-product-price-weight);text-align:right;letter-spacing:-.03em}
+  @media screen and (max-width:989px){#shopify-section-{{ section.id }}{position:relative!important;top:auto!important;z-index:20!important;margin-top:0!important}#{{ section_id }}{min-height:auto}#{{ section_id }} .collection-launch-showcase__inner{min-height:auto;display:grid;grid-template-columns:1fr;gap:24px;padding:34px 18px 38px}#{{ section_id }} .collection-launch-showcase__content{max-width:none}#{{ section_id }} .collection-launch-showcase__title{font-size:clamp(34px,11vw,var(--cls-title-size));margin-bottom:18px;letter-spacing:-.06em}#{{ section_id }} .collection-launch-showcase__description{max-width:520px}#{{ section_id }} .collection-launch-showcase__button{margin-top:22px}#{{ section_id }} .collection-launch-showcase__center-media{height:320px;order:2}#{{ section_id }} .collection-launch-showcase__products{order:3;margin-left:0;margin-right:0;width:100%;overflow:hidden}#{{ section_id }} .collection-launch-showcase__rail{padding:0 0 8px 0;gap:12px}#{{ section_id }} .collection-launch-showcase__card{flex:0 0 min(62vw,var(--cls-mobile-card-width));width:min(62vw,var(--cls-mobile-card-width))}#{{ section_id }} .collection-launch-showcase__card-title{font-size:16px}#{{ section_id }} .collection-launch-showcase__card-subtitle{font-size:14px}#{{ section_id }} .collection-launch-showcase__card-price{font-size:16px;margin-top:16px}}
+</style>
+
+{% schema %}
+{
+  "name": "Launch collection",
+  "settings": [
+    {"type": "image_picker", "id": "center_image", "label": "Image centrale"},
+    {"type": "textarea", "id": "title", "label": "Titre", "default": "NEW\nCOLLECTION\n«VELVET VOID»"},
+    {"type": "textarea", "id": "description", "label": "Description", "default": "Emptiness does not always mean absence;\nsometimes, it is the space where everything begins.\nVelvet Void explores the profound beauty of silence\nand solitude. It is an ode to the inner world, shielded\nfrom the outside gaze by layers of soft velvet. Find\nyour peace within the infinite."},
+    {"type": "text", "id": "button_label", "label": "Texte du bouton", "default": "VIEW MORE"},
+    {"type": "url", "id": "button_link", "label": "Lien du bouton"},
+    {"type": "header", "content": "Fonts"},
+    {"type": "select", "id": "title_font", "label": "Font titre", "default": "mono", "options": [{"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "grotesk", "label": "Founders Grotesk"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "select", "id": "description_font", "label": "Font description", "default": "grotesk", "options": [{"value": "grotesk", "label": "Founders Grotesk"}, {"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "select", "id": "button_font", "label": "Font bouton", "default": "grotesk", "options": [{"value": "grotesk", "label": "Founders Grotesk"}, {"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "select", "id": "product_font", "label": "Font cards produits", "default": "mono", "options": [{"value": "mono", "label": "Founders Grotesk Mono"}, {"value": "grotesk", "label": "Founders Grotesk"}, {"value": "system_sans", "label": "Sans système"}, {"value": "serif", "label": "Serif"}, {"value": "system_mono", "label": "Mono système"}]},
+    {"type": "header", "content": "Graisses"},
+    {"type": "range", "id": "title_weight", "label": "Graisse titre", "min": 0, "max": 900, "step": 50, "default": 300},
+    {"type": "range", "id": "description_weight", "label": "Graisse description", "min": 0, "max": 900, "step": 50, "default": 400},
+    {"type": "range", "id": "button_weight", "label": "Graisse bouton", "min": 0, "max": 900, "step": 50, "default": 700},
+    {"type": "range", "id": "product_title_weight", "label": "Graisse titre produit", "min": 0, "max": 900, "step": 50, "default": 300},
+    {"type": "range", "id": "product_subtitle_weight", "label": "Graisse sous-titre produit", "min": 0, "max": 900, "step": 50, "default": 400},
+    {"type": "range", "id": "product_price_weight", "label": "Graisse prix produit", "min": 0, "max": 900, "step": 50, "default": 700},
+    {"type": "header", "content": "Dimensions"},
+    {"type": "range", "id": "section_height", "label": "Hauteur desktop", "min": 360, "max": 640, "step": 20, "unit": "px", "default": 460},
+    {"type": "range", "id": "title_size", "label": "Taille du titre", "min": 28, "max": 88, "step": 1, "unit": "px", "default": 46},
+    {"type": "range", "id": "description_size", "label": "Taille description", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 18},
+    {"type": "range", "id": "card_width", "label": "Largeur cards desktop", "min": 180, "max": 340, "step": 10, "unit": "px", "default": 250},
+    {"type": "range", "id": "mobile_card_width", "label": "Largeur cards mobile", "min": 150, "max": 280, "step": 10, "unit": "px", "default": 220},
+    {"type": "checkbox", "id": "show_badge", "label": "Afficher badge New", "default": true},
+    {"type": "text", "id": "badge_label", "label": "Texte badge", "default": "New"},
+    {"type": "checkbox", "id": "show_heart", "label": "Afficher coeur", "default": true},
+    {"type": "checkbox", "id": "show_vendor", "label": "Afficher le vendeur", "default": false},
+    {"type": "header", "content": "Couleurs"},
+    {"type": "color", "id": "background_color", "label": "Fond section", "default": "#eeeeed"},
+    {"type": "color", "id": "text_color", "label": "Texte", "default": "#111111"},
+    {"type": "color", "id": "button_background", "label": "Fond bouton", "default": "#111111"},
+    {"type": "color", "id": "button_text_color", "label": "Texte bouton", "default": "#ffffff"},
+    {"type": "color", "id": "card_background", "label": "Fond cards", "default": "#dedede"}
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Produit",
+      "settings": [
+        {"type": "product", "id": "product", "label": "Produit"},
+        {"type": "text", "id": "subtitle", "label": "Sous-titre", "default": "Collection"}
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [{"name": "Launch collection"}]
+}
+{% endschema %}

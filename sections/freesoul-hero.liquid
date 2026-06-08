@@ -1,0 +1,488 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  if bg_color == blank
+    assign bg_color = '#fffcf0'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#ffffff'
+  endif
+  assign overlay_strength = section.settings.overlay_strength | default: 60
+  assign btn_bg = section.settings.button_bg
+  if btn_bg == blank
+    assign btn_bg = '#c9a3d4'
+  endif
+  assign btn_fg = section.settings.button_fg
+  if btn_fg == blank
+    assign btn_fg = '#1a1a1a'
+  endif
+  assign accent_color = section.settings.accent_color
+  if accent_color == blank
+    assign accent_color = '#c9a3d4'
+  endif
+  assign content_align = section.settings.content_align | default: 'left'
+  assign hero_height = section.settings.hero_height | default: 640
+  assign hero_height_mobile = section.settings.hero_height_mobile | default: 600
+
+  assign rating_text = section.settings.rating_text
+  assign show_rating = section.settings.show_rating
+  assign rating_count = section.settings.rating_count | default: 5
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --fsh-bg: {{ bg_color }};
+    --fsh-fg: {{ text_color }};
+    --fsh-btn-bg: {{ btn_bg }};
+    --fsh-btn-fg: {{ btn_fg }};
+    --fsh-accent: {{ accent_color }};
+    --fsh-overlay: {{ overlay_strength | divided_by: 100.0 }};
+    --fsh-height: {{ hero_height }}px;
+    --fsh-height-mobile: {{ hero_height_mobile }}px;
+  }
+  #shopify-section-{{ section.id }} .fsh::before { display: none !important; content: none !important; }
+  #shopify-section-{{ section.id }} .fsh,
+  #shopify-section-{{ section.id }} .fsh *,
+  #shopify-section-{{ section.id }} .fsh [data-animate],
+  #shopify-section-{{ section.id }} .fsh animate-element {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+</style>
+
+<section class="fsh fsh--align-{{ content_align }}" data-section-id="{{ section.id }}">
+  <div class="fsh__inner">
+
+    {%- if section.settings.image != blank -%}
+      <picture class="fsh__bg">
+        {%- if section.settings.image_mobile != blank -%}
+          <source media="(max-width: 749px)"
+                  srcset="{{ section.settings.image_mobile | image_url: width: 600 }} 600w, {{ section.settings.image_mobile | image_url: width: 900 }} 900w, {{ section.settings.image_mobile | image_url: width: 1200 }} 1200w"
+                  sizes="100vw">
+        {%- endif -%}
+        {%- assign bg_alt = section.settings.heading_main | default: 'hero' | escape -%}
+        {{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'fsh__bg-img', alt: bg_alt, widths: '750,1100,1500,1800', sizes: '100vw' }}
+      </picture>
+    {%- elsif section.settings.image_mobile != blank -%}
+      {%- assign bg_alt = section.settings.heading_main | default: 'hero' | escape -%}
+      {{ section.settings.image_mobile | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', class: 'fsh__bg-img', alt: bg_alt, widths: '600,900,1200', sizes: '100vw' }}
+    {%- endif -%}
+
+    {%- if overlay_strength > 0 -%}
+      <span class="fsh__overlay" aria-hidden="true"></span>
+      <span class="fsh__overlay fsh__overlay--bottom" aria-hidden="true"></span>
+    {%- endif -%}
+
+    <div class="fsh__content">
+
+      {%- if show_rating -%}
+        <div class="fsh__rating">
+          <span class="fsh__rating-stars" aria-hidden="true">
+            {%- for i in (1..5) -%}
+              {%- if i <= rating_count -%}
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M12 2.5l2.95 6.36 6.94.79-5.18 4.74 1.46 6.86L12 17.77l-6.17 3.48 1.46-6.86L2.11 9.65l6.94-.79z"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </span>
+          {%- if rating_text != blank -%}
+            <span class="fsh__rating-text">{{ rating_text | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading_main != blank or section.settings.heading_italic != blank or section.settings.heading_end != blank -%}
+        <div class="fsh__heading" role="heading" aria-level="1">
+          {%- if section.settings.heading_main != blank -%}
+            <span class="fsh__heading-main">{{ section.settings.heading_main | escape }}</span>
+          {%- endif -%}
+          {%- if section.settings.heading_italic != blank -%}
+            <em class="fsh__heading-italic">{{ section.settings.heading_italic | escape }}</em>
+          {%- endif -%}
+          {%- if section.settings.heading_end != blank -%}
+            <span class="fsh__heading-end">{{ section.settings.heading_end | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="fsh__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+
+      <div class="fsh__cta-row">
+        {%- if section.settings.button_label != blank -%}
+          <a class="fsh__button" href="{{ section.settings.button_link | default: '#' }}">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button_label_2 != blank -%}
+          <a class="fsh__button fsh__button--secondary" href="{{ section.settings.button_link_2 | default: '#' }}">
+            {{- section.settings.button_label_2 | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .fsh {
+    position: relative;
+    width: 100vw;
+    margin-inline-start: calc(50% - 50vw);
+    margin-inline-end: calc(50% - 50vw);
+    height: var(--fsh-height-mobile);
+    overflow: hidden;
+    background: var(--fsh-bg);
+    color: var(--fsh-fg);
+    isolation: isolate;
+  }
+  @media screen and (min-width: 750px) {
+    .fsh { height: var(--fsh-height); }
+  }
+  .fsh__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+  }
+  .fsh--align-center .fsh__inner { align-items: center; justify-content: center; }
+  .fsh--align-right .fsh__inner { align-items: flex-end; justify-content: flex-end; }
+
+  .fsh__bg,
+  .fsh__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 0;
+  }
+
+  .fsh__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(0,0,0,calc(var(--fsh-overlay) * 0.18)) 0%, rgba(0,0,0,0) 50%);
+  }
+  .fsh__overlay--bottom {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 25%, rgba(0,0,0,calc(var(--fsh-overlay) * 0.85)) 100%);
+  }
+
+  .fsh__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    padding: 28px 24px 32px;
+    color: var(--fsh-fg);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+    text-align: left;
+  }
+  @media screen and (min-width: 750px) {
+    .fsh__content {
+      max-width: 580px;
+      padding: 48px 56px 56px;
+      gap: 18px;
+    }
+  }
+  .fsh--align-center .fsh__content { align-items: center; text-align: center; }
+  .fsh--align-right .fsh__content { align-items: flex-end; text-align: right; }
+
+  /* Rating */
+  .fsh__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--fsh-fg);
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1;
+    opacity: 0.95;
+  }
+  .fsh__rating-stars {
+    display: inline-flex;
+    color: var(--fsh-accent);
+    line-height: 0;
+    gap: 1px;
+  }
+  .fsh__rating-stars svg { width: 14px; height: 14px; display: block; }
+  .fsh__rating-text { color: inherit; }
+
+  /* Heading */
+  .fsh__heading,
+  .fsh__heading-main,
+  .fsh__heading-italic,
+  .fsh__heading-end {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  }
+  .fsh__heading {
+    margin: 0 !important;
+    font-size: clamp(34px, 5vw, 60px) !important;
+    line-height: 1.05 !important;
+    font-weight: 600 !important;
+    color: inherit;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
+  }
+  .fsh--align-center .fsh__heading { max-width: 22ch; }
+  .fsh__heading > * + * { margin-inline-start: 0.18em; }
+  .fsh__heading-italic {
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  /* Subheading */
+  .fsh__subheading {
+    margin: 0 !important;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    color: inherit;
+    max-width: 480px;
+  }
+  @media screen and (min-width: 750px) {
+    .fsh__subheading { font-size: 16px !important; }
+  }
+
+  /* CTA */
+  .fsh__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .fsh__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fsh-btn-bg) !important;
+    color: var(--fsh-btn-fg) !important;
+    text-decoration: none;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border-radius: 6px;
+    transition: filter 150ms ease, transform 150ms ease;
+    border: 0;
+  }
+  .fsh__button:hover {
+    filter: brightness(0.92);
+    transform: translateY(-1px);
+  }
+  .fsh__button--secondary {
+    background: transparent !important;
+    color: var(--fsh-fg) !important;
+    border: 1.5px solid var(--fsh-fg);
+  }
+  .fsh__button--secondary:hover {
+    background: var(--fsh-fg) !important;
+    color: #1a1a1a !important;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero bannière (Freesoul)",
+  "tag": "section",
+  "class": "freesoul-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image de fond"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile (optionnel)"
+    },
+    {
+      "type": "header",
+      "content": "Hauteur"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Hauteur (desktop)",
+      "min": 400,
+      "max": 900,
+      "step": 10,
+      "default": 640,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Hauteur (mobile)",
+      "min": 380,
+      "max": 800,
+      "step": 10,
+      "default": 600,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "overlay_strength",
+      "label": "Force du dégradé sombre",
+      "info": "Améliore la lisibilité du texte sur l'image.",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Alignement",
+      "options": [
+        { "value": "left", "label": "Bas gauche" },
+        { "value": "center", "label": "Centre" },
+        { "value": "right", "label": "Bas droite" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Note (étoiles)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Afficher la note",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "rating_count",
+      "label": "Nombre d'étoiles pleines",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Texte note",
+      "default": "Plus de 110 000 avis 5 étoiles"
+    },
+    {
+      "type": "header",
+      "content": "Titre"
+    },
+    {
+      "type": "text",
+      "id": "heading_main",
+      "label": "Début du titre",
+      "default": "Matcha, now with"
+    },
+    {
+      "type": "text",
+      "id": "heading_italic",
+      "label": "Mot italique"
+    },
+    {
+      "type": "text",
+      "id": "heading_end",
+      "label": "Fin du titre",
+      "default": "collagen & protein."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Sous-titre",
+      "default": "Découvrez notre nouvelle gamme — formulée pour vous donner plus à chaque gorgée."
+    },
+    {
+      "type": "header",
+      "content": "Bouton principal"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texte du bouton",
+      "default": "Découvrir"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien"
+    },
+    {
+      "type": "header",
+      "content": "Bouton secondaire (optionnel)"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Texte du bouton 2"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Lien"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond (si pas d'image)",
+      "default": "#fffcf0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur des étoiles",
+      "default": "#c9a3d4"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Fond du bouton principal",
+      "default": "#c9a3d4"
+    },
+    {
+      "type": "color",
+      "id": "button_fg",
+      "label": "Texte du bouton principal",
+      "default": "#1a1a1a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero bannière (Freesoul)"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,412 @@
+{% comment %} Section vidéos carrousel — play inline, pas d'autoplay {% endcomment %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<style>
+  #mvc-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+
+  #mvc-{{ section.id }} .mvc-heading {
+    text-align: center;
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+    margin: 0 0 {{ section.settings.heading_mb }}px;
+    padding: 0 1rem;
+  }
+
+  #mvc-{{ section.id }} .mvc-wrapper {
+    position: relative;
+  }
+
+  #mvc-{{ section.id }} .swiper {
+    padding: 0 {{ section.settings.side_padding }}px !important;
+    overflow: hidden !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide {
+    border-radius: {{ section.settings.card_radius }}px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: #111 !important;
+    aspect-ratio: {{ section.settings.video_ratio }} !important;
+    cursor: pointer !important;
+    display: block !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide .mvc-media-wrap {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide .mvc-media-wrap video,
+  #mvc-{{ section.id }} .swiper-slide .mvc-media-wrap img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: static !important;
+    max-width: none !important;
+    max-height: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 0.01 }}) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+    transition: opacity 0.3s !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing .mvc-media-wrap img {
+    display: none !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing .mvc-overlay {
+    opacity: 0 !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing .mvc-media-wrap img {
+    display: none !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-play-btn {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 50% !important;
+    background: rgba(255,255,255,0.88) !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    transition: transform 0.15s !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-play-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: #111 !important;
+    margin-left: 3px !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide:hover .mvc-play-btn {
+    transform: translate(-50%, -50%) scale(1.1) !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing .mvc-play-btn {
+    display: none !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-pause-btn {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 52px !important;
+    height: 52px !important;
+    border-radius: 50% !important;
+    background: rgba(0,0,0,0.4) !important;
+    border: 2px solid rgba(255,255,255,0.75) !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    transition: opacity 0.2s !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-pause-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    fill: #fff !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing .mvc-pause-btn {
+    display: flex !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing:hover .mvc-pause-btn {
+    opacity: 1 !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-mute-btn {
+    position: absolute !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: rgba(0,0,0,0.45) !important;
+    border: none !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 3 !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-mute-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+    fill: #fff !important;
+  }
+
+  #mvc-{{ section.id }} .swiper-slide.mvc-playing .mvc-mute-btn {
+    display: flex !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-nav {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-nav svg {
+    width: 18px !important;
+    height: 18px !important;
+    fill: #111 !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-prev { left: 8px !important; }
+  #mvc-{{ section.id }} .mvc-next { right: 8px !important; }
+
+  #mvc-{{ section.id }} .mvc-nav.swiper-button-disabled {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #mvc-{{ section.id }} .mvc-cta {
+    text-align: center;
+    margin-top: {{ section.settings.cta_mt }}px;
+  }
+
+  #mvc-{{ section.id }} .mvc-cta a {
+    display: inline-block;
+    padding: 14px 32px;
+    background: {{ section.settings.cta_bg }};
+    color: {{ section.settings.cta_color }};
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+  }
+</style>
+
+<div id="mvc-{{ section.id }}">
+  {% if section.settings.heading != blank %}
+    <h2 class="mvc-heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="mvc-wrapper">
+    <div class="swiper" id="mvcSwiper-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {%- assign video_url = '' -%}
+          {%- if block.settings.video != blank -%}
+            {%- for source in block.settings.video.sources -%}
+              {%- if source.format == 'mp4' and video_url == '' -%}
+                {%- assign video_url = source.url -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if video_url == '' -%}
+              {%- assign video_url = block.settings.video.sources[0].url -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          <div class="swiper-slide" data-video="{{ video_url }}">
+            <div class="mvc-media-wrap">
+              {% if block.settings.poster != blank %}
+                <img src="{{ block.settings.poster | image_url: width: 600 }}" alt="{{ block.settings.poster.alt }}" loading="lazy">
+              {% endif %}
+              {% if video_url != '' %}
+                <video preload="none" playsinline loop muted></video>
+              {% endif %}
+            </div>
+
+            <div class="mvc-overlay"></div>
+
+            <div class="mvc-play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+
+            <div class="mvc-pause-btn">
+              <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </div>
+
+            <button class="mvc-mute-btn">
+              <svg class="mvc-icon-sound" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+              <svg class="mvc-icon-mute" viewBox="0 0 24 24" style="display:none;"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button class="mvc-nav mvc-prev" id="mvcPrev-{{ section.id }}">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+    <button class="mvc-nav mvc-next" id="mvcNext-{{ section.id }}">
+      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+  </div>
+
+  {% if section.settings.cta_text != blank %}
+    <div class="mvc-cta">
+      <a href="{{ section.settings.cta_url }}">{{ section.settings.cta_text }}</a>
+    </div>
+  {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var sid = '{{ section.id }}';
+  var root = document.getElementById('mvc-' + sid);
+  if (!root) return;
+
+  new Swiper('#mvcSwiper-' + sid, {
+    slidesPerView: {{ section.settings.slides_mobile }},
+    spaceBetween: {{ section.settings.gap }},
+    navigation: {
+      prevEl: '#mvcPrev-' + sid,
+      nextEl: '#mvcNext-' + sid
+    },
+    breakpoints: {
+      768:  { slidesPerView: {{ section.settings.slides_tablet }} },
+      1024: { slidesPerView: {{ section.settings.slides_desktop }} }
+    }
+  });
+
+  var slides = root.querySelectorAll('.swiper-slide');
+
+  slides.forEach(function(slide) {
+    var video = slide.querySelector('video');
+    var poster = slide.querySelector('img');
+    var muteBtn = slide.querySelector('.mvc-mute-btn');
+    var iconSound = slide.querySelector('.mvc-icon-sound');
+    var iconMute = slide.querySelector('.mvc-icon-mute');
+
+    if (!video) return;
+
+    slide.addEventListener('click', function(e) {
+      if (muteBtn && muteBtn.contains(e.target)) return;
+
+      if (video.paused) {
+        if (!video.getAttribute('src')) {
+          video.setAttribute('src', slide.getAttribute('data-video'));
+        }
+        slides.forEach(function(s) {
+          var v = s.querySelector('video');
+          var p = s.querySelector('img');
+          if (v && v !== video) {
+            v.pause();
+            s.classList.remove('mvc-playing');
+            if (p) p.style.removeProperty('display');
+          }
+        });
+        video.muted = false;
+        video.play().catch(function() { video.muted = true; video.play(); });
+        slide.classList.add('mvc-playing');
+        var poster = slide.querySelector('img');
+        if (poster) poster.style.display = 'none';
+        if (poster) poster.style.display = 'none';
+      } else {
+        video.pause();
+        slide.classList.remove('mvc-playing');
+        if (poster) poster.style.removeProperty('display');
+      }
+    });
+
+    if (muteBtn) {
+      muteBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        iconSound.style.display = video.muted ? 'none' : 'block';
+        iconMute.style.display = video.muted ? 'block' : 'none';
+      });
+    }
+
+    video.addEventListener('ended', function() {
+      slide.classList.remove('mvc-playing');
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Vidéos carrousel",
+  "settings": [
+    { "type": "header", "content": "Titre" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Rejoignez +150 000 clients aujourd'hui" },
+    { "type": "range", "id": "heading_size", "min": 14, "max": 60, "step": 1, "unit": "px", "label": "Taille du titre", "default": 28 },
+    { "type": "range", "id": "heading_mb", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Espace sous le titre", "default": 32 },
+    { "type": "header", "content": "Carrousel" },
+    { "type": "range", "id": "slides_desktop", "min": 1, "max": 6, "step": 0.5, "label": "Vidéos visibles — desktop", "default": 5 },
+    { "type": "range", "id": "slides_tablet", "min": 1, "max": 5, "step": 0.5, "label": "Vidéos visibles — tablette", "default": 3 },
+    { "type": "range", "id": "slides_mobile", "min": 1, "max": 4, "step": 0.5, "label": "Vidéos visibles — mobile", "default": 2 },
+    { "type": "range", "id": "gap", "min": 4, "max": 40, "step": 2, "unit": "px", "label": "Espacement entre vidéos", "default": 14 },
+    { "type": "range", "id": "side_padding", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Marges latérales", "default": 16 },
+    { "type": "text", "id": "video_ratio", "label": "Ratio des vidéos (ex: 9/16, 1/1, 4/5)", "default": "9/16" },
+    { "type": "range", "id": "card_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Arrondi des cartes", "default": 12 },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 60, "step": 5, "label": "Opacité de l'overlay (%)", "default": 20 },
+    { "type": "header", "content": "Bouton (optionnel)" },
+    { "type": "text", "id": "cta_text", "label": "Texte du bouton", "default": "Voir tous nos avis clients" },
+    { "type": "url", "id": "cta_url", "label": "Lien du bouton" },
+    { "type": "range", "id": "cta_mt", "min": 0, "max": 80, "step": 4, "unit": "px", "label": "Espace au-dessus du bouton", "default": 32 },
+    { "type": "header", "content": "Espacement section" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding haut", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "Padding bas", "default": 60 },
+    { "type": "header", "content": "Couleurs" },
+    { "type": "color", "id": "bg_color", "label": "Fond de section", "default": "#ffffff" },
+    { "type": "color", "id": "heading_color", "label": "Couleur du titre", "default": "#111111" },
+    { "type": "color", "id": "cta_bg", "label": "Fond du bouton", "default": "#111111" },
+    { "type": "color", "id": "cta_color", "label": "Texte du bouton", "default": "#ffffff" }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Vidéo",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Vidéo (Shopify)" },
+        { "type": "image_picker", "id": "poster", "label": "Miniature", "info": "Image affichée avant lecture. Recommandé pour la vitesse." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vidéos carrousel",
+      "blocks": [
+        { "type": "video" }, { "type": "video" }, { "type": "video" },
+        { "type": "video" }, { "type": "video" }
+      ]
+    }
+  ]
+}
+{% endschema %}

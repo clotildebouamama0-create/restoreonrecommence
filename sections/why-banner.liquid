@@ -1,0 +1,312 @@
+{%- liquid
+  assign eyebrow = section.settings.eyebrow
+  assign heading_main = section.settings.heading_main
+  assign heading_italic = section.settings.heading_italic
+  assign heading_end = section.settings.heading_end
+
+  assign bg_color = section.settings.background_color
+  if bg_color == blank
+    assign bg_color = '#3b000b'
+  endif
+  assign text_color = section.settings.text_color
+  if text_color == blank
+    assign text_color = '#f7ede0'
+  endif
+  assign accent_color = section.settings.accent_color
+  if accent_color == blank
+    assign accent_color = '#c5a3d4'
+  endif
+  assign icon_size = section.settings.icon_size | default: 56
+  assign icon_size_mobile = section.settings.icon_size_mobile | default: icon_size
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} .why { background: {{ bg_color }} !important; color: {{ text_color }} !important; position: relative; z-index: 1; }
+  #shopify-section-{{ section.id }} .why::before { display: none !important; content: none !important; }
+  #shopify-section-{{ section.id }} .why > * { position: relative; z-index: 2; }
+  #shopify-section-{{ section.id }} .why,
+  #shopify-section-{{ section.id }} .why *,
+  #shopify-section-{{ section.id }} .why [data-animate],
+  #shopify-section-{{ section.id }} .why animate-element {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  {% if section.settings.extend_full_viewport %}
+  #shopify-section-{{ section.id }} .why__inner {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-inline-start: calc(50% - 50vw) !important;
+    margin-inline-end: calc(50% - 50vw) !important;
+    padding-inline: 16px !important;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .why__inner { padding-inline: 32px !important; }
+  }
+  @media screen and (min-width: 1280px) {
+    #shopify-section-{{ section.id }} .why__inner { padding-inline: 48px !important; }
+  }
+  {% endif %}
+</style>
+
+<section class="why section--padding slider-section-padding" data-section-id="{{ section.id }}">
+  <div class="why__inner page-width{% if section.settings.full_width %} page-width--full{% endif %}">
+
+    {%- if eyebrow != blank -%}
+      <p class="why__eyebrow" style="color:{{ text_color }};">{{ eyebrow | escape }}</p>
+    {%- endif -%}
+
+    {%- if heading_main != blank or heading_italic != blank or heading_end != blank -%}
+      <div class="why__heading" role="heading" aria-level="2" style="color:{{ text_color }};">
+        {%- if heading_main != blank -%}<span class="why__heading-main">{{ heading_main | escape }}</span>{%- endif -%}
+        {%- if heading_italic != blank -%} <em class="why__heading-italic" style="color:{{ accent_color }};">{{ heading_italic | escape }}</em>{%- endif -%}
+        {%- if heading_end != blank -%} <span class="why__heading-end">{{ heading_end | escape }}</span>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="why__features">
+        {%- for block in section.blocks -%}
+          <div class="why__feature" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != blank -%}
+              {%- assign icon_alt = block.settings.label | default: 'icon' | escape -%}
+              <div class="why__feature-icon">
+                {{ block.settings.icon | image_url: width: 120 | image_tag: loading: 'lazy', alt: icon_alt, class: 'why__feature-icon-img' }}
+              </div>
+            {%- endif -%}
+            {%- if block.settings.label != blank -%}
+              <p class="why__feature-label" style="color:{{ text_color }};">{{ block.settings.label | escape }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  .why { width: 100%; }
+  .why__inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+    padding-block: 64px;
+  }
+  @media screen and (min-width: 750px) {
+    .why__inner { padding-block: 84px; gap: 32px; }
+  }
+
+  .why__eyebrow {
+    margin: 0 !important;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    opacity: 0.85;
+  }
+
+  .why__heading,
+  .why__heading-main,
+  .why__heading-italic,
+  .why__heading-end {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  }
+  .why__heading {
+    margin: 0 !important;
+    font-size: clamp(28px, 4.2vw, 48px) !important;
+    line-height: 1.15 !important;
+    font-weight: 700 !important;
+    max-width: 900px;
+  }
+  .why__heading > * + * { margin-inline-start: 0.25em; }
+  .why__heading-italic {
+    font-style: italic;
+    font-weight: 600;
+    padding: 0 0.05em;
+  }
+
+  .why__features {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 16px;
+    margin-top: 8px;
+    max-width: 960px;
+  }
+  @media screen and (min-width: 750px) {
+    .why__features {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+    }
+  }
+
+  .why__feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+  }
+  .why__feature-icon {
+    width: {{ icon_size_mobile }}px;
+    height: {{ icon_size_mobile }}px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media screen and (min-width: 750px) {
+    .why__feature-icon {
+      width: {{ icon_size }}px;
+      height: {{ icon_size }}px;
+    }
+  }
+  .why__feature-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .why__feature-label {
+    margin: 0 !important;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    max-width: 200px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Bannière 'Pourquoi'",
+  "tag": "section",
+  "class": "why-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Couleur de fond",
+      "default": "#3b000b"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur du texte",
+      "default": "#f7ede0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur du mot italique",
+      "default": "#c5a3d4"
+    },
+    {
+      "type": "header",
+      "content": "Icônes"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Taille des icônes (desktop)",
+      "min": 32,
+      "max": 200,
+      "step": 4,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Taille des icônes (mobile)",
+      "min": 28,
+      "max": 160,
+      "step": 4,
+      "default": 56,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Mise en page"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Pleine largeur (suit le page-width)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "extend_full_viewport",
+      "label": "Élargir au-delà du padding global",
+      "info": "Étend la bannière sur toute la largeur de l'écran en ignorant le padding latéral du thème.",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Étiquette (au-dessus du titre)",
+      "default": "POURQUOI BAÏA"
+    },
+    {
+      "type": "text",
+      "id": "heading_main",
+      "label": "Début du titre",
+      "default": "Notre tisane provient des"
+    },
+    {
+      "type": "text",
+      "id": "heading_italic",
+      "label": "Mot ou phrase en italique coloré",
+      "default": "2% meilleurs producteurs"
+    },
+    {
+      "type": "text",
+      "id": "heading_end",
+      "label": "Fin du titre",
+      "default": "du monde entier"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Avantage",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icône (PNG, SVG, JPG)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Avantage"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bannière 'Pourquoi'",
+      "blocks": [
+        { "type": "feature", "settings": { "label": "100% naturel" } },
+        { "type": "feature", "settings": { "label": "Sans additifs" } },
+        { "type": "feature", "settings": { "label": "Goût authentique" } },
+        { "type": "feature", "settings": { "label": "Fabriqué éthiquement" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

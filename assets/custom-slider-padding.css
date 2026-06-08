@@ -1,0 +1,2214 @@
+/*
+ * Custom slider section padding & freesoul-style product card
+ * --------------------------------------------------
+ *
+ * 1) Override the default `.section--padding` rule (which applies a `* 0.75`
+ *    multiplier) for slider/carousel sections, mirroring freesoul.com:
+ *      - mobile  : 40px / 40px
+ *      - desktop : 60px / 40px
+ *
+ * 2) Restyle the product cards inside slider sections to match freesoul.com:
+ *      - no grey/colored background around the card
+ *      - tags (badges) shown at the top, in the page flow
+ *      - title + subtitle on the left
+ *      - price + price-per-serving on the left below
+ *      - rating (stars) aligned on the right
+ *
+ *    The subtitle and price-per-serving are powered by product metafields
+ *    (custom.card_subtitle / custom.subtitle and custom.price_per_serving /
+ *    custom.daily_price) so they stay editable from the Shopify admin.
+ */
+
+/* -------------------------------------------------------------------------
+ * 1. Section padding
+ * ------------------------------------------------------------------------- */
+
+.slider-section-padding {
+  --slider-padding-top-mobile: 40px;
+  --slider-padding-bottom-mobile: 40px;
+  --slider-padding-top-desktop: 60px;
+  --slider-padding-bottom-desktop: 40px;
+}
+
+.slider-section-padding {
+  padding-top: var(--slider-padding-top-mobile) !important;
+  padding-bottom: var(--slider-padding-bottom-mobile) !important;
+}
+
+@media screen and (min-width: 750px) {
+  .slider-section-padding {
+    padding-top: var(--slider-padding-top-desktop) !important;
+    padding-bottom: var(--slider-padding-bottom-desktop) !important;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * 2. Freesoul-style product cards inside slider sections
+ * ------------------------------------------------------------------------- */
+
+/* Remove background, border, shadow, and inner padding from the card */
+.slider-section-padding .product-card,
+.slider-section-padding .product-card.card {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Same for the media wrapper that often shows a colored background */
+.slider-section-padding .product-card .product-card__media,
+.slider-section-padding .product-card .media,
+.slider-section-padding .product-card .card__media {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Tags / badges : show at the top in the normal flow on freesoul */
+.slider-section-padding .product-card .product-card__media .badges {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 12px 4px !important;
+  pointer-events: auto !important;
+  z-index: 1;
+}
+
+.slider-section-padding .product-card .badge {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  border-radius: 4px !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Content area : align left, no background */
+.slider-section-padding .product-card .product-card__content {
+  background: transparent !important;
+  padding: 12px 0 0 0 !important;
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+/* Layout :
+ *   row 1 : title + subtitle, full width, left aligned
+ *   row 2 : price + price-per-serving on the left, stars + count on the right
+ */
+.slider-section-padding .product-card .product-card__details {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 12px 0 !important;
+  text-align: left !important;
+}
+
+.slider-section-padding .product-card .product-card__text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  gap: 4px !important;
+  width: 100% !important;
+}
+
+.slider-section-padding .product-card .product-card__bottom {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.slider-section-padding .product-card .product-card__price-block {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  text-align: left !important;
+}
+
+.slider-section-padding .product-card .product-card__price-block .price {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+}
+
+.slider-section-padding .product-card .product-card__rating-block {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  align-self: flex-end !important;
+}
+
+.slider-section-padding .product-card .product-card__rating-count {
+  font-size: 0.8125rem !important;
+  color: rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+}
+
+/* Hide every Judge.me badge variant (we render our own SVG stars) */
+.slider-section-padding .product-card .jdgm-widget,
+.slider-section-padding .product-card .jdgm-preview-badge,
+.slider-section-padding .product-card .jdgm-prev-badge,
+.slider-section-padding .product-card .jdgm-prev-badge__text,
+.slider-section-padding .product-card .jdgm-prev-badge__stars,
+.slider-section-padding .product-card [class^="jdgm-"],
+.slider-section-padding .product-card [class*=" jdgm-"] {
+  display: none !important;
+}
+
+/* SVG star row */
+.slider-section-padding .product-card .product-card__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: #e91e63;
+  line-height: 1;
+}
+.slider-section-padding .product-card .product-card__star {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  fill: currentColor;
+}
+.slider-section-padding .product-card .product-card__star.is-empty {
+  color: #e91e63;
+  opacity: 0.3;
+}
+
+/* Title — Founders Grotesk Mono Light UPPERCASE (luxe minimaliste) */
+.slider-section-padding .product-card .product-card__title,
+.slider-section-padding .product-card a.product-card__title,
+.featured-collection .product-card .product-card__title,
+.featured-collection .product-card a.product-card__title,
+.featured-collections .product-card .product-card__title,
+.featured-collections .product-card a.product-card__title {
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-style: normal !important;
+  font-weight: 300 !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+}
+
+/* Subtitle */
+.slider-section-padding .product-card .product-card__subtitle,
+.featured-collection .product-card .product-card__subtitle,
+.featured-collections .product-card .product-card__subtitle {
+  margin: 0 !important;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 11.5px !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  color: #9a9a9a !important;
+  opacity: 1 !important;
+}
+
+/* Price — Founders Grotesk Mono Light ITALIC, plus clair */
+.slider-section-padding .product-card .price__regular,
+.slider-section-padding .product-card .product-card__price-block,
+.slider-section-padding .product-card .price,
+.featured-collection .product-card .price__regular,
+.featured-collection .product-card .product-card__price-block,
+.featured-collection .product-card .price,
+.featured-collections .product-card .price__regular,
+.featured-collections .product-card .product-card__price-block,
+.featured-collections .product-card .price {
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-style: italic !important;
+  font-weight: 300 !important;
+  font-size: 11.5px !important;
+  letter-spacing: 0.04em !important;
+  color: #9a9a9a !important;
+}
+
+/* "From X per serving" line */
+.slider-section-padding .product-card .product-card__price-per-serving {
+  margin: 0 !important;
+  font-size: 0.75rem !important;
+  line-height: 1.3 !important;
+  opacity: 0.7;
+}
+
+/* Hide rating overlay placed on top of the image (we render stars next to price) */
+.slider-section-padding .product-card .product-card__rating {
+  display: none !important;
+}
+
+/* -------------------------------------------------------------------------
+ * 3. Header : top-level nav links sized like freesoul.com,
+ *    pinned to the start of the header row (left, before the logo).
+ *    Adds a chevron under each link with a sub-menu, mega menu width fix.
+ * ------------------------------------------------------------------------- */
+@media screen and (min-width: 990px) {
+  /* Refined, smaller, uppercase with tracking — premium luxury feel */
+  .header .list-menu > li .menu__item,
+  .header .list-menu > li .menu__item .btn-text,
+  .header .list-menu > li > a,
+  .header .list-menu > li > details > summary,
+  .header .list-menu > li > details > summary .btn-text,
+  .header .list-menu > li > a span,
+  header.header .list-menu > li .menu__item,
+  header.header .list-menu > li .menu__item .btn-text,
+  header.header .list-menu > li > a,
+  header.header .list-menu > li > details > summary {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif !important;
+    font-size: 12.5px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Pin the main nav <ul> to the left of the header */
+  .header .header__nav,
+  .header .header__nav .list-menu {
+    justify-content: flex-start !important;
+    margin-inline-start: 0 !important;
+    margin-inline-end: auto !important;
+  }
+
+  /* Breathing room between Shop / Learn / ... */
+  .header .list-menu > li {
+    margin-inline-end: 22px !important;
+  }
+  .header .list-menu > li:last-child {
+    margin-inline-end: 0 !important;
+  }
+
+  /* Chevron under top-level links that have a dropdown / mega menu */
+  .header .list-menu > li > details > summary {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+  }
+  .header .list-menu > li > details > summary::after {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 1px;
+    border-right: 1.4px solid currentColor;
+    border-bottom: 1.4px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 200ms ease;
+  }
+  .header .list-menu > li > details[open] > summary::after {
+    transform: translateY(1px) rotate(-135deg);
+  }
+
+  /* ============== Localization (English / EUR €) — refined ============== */
+  .header .header__icons--end .localization .menu__item,
+  .header .header__icons--end .localization .menu__item .btn-text,
+  .header .header__icons--end .localization summary,
+  .header .header__icons--end .localization summary .btn-text {
+    font-family: 'Founders Grotesk', 'Founders Grotesk', 'Helvetica Neue', 'Inter', Arial, sans-serif !important;
+    font-size: 11.5px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: inherit !important;
+  }
+  .header .header__icons--end .localization .country-flag {
+    width: 16px !important;
+    height: 16px !important;
+    margin-right: 6px !important;
+  }
+  /* Add breathing space between menu, localization, and icons (fix overlap) */
+  .header .header__icons--end .header__buttons {
+    gap: 18px !important;
+    margin-left: 24px !important;
+  }
+  .header .header__icons--end .localization svg.icon-chevron-menu,
+  .header .header__icons--end .localization svg {
+    width: 9px !important;
+    height: 9px !important;
+    margin-left: 4px !important;
+  }
+  .header .header__icons--end .localization {
+    margin-right: 4px !important;
+  }
+
+  /* ============== Header icons (search, account, cart) — slightly smaller ============== */
+  .header .header__icons--end .search-drawer-button svg,
+  .header .header__icons--end shopify-account svg,
+  .header .header__icons--end .cart-drawer-button svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  /* ============== Header padding — tighter, more refined ============== */
+  .header-section .header.page-width {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+  }
+
+  /* ============== Hover underline (subtle, premium) ============== */
+  .header .list-menu > li > a,
+  .header .list-menu > li > details > summary {
+    position: relative !important;
+  }
+  .header .list-menu > li > a::before,
+  .header .list-menu > li > details > summary::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 12px;
+    bottom: -6px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 250ms ease;
+  }
+  .header .list-menu > li:hover > a::before,
+  .header .list-menu > li:hover > details > summary::before,
+  .header .list-menu > li > details[open] > summary::before {
+    transform: scaleX(1);
+  }
+}
+
+  /* ---------------- Mega menu container ----------------
+   * Cap the dropdown to 1100px (~70% of a 1440px screen) and pin to
+   * the left so the right side of the page stays empty,
+   * just like freesoul.com. */
+  .header .mega-menu__container {
+    left: 0 !important;
+    right: auto !important;
+    transform: none !important;
+    width: 1100px !important;
+    max-width: 1100px !important;
+  }
+  .header .mega-menu__container .mega-menu__list {
+    max-width: 1100px !important;
+    width: 100% !important;
+    margin-inline-start: 0 !important;
+    margin-inline-end: auto !important;
+    padding-inline-start: 24px !important;
+    padding-inline-end: 24px !important;
+    gap: 24px !important;
+  }
+
+  /* Tabs column / promo image / gap inside the panel */
+  .mega-menu__list--tabs {
+    --nav-tabs-width: 150px !important;
+    --nav-promo-width: 240px !important;
+    --nav-tabs-gap: 24px !important;
+  }
+
+  /* Make sure the products area uses all the available width */
+  .header .mega-menu__panel slider-element,
+  .header .mega-menu__panel .product-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .header .mega-menu__list--tabs .mega-menu__item--panels {
+    padding-inline-end: 0 !important;
+    overflow: visible !important;
+  }
+  .header .mega-menu__list--tabs .mega-menu__panel {
+    gap: 24px !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: start !important;
+  }
+
+  /* Portrait promo image on the right (freesoul-like 3:4 ratio) */
+  .header .mega-menu__panel .media-card {
+    width: var(--nav-promo-width, 260px) !important;
+    max-width: 260px !important;
+    aspect-ratio: 3 / 4;
+    max-height: none !important;
+  }
+  .header .mega-menu__panel .media-card .media {
+    height: 100% !important;
+    max-height: none !important;
+    aspect-ratio: 3 / 4;
+  }
+  .header .mega-menu__panel .media-card img {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+  }
+
+  /* Hide the "All Bestsellers (2) ->" header link above the products grid */
+  .header .mega-menu__panel .mega-menu__link.icon-with-text,
+  .header .mega-menu__panel > .grid > .flex.items-center.justify-between {
+    display: none !important;
+  }
+  .header .mega-menu__panel .text-opacity.uppercase {
+    display: none !important;
+  }
+
+  /* Force the products area to render as a 4-column grid (no scroll slider)
+   * so it looks like freesoul's static layout instead of a horizontal slider. */
+  .header .mega-menu__panel slider-element.slider--desktop {
+    overflow: visible !important;
+  }
+  .header .mega-menu__panel slider-element .product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  .header .mega-menu__panel slider-element .product-grid > .card {
+    width: auto !important;
+    flex: 0 1 auto !important;
+    scroll-snap-align: none !important;
+  }
+  .header .mega-menu__panel slider-element .product-grid > .card .media,
+  .header .mega-menu__panel slider-element .product-grid > .card .product-card__media {
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    max-height: 160px !important;
+    overflow: hidden !important;
+  }
+  .header .mega-menu__panel slider-element .product-grid > .card .media img,
+  .header .mega-menu__panel slider-element .product-grid > .card .product-card__media img {
+    object-fit: cover !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* When 3 columns work better (e.g. promo image present), shrink to 3 */
+  @media screen and (max-width: 1199px) {
+    .header .mega-menu__panel slider-element .product-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+
+  /* Hide the scroll dots that appear when the layout was a slider */
+  .header .mega-menu__panel slider-element .indicators,
+  .header .mega-menu__panel slider-element .flickity-page-dots,
+  .header .mega-menu__panel slider-element + .indicators {
+    display: none !important;
+  }
+
+  /* Tabs (Bestsellers, Powders, ...) on the left : smaller, simpler */
+  .header .mega-menu__nav--tabs .mega-menu__nav-item {
+    padding: 6px 0 !important;
+  }
+  .header .mega-menu__nav--tabs .mega-menu__nav-item .heading,
+  .header .mega-menu__nav--tabs .mega-menu__nav-item .link-text {
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.3 !important;
+    text-transform: none !important;
+  }
+  .header .mega-menu__nav--tabs .mega-menu__nav-item :is(.media, .heading) {
+    opacity: 1 !important;
+  }
+  .header .mega-menu__nav--tabs .mega-menu__nav-item[disabled] :is(.media, .heading) {
+    color: rgb(var(--color-foreground));
+    font-weight: 600 !important;
+  }
+
+  /* Footer button (Shop All) below the tabs column */
+  .header .mega-menu__item--tabs .mega-menu__footer {
+    margin-top: 24px !important;
+    padding-top: 16px !important;
+    border-top: 0 !important;
+  }
+  .header .mega-menu__item--tabs .mega-menu__footer .mega-menu__link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ec4899 !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    padding: 12px 28px !important;
+    width: auto !important;
+    min-width: 140px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+  }
+  .header .mega-menu__item--tabs .mega-menu__footer .mega-menu__link .link-text,
+  .header .mega-menu__item--tabs .mega-menu__footer .mega-menu__link span {
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    letter-spacing: 0.06em !important;
+  }
+  .header .mega-menu__item--tabs .mega-menu__footer .mega-menu__link .icon {
+    display: none !important;
+  }
+
+  /* Product cards inside the mega menu : freesoul-style, no grey card,
+   * smaller, with the same compact layout we use in the slider sections. */
+  .header .mega-menu__panel .product-card,
+  .header .mega-menu__panel .product-card.card {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__media,
+  .header .mega-menu__panel .product-card .media,
+  .header .mega-menu__panel .product-card .card__media {
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+  .header .mega-menu__panel .product-card .badges {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 6px 0 !important;
+    pointer-events: auto !important;
+  }
+  .header .mega-menu__panel .product-card .badge {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    border-radius: 4px !important;
+    padding: 4px 8px !important;
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__content {
+    background: transparent !important;
+    padding: 6px 0 0 0 !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__details {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+    text-align: left !important;
+    padding: 4px 0 !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__text {
+    align-items: flex-start !important;
+    text-align: left !important;
+    gap: 2px !important;
+    width: 100% !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__subtitle {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+    opacity: 0.7;
+  }
+  .header .mega-menu__panel .product-card .product-card__bottom {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__price-block {
+    align-items: flex-start !important;
+    gap: 1px !important;
+  }
+  .header .mega-menu__panel .product-card .price__regular {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__price-per-serving {
+    font-size: 11px !important;
+    opacity: 0.7;
+  }
+  .header .mega-menu__panel .product-card .product-card__rating-block {
+    align-self: flex-end !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__star {
+    width: 11px;
+    height: 11px;
+    flex: 0 0 11px;
+  }
+  .header .mega-menu__panel .product-card .product-card__rating-count {
+    font-size: 11px !important;
+  }
+  .header .mega-menu__panel .product-card .jdgm-widget,
+  .header .mega-menu__panel .product-card [class^="jdgm-"],
+  .header .mega-menu__panel .product-card [class*=" jdgm-"] {
+    display: none !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__rating {
+    display: none !important;
+  }
+  /* Hide quick-add overlays inside the mega menu (overkill there) */
+  .header .mega-menu__panel .product-card .quick-add,
+  .header .mega-menu__panel .product-card .product-card__countdown {
+    display: none !important;
+  }
+
+  /* Hide price + rating inside mega-menu cards (freesoul shows only image,
+   * title and short description in the dropdown). */
+  .header .mega-menu__panel .product-card .product-card__price-block,
+  .header .mega-menu__panel .product-card .product-card__rating-block,
+  .header .mega-menu__panel .product-card .product-card__bottom,
+  .header .mega-menu__panel .product-card .price,
+  .header .mega-menu__panel .product-card .product-card__price-per-serving,
+  .header .mega-menu__panel .product-card .product-card__stars,
+  .header .mega-menu__panel .product-card .product-card__rating-count {
+    display: none !important;
+  }
+
+  /* Hide vendor (BAIA WELLNESS) above the title to match freesoul's compact layout */
+  .header .mega-menu__panel .product-card .product-card__top {
+    display: none !important;
+  }
+
+  /* Make the row "image | (title + subtitle)" instead of stacked, like freesoul */
+  .header .mega-menu__panel .product-card {
+    display: grid !important;
+    grid-template-columns: 110px minmax(0, 1fr) !important;
+    grid-template-areas: "media content" !important;
+    gap: 16px !important;
+    align-items: start !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__media {
+    grid-area: media !important;
+    flex: 0 0 110px !important;
+    align-self: start !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__content {
+    grid-area: content !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    align-self: start !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__details,
+  .header .mega-menu__panel .product-card .product-card__text {
+    width: 100% !important;
+    min-width: 0 !important;
+    align-items: flex-start !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__media,
+  .header .mega-menu__panel .product-card .product-card__media a,
+  .header .mega-menu__panel .product-card .product-card__media .media {
+    width: 110px !important;
+    height: 110px !important;
+    aspect-ratio: 1 !important;
+    max-height: 110px !important;
+    overflow: hidden !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-radius: 6px !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  /* All product titles inside the same dropdown panel align at the same
+   * top baseline, regardless of how many lines the longer one wraps on. */
+  .header .mega-menu__panel slider-element .product-grid {
+    align-items: start !important;
+  }
+
+  .header .mega-menu__panel .product-card .product-card__title {
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+  .header .mega-menu__panel .product-card .product-card__subtitle {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+  }
+
+  /* Mega-menu products grid : 2 columns, never wrap a card inside itself */
+  .header .mega-menu__panel slider-element .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px 24px !important;
+    width: 100% !important;
+  }
+  .header .mega-menu__panel slider-element .product-grid > .card {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+  @media screen and (max-width: 1199px) {
+    .header .mega-menu__panel slider-element .product-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * 4. Larger global side padding so sections don't feel zoomed-in.
+ *    Bumps the theme variable --page-padding so every .page-width
+ *    container gains breathing room on the left and right.
+ * ------------------------------------------------------------------------- */
+:root {
+  --page-padding: 24px !important;
+}
+
+@media screen and (min-width: 750px) {
+  :root {
+    --page-padding: 48px !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --page-padding: 80px !important;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  :root {
+    --page-padding: 120px !important;
+    --page-container: min(calc(100vw - 240px), 1280px) !important;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  :root {
+    --page-padding: max(120px, calc(50vw - 640px)) !important;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * 5. Mobile drawer (Header burger menu) — make it look closer to freesoul
+ * ------------------------------------------------------------------------- */
+@media screen and (max-width: 989px) {
+  /* Smaller, sans-serif feeling for menu items */
+  .drawer .drawer__menu-item,
+  .drawer .drawer__menu-item .heading,
+  .drawer .drawer__menu-item span,
+  .drawer__scrollable .drawer__menu-item,
+  .drawer__scrollable .drawer__menu-item .heading {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.3 !important;
+    text-transform: none !important;
+    font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  }
+
+  /* Shop / Learn top-level entries a little bigger */
+  .drawer > .drawer__inner > .drawer__content > details > summary .drawer__menu-item,
+  .drawer .drawer__menu > details > summary {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+  }
+
+  /* Compact spacing */
+  .drawer .drawer__menu-item {
+    padding: 12px 0 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+  .drawer .drawer__menu-group {
+    margin: 0 !important;
+  }
+
+  /* Constrain promo image inside the drawer */
+  .drawer .mega-menu__list .media-card,
+  .drawer .drawer__promotions .media-card {
+    max-width: 100% !important;
+  }
+  .drawer .mega-menu__list img,
+  .drawer .drawer__promotions img {
+    max-height: 220px !important;
+    object-fit: cover !important;
+  }
+  .drawer .drawer__promotions .mega-menu__list {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    padding: 12px 0 !important;
+  }
+}
+
+
+
+/* -------------------------------------------------------------------------
+ * Mobile sticky header fix
+ * -------------------------------------------------------------------------
+ *
+ * On iOS / mobile, body { overflow-x: hidden } breaks position: sticky
+ * applied on descendants (header, USP bar). Replacing it with overflow-x:
+ * clip preserves the horizontal clipping behaviour without creating a new
+ * scroll container, which is what kills sticky positioning.
+ */
+html { overflow-x: clip; }
+body {
+  overflow-x: clip !important;
+}
+
+/* Make sure no ancestor of the sticky header creates a new overflow context
+   that would break sticky behaviour on mobile. */
+.page-container,
+.main-content {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* Force the header section to stay sticky on every viewport size, but only
+   when the theme has added the `.header-sticky` class (sticky_header_type
+   != 'none'). NEVER force sticky on the bare `.header-section` because
+   that would also pin the announcement bar's neighbour at top:0 and hide
+   the announcement bar on mobile. */
+.header-section.header-sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+}
+
+/* The theme adds `.header-hidden` when the user scrolls down (with a
+   `transform: translateY(-100%)` rule) when sticky mode is `on-scroll-up`.
+   Neutralize this on every device so the header stays visible while
+   scrolling. The user wants the header always pinned to the top. */
+.header-section.header-hidden,
+.header-section .header.header-hidden,
+.header-hidden .header[is="sticky-header"],
+.header-hidden .header[is="sticky-header"][data-sticky-type="on-scroll-up"],
+.header-hidden .header[is="sticky-header"][data-sticky-type="on-scroll-up"][data-sticky-type] {
+  transform: none !important;
+  translate: none !important;
+  pointer-events: auto !important;
+}
+
+/* Some mobile browsers (Safari iOS especially) need the sticky element to
+   have an explicit background to avoid rendering glitches while scrolling. */
+.header-section {
+  background-color: rgb(var(--color-background, 255 255 255));
+}
+
+/* Ensure the announcement bar (topbar) is visible on mobile. The theme
+   sometimes hides it implicitly via negative margin from the sticky header. */
+.topbar-section {
+  display: block !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 21;
+}
+.topbar-section .topbar {
+  display: grid !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Product page gallery customisation
+ * -------------------------------------------------------------------------
+ *
+ * 1) Force the thumbnails strip BELOW the main image (instead of the
+ *    vertical column on the left), with prev/next arrows.
+ * 2) Wrap the gallery in a soft wavy white frame (like Bloom Nutrition).
+ */
+
+/* === 1. Move thumbnails from the left column to the bottom strip === */
+@media screen and (min-width: 1280px) {
+  .product__media-container.xl\:flex-row {
+    flex-direction: column !important;
+  }
+  .product__thumbnails--beside {
+    order: 0 !important;
+    width: 100% !important;
+    margin-top: 18px !important;
+  }
+  .product__thumbnails--beside .product__thumbnails-list {
+    grid-auto-flow: column !important;
+    grid-auto-columns: 90px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    max-height: none !important;
+    scroll-snap-type: x proximity;
+    padding: 4px 2px;
+  }
+  .product__thumbnails--beside .product__thumbnail {
+    width: 90px !important;
+    height: 90px !important;
+    flex: 0 0 90px;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 12px;
+    overflow: hidden !important;
+    scroll-snap-align: start;
+  }
+}
+
+/* Tablet & desktop: same horizontal layout */
+@media screen and (min-width: 750px) {
+  .product__thumbnails {
+    width: 100% !important;
+  }
+  .product__thumbnails-list {
+    grid-auto-flow: column !important;
+    grid-auto-columns: 90px !important;
+    overflow-x: auto !important;
+    gap: 12px !important;
+  }
+  .product__thumbnail {
+    width: 90px !important;
+    height: 90px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+}
+
+/* === 2. Prev / Next arrows for thumbnails strip === */
+.product-thumbs-wrap {
+  position: relative;
+  width: 100%;
+}
+.product-thumbs-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #1a1a1a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: background 150ms ease, transform 150ms ease, opacity 150ms ease;
+  padding: 0;
+}
+.product-thumbs-arrow:hover:not(:disabled) {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+}
+.product-thumbs-arrow:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+.product-thumbs-arrow--prev { left: -12px; }
+.product-thumbs-arrow--next { right: -12px; }
+.product-thumbs-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+@media screen and (min-width: 750px) {
+  .product-thumbs-arrow--prev { left: -16px; }
+  .product-thumbs-arrow--next { right: -16px; }
+}
+
+/* Hide the native scroll-shadow chevrons (theme's default) since we now
+   render our own visible arrows. */
+.product-thumbs-wrap scroll-shadow s { display: none !important; }
+.product-thumbs-wrap .product__thumbnails-list {
+  scrollbar-width: none;
+}
+.product-thumbs-wrap .product__thumbnails-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* === 3. Wavy frame around the gallery (Bloom-Nutrition style) === */
+.product-gallery-wavy {
+  position: relative;
+  padding: 18px 30px 18px 18px;
+  z-index: 1;
+  background: transparent !important;
+}
+.product-gallery-wavy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background-color: var(--gallery-frame-bg, #f5efe5);
+}
+
+/* === Mobile: full-bleed left/right + curvy bottom edge === */
+@media screen and (max-width: 989px) {
+  .product-gallery-wavy {
+    padding: 0 0 56px 0 !important;
+    margin: 0 !important;
+  }
+  .product-gallery-wavy::before {
+    /* Stretch to viewport edges */
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    /* Pull up under the USP bar / header so it visually starts from the top */
+    top: -200px;
+    bottom: 0;
+    /* More pronounced wavy bottom edge (Bloom-style scallop) */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200' preserveAspectRatio='none'%3E%3Cpath d='M 0 0 L 100 0 L 100 188 C 75 204, 25 178, 0 188 Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 200' preserveAspectRatio='none'%3E%3Cpath d='M 0 0 L 100 0 L 100 188 C 75 204, 25 178, 0 188 Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+  }
+
+  /* Kill every possible gap above and below the gallery */
+  .product__gallery-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+  .product__gallery-container + *,
+  media-gallery + *,
+  .product-gallery-wavy-spacer + * {
+    margin-top: 0 !important;
+  }
+  .product-gallery-wavy-spacer { display: none !important; }
+
+  .template-product .main-content > .shopify-section:first-child {
+    padding-top: 0 !important;
+  }
+  .template-product .main-content > .shopify-section:first-child .section--padding {
+    padding-block-start: 0 !important;
+    padding-block-end: 0 !important;
+  }
+  media-gallery,
+  .product__gallery {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* Pull the right info column up so its first element (Naturopaths' Choice / rating)
+     sits very close to the bottom of the wavy gallery */
+  .product__info-container {
+    margin-top: -120px !important;
+    padding-top: 0 !important;
+    position: relative;
+    z-index: 2;
+  }
+  .product__info-container > *,
+  .product__info-container > * > *:first-child {
+    margin-top: 0 !important;
+  }
+  /* Also kill any native gap from the section row layout */
+  .product .product__row,
+  .main-product .product__row,
+  .product .product__inner,
+  .main-product .product__inner {
+    gap: 0 !important;
+    row-gap: 0 !important;
+  }
+}
+
+/* Desktop: the colored frame extends to the LEFT edge of the viewport and
+   stops on the right with a soft S-curve (Bloom style). */
+@media screen and (min-width: 990px) {
+  .product-gallery-wavy {
+    padding: 28px 60px 28px 0;
+  }
+  .product-gallery-wavy::before {
+    left: calc(50% - 50vw);
+    right: -80px;
+    /* Soft single S-curve right edge */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 0 0 L 92 0 C 102 30, 78 70, 92 100 L 0 100 Z' fill='black'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 0 0 L 92 0 C 102 30, 78 70, 92 100 L 0 100 Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .product-gallery-wavy::before {
+    right: -120px;
+  }
+}
+
+/* Tighten the gap between the main image and the thumbnails strip below */
+.product__media-container {
+  gap: 4px !important;
+}
+@media screen and (min-width: 750px) {
+  .product__media-container {
+    gap: 6px !important;
+  }
+}
+.product-thumbs-wrap {
+  margin-top: 0 !important;
+}
+@media screen and (min-width: 1280px) {
+  .product__thumbnails--beside {
+    margin-top: 0 !important;
+  }
+}
+
+/* === 5. Pull the right column (product info) closer to the gallery === */
+@media screen and (min-width: 1024px) {
+  .main-product .product__info-container,
+  .product .product__info-container {
+    padding-left: 0 !important;
+    padding-inline-start: 0 !important;
+    margin-left: -40px !important;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .main-product .product__info-container,
+  .product .product__info-container {
+    margin-left: -80px !important;
+  }
+}
+
+/* Spacer kept for safety (legacy classes) */
+.product-gallery-wavy-spacer {
+  height: 0;
+}
+
+/* === 4. Make the gallery smaller and shift it left, closer to the header === */
+@media screen and (min-width: 1024px) {
+  /* Reduce the gallery max-width so it doesn't dominate the page */
+  .product__gallery-container {
+    max-width: 540px !important;
+    margin-left: 0 !important;
+  }
+  /* Tighten top padding of the product section */
+  .product .product__gallery-container,
+  .main-product .product__gallery-container {
+    padding-top: 0 !important;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .product__gallery-container {
+    max-width: 560px !important;
+  }
+}
+
+/* Pull the whole product section closer to the header */
+.shopify-section.section-main-product,
+section.main-product,
+.template-product .main-content > .shopify-section:first-child {
+  padding-top: 8px !important;
+}
+.template-product .main-content > .shopify-section:first-child .section--padding {
+  padding-block-start: 12px !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Bundle selector (section + product block)
+ * ------------------------------------------------------------------------- */
+.bs {
+  background: var(--bs-bg) !important;
+  color: var(--bs-text);
+  padding-block: 28px;
+}
+@media screen and (min-width: 750px) {
+  .bs { padding-block: 36px; }
+}
+.bs__inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-inline: 16px;
+}
+.bs__heading-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 auto 22px;
+  max-width: 600px;
+}
+.bs__heading-line {
+  flex: 1;
+  height: 1px;
+  background: var(--bs-accent);
+  opacity: 0.6;
+}
+.bs__heading {
+  margin: 0;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bs-accent);
+  white-space: nowrap;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+.bs__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 18px;
+}
+@media screen and (min-width: 750px) {
+  .bs__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+}
+.bs__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background: var(--bs-card-bg);
+  border: 2px solid var(--bs-card-border);
+  border-radius: 12px;
+  padding: 10px 6px 8px;
+  text-align: center;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  margin-top: 10px;
+  overflow: visible;
+}
+/* Hide the radio circle dot that the theme injects at the top of label inputs */
+.bs__card > input[type="radio"] {
+  display: none !important;
+}
+.bs__card::before,
+.bs__card::after {
+  display: none !important;
+  content: none !important;
+}
+.bs__card:hover {
+  border-color: var(--bs-accent);
+  transform: translateY(-1px);
+}
+.bs__card.is-selected {
+  border-color: var(--bs-accent);
+  background: rgba(0, 0, 0, 0.02);
+}
+.bs__top-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bs-top-badge-bg);
+  color: var(--bs-top-badge-color);
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 2;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.bs__card-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.bs__card-title {
+  display: none !important;
+}
+.bs__image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  margin: 0;
+}
+.bs__image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.bs__quantity {
+  margin: 2px 0 0;
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  font-size: 14px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--bs-text);
+}
+.bs__sub-pill {
+  display: inline-block;
+  background: var(--bs-accent);
+  color: #fff;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-top: 2px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+.bs__price-line {
+  margin-top: 4px;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.1;
+}
+.bs__price {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bs-text);
+}
+.bs__compare {
+  display: inline-block;
+  font-size: 9px;
+  color: var(--bs-muted);
+  text-decoration: line-through;
+  margin-left: 4px;
+}
+
+/* Price injected by the bundle selector under the product title */
+.bs__product-price-injected {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.1 !important;
+}
+.bs__product-price-injected .bs__pp-current {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bs-text, #1a1a1a);
+}
+.bs__product-price-injected .bs__pp-compare {
+  font-size: 12px;
+  color: #7a7a7a;
+  text-decoration: line-through;
+}
+
+/* Tighten / re-balance the gap between product title, price block and description */
+.product__title { margin-bottom: 0 !important; }
+.product__price { margin: 0 !important; padding: 0 !important; }
+.product__price > .no-js-hidden { margin: 0 !important; padding: 0 !important; }
+.product__price .price { margin: 0 !important; }
+.product__title + .product__price,
+.product__title + * + .product__price {
+  margin-top: 14px !important;
+}
+.product__price + .product__text,
+.product__price + * + .product__text {
+  margin-top: 6px !important;
+}
+/* Hide the empty installment form so it doesn't add a gap */
+.product__price form.installment:empty,
+.product__price form.installment {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.product__price form.installment:empty { display: none !important; }
+
+/* === Bundle: keep 3-column layout on mobile too (always inline) === */
+.bs__grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 6px !important;
+  margin-top: 18px !important;
+}
+@media screen and (min-width: 750px) {
+  .bs__grid {
+    gap: 8px !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .bs__grid {
+    gap: 5px !important;
+  }
+  .bs__card {
+    padding: 8px 4px 6px !important;
+  }
+  .bs__top-badge {
+    font-size: 8px !important;
+    padding: 3px 6px !important;
+    letter-spacing: 0 !important;
+  }
+  .bs__image-wrap { height: 50px !important; }
+  .bs__quantity { font-size: 12px !important; }
+  .bs__sub-pill {
+    font-size: 8px !important;
+    padding: 2px 6px !important;
+  }
+  .bs__price { font-size: 10px !important; }
+  .bs__compare { font-size: 8px !important; }
+  .bs__bottom-pill {
+    font-size: 8px !important;
+    padding: 3px 4px !important;
+  }
+}
+.bs__bottom-pill {
+  display: inline-block;
+  align-self: center;
+  width: calc(100% - 2px);
+  margin: 6px 1px 0;
+  background: var(--bs-bottom-pill-bg);
+  color: var(--bs-bottom-pill-color);
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0;
+  padding: 4px 6px;
+  border-radius: 999px;
+  text-align: center;
+  box-sizing: border-box;
+  line-height: 1.3;
+}
+.bs__gift-note {
+  margin: 18px auto 0;
+  text-align: center;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  color: var(--bs-accent);
+  background: rgba(0,0,0,0.03);
+  padding: 10px 14px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.bs__gift-note[hidden] { display: none !important; }
+.bs__gift-icon { font-size: 16px; }
+
+.bs__cta {
+  width: 100%;
+  margin-top: 24px;
+  background: var(--bs-accent) !important;
+  color: #ffffff !important;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: filter 150ms ease, transform 150ms ease;
+}
+.bs__cta:hover { filter: brightness(0.92); transform: translateY(-1px); }
+.bs__cta:disabled { opacity: 0.6; cursor: wait; }
+.bs__cta-sep { opacity: 0.6; }
+.bs__error {
+  margin-top: 10px;
+  text-align: center;
+  color: #b00020;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+}
+.bs__error[hidden] { display: none !important; }
+
+/* When the bundle is rendered as a block inside the product info column, give
+   it a transparent background and tighter spacing. */
+.bundle-block-wrapper .bs {
+  background: transparent !important;
+  padding-block: 0 !important;
+}
+.bundle-block-wrapper .bs__inner {
+  padding-inline: 0 !important;
+}
+
+/* -------------------------------------------------------------------------
+ * Product page: feature pills (small tags)
+ * ------------------------------------------------------------------------- */
+.feature-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+.feature-pills .feature-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--fp-bg, #f5e9ec);
+  color: var(--fp-color, #1a1a1a) !important;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 999px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+@media screen and (max-width: 480px) {
+  .feature-pills .feature-pill {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Product page: accordion tabs (Description / Ingredients / FAQ / ...)
+ * ------------------------------------------------------------------------- */
+.accordion-tabs {
+  width: 100%;
+  margin: 12px 0;
+  color: var(--at-text, #1a1a1a);
+}
+.accordion-tabs__item {
+  border-top: 1px solid var(--at-border, #dad3c5);
+  padding: 0;
+  margin: 0;
+}
+.accordion-tabs__item:last-child {
+  border-bottom: 1px solid var(--at-border, #dad3c5);
+}
+.accordion-tabs__summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--at-text, #1a1a1a);
+  user-select: none;
+}
+.accordion-tabs__summary::-webkit-details-marker { display: none; }
+.accordion-tabs__summary::marker { display: none; content: ''; }
+.accordion-tabs__title { line-height: 1.3; }
+.accordion-tabs__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+.accordion-tabs__icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.accordion-tabs__icon-minus { display: none; }
+.accordion-tabs__item[open] .accordion-tabs__icon-plus { display: none; }
+.accordion-tabs__item[open] .accordion-tabs__icon-minus { display: block; }
+.accordion-tabs__content {
+  padding: 0 0 18px;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--at-text, #1a1a1a);
+}
+.accordion-tabs__content > *:first-child { margin-top: 0; }
+.accordion-tabs__content > *:last-child { margin-bottom: 0; }
+.accordion-tabs__content p { margin: 0 0 10px; }
+.accordion-tabs__content ul { padding-left: 18px; margin: 0 0 10px; }
+.accordion-tabs__content li { margin: 2px 0; }
+
+/* -------------------------------------------------------------------------
+ * Product page: payment badges block (under add-to-cart)
+ * ------------------------------------------------------------------------- */
+.payment-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 8px 0;
+  text-align: center;
+}
+.payment-badges .pb-icon {
+  display: inline-block;
+  width: 28px;
+  height: auto;
+  flex: 0 0 28px;
+  border-radius: 4px;
+  object-fit: contain;
+}
+.payment-badges img.pb-icon { background: transparent; }
+.payment-badges .pb-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pb-color, #7a7a7a);
+  margin-left: 4px;
+}
+.payment-badges .pb-secure svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+@media screen and (max-width: 480px) {
+  .payment-badges {
+    gap: 5px;
+  }
+  .payment-badges .pb-icon {
+    width: 26px;
+    flex: 0 0 26px;
+  }
+  .payment-badges .pb-secure {
+    font-size: 11px;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 2px;
+  }
+}
+
+/* Bundle banner image (e.g. Welcome Kit) — placed between cards and CTA */
+.bs__banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bs__banner-link { display: inline-block; }
+.bs__banner-img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+@media screen and (max-width: 749px) {
+  .bs__banner-img {
+    width: var(--bs-banner-w-mobile, 100%) !important;
+  }
+}
+
+/* ============================================================================
+ * LUXURY PRODUCT CARDS — restyle for Featured Collection, Collection grid,
+ * Product recommendations and any product card on the site.
+ * Inspired by sites like Khaite, Toteme, Stories, Maxfield.
+ * ============================================================================ */
+
+/* Card wrapper — clean, no extra padding, hover lift */
+.product-card,
+.card.product-card,
+.featured-collection .product-card,
+.product-recommendations .product-card,
+.featured-collections .product-card {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+/* Image — softer aspect ratio, subtle hover zoom */
+.product-card .product-card__media,
+.product-card .media,
+.product-card .card__media,
+.product-card picture {
+  background: #f5f3ee !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+.product-card .product-card__media img,
+.product-card picture img,
+.product-card .card__media img,
+.product-card .media img {
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.product-card:hover .product-card__media img,
+.product-card:hover picture img,
+.product-card:hover .card__media img,
+.product-card:hover .media img {
+  transform: scale(1.04) !important;
+}
+
+/* Content block — generous spacing, left-aligned, TIGHT gap between title and price */
+.product-card .product-card__content,
+.product-card .card__content {
+  background: transparent !important;
+  padding: 14px 2px 0 !important;
+  text-align: left !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+/* Vendor (BAIA WELLNESS) — small, uppercase, refined tracking */
+.product-card .product-card__vendor,
+.product-card .vendor,
+.product-card .card__vendor,
+.product-card [class*="vendor"] {
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: #9a9a9a !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+/* Title — Founders Grotesk Mono Light, UPPERCASE */
+.product-card .product-card__title,
+.product-card .card__title,
+.product-card h3,
+.product-card .heading {
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-size: 12px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.06em !important;
+  color: #1a1a1a !important;
+  margin: 0 !important;
+  line-height: 1.35 !important;
+  text-transform: uppercase !important;
+}
+.product-card .product-card__title a,
+.product-card .card__title a {
+  color: inherit !important;
+  text-decoration: none !important;
+  transition: color 200ms ease !important;
+}
+.product-card:hover .product-card__title a,
+.product-card:hover .card__title a {
+  color: #555 !important;
+}
+
+/* Subtitle / sub-text — light gray */
+.product-card .product-card__subtitle,
+.product-card .product-card__text {
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: #7a7a7a !important;
+  margin: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Price — Founders Grotesk Mono Light Italic, plus clair que le titre */
+.product-card .product-card__price-block,
+.product-card .price,
+.product-card .card__price {
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-style: italic !important;
+  font-size: 11.5px !important;
+  font-weight: 300 !important;
+  color: #9a9a9a !important;
+  letter-spacing: 0.04em !important;
+  margin: 0 !important;
+}
+.product-card .price__regular,
+.product-card .price-item--regular {
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-style: italic !important;
+  font-size: 11.5px !important;
+  font-weight: 300 !important;
+  color: #9a9a9a !important;
+}
+.product-card .price__sale,
+.product-card .price-item--sale {
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-style: italic !important;
+  font-size: 11px !important;
+  font-weight: 300 !important;
+  color: #c8c8c8 !important;
+  text-decoration: line-through !important;
+  margin-left: 6px !important;
+}
+
+/* Hide all the noisy default elements: ratings, "quick add" buttons, badges except sale */
+.product-card .product-card__rating,
+.product-card .rating-star,
+.product-card .quick-view,
+.product-card .quick-add,
+.product-card .add-to-cart-button,
+.product-card [class*="quick-add"],
+.product-card [class*="quickadd"] {
+  display: none !important;
+}
+
+/* Keep "Sale" badge but redesign it minimal */
+.product-card .badges,
+.product-card .product-card__media .badges {
+  position: absolute !important;
+  top: 12px !important;
+  left: 12px !important;
+  z-index: 2 !important;
+}
+.product-card .badge {
+  background: #ffffff !important;
+  color: #1a1a1a !important;
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  padding: 6px 10px !important;
+  border-radius: 0 !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  box-shadow: none !important;
+}
+
+/* Make the whole card clickable + smooth */
+.product-card a.product-card__link {
+  display: block !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Mobile : a touch tighter */
+@media screen and (max-width: 749px) {
+  .product-card .product-card__content,
+  .product-card .card__content {
+    padding: 14px 2px 0 !important;
+    gap: 4px !important;
+  }
+  .product-card .product-card__title,
+  .product-card .card__title {
+    font-size: 13px !important;
+  }
+  .product-card .product-card__price-block,
+  .product-card .price {
+    font-size: 12.5px !important;
+  }
+}
+
+/* Featured collection section — refine the section title above the grid */
+.featured-collection h2,
+.featured-collections h2 {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.005em !important;
+}
+
+/* ============================================================================
+ * FEATURED COLLECTION — title/subtitle on the LEFT, products on the RIGHT
+ * (style Dagne Dover "Shop Practical Luxury")
+ * Target via section ID since the section has no custom class.
+ * ============================================================================ */
+
+@media screen and (min-width: 990px) {
+  /* Wrapper restructure */
+  [id*="featured-collection"] > .section > .page-width,
+  [id*="featured_collection"] > .section > .page-width,
+  [id*="featured_collection"] > .section > .page-width,
+  [id*="featured-collection"] .section.slider-section-padding > .page-width,
+  [id*="featured_collection"] .section.slider-section-padding > .page-width,
+  [id*="featured_collection"] .section.slider-section-padding > .page-width {
+    display: grid !important;
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr) !important;
+    gap: clamp(28px, 3vw, 56px) !important;
+    align-items: flex-start !important;
+  }
+
+  /* The title-wrapper (title-wrapper class is rendered by section-heading snippet) → left column */
+  [id*="featured-collection"] > .section > .page-width > .title-wrapper,
+  [id*="featured_collection"] > .section > .page-width > .title-wrapper,
+  [id*="featured_collection"] > .section > .page-width > .title-wrapper {
+    grid-column: 1 / 2 !important;
+    grid-row: 1 / 2 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    margin-bottom: 0 !important;
+    padding-top: 10px !important;
+    align-self: start !important;
+  }
+
+  /* The products slider → right column */
+  [id*="featured-collection"] > .section > .page-width > slider-element,
+  [id*="featured_collection"] > .section > .page-width > slider-element,
+  [id*="featured_collection"] > .section > .page-width > slider-element {
+    grid-column: 2 / 3 !important;
+    grid-row: 1 / 2 !important;
+    align-self: start !important;
+  }
+}
+
+/* Reduce gap between cards (tight 'planche-contact' luxe feel) */
+.featured-collection .product-grid,
+.featured-collection .grid,
+.featured-collections .product-grid,
+.featured-collections .grid,
+.product-recommendations .product-grid,
+.product-recommendations .grid {
+  gap: 14px !important;
+  column-gap: 14px !important;
+  row-gap: 32px !important;
+}
+
+@media screen and (min-width: 990px) {
+  .featured-collection .product-grid,
+  .featured-collection .grid,
+  .featured-collections .product-grid,
+  .featured-collections .grid {
+    gap: 18px !important;
+    column-gap: 18px !important;
+    row-gap: 36px !important;
+  }
+}
+
+/* Featured collection title in left column — elegant serif italic, smaller */
+.featured-collection h2,
+.featured-collections h2,
+.featured-collection .heading,
+.featured-collections .heading {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif !important;
+  font-style: italic !important;
+  font-size: clamp(28px, 2.6vw, 36px) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.005em !important;
+  line-height: 1.15 !important;
+  margin-bottom: 14px !important;
+}
+
+/* Featured collection subheading / description */
+.featured-collection .text-opacity,
+.featured-collection p,
+.featured-collections .text-opacity,
+.featured-collections p {
+  font-family: 'Founders Grotesk', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 400 !important;
+  color: #6a6a6a !important;
+  line-height: 1.55 !important;
+  max-width: 240px !important;
+  margin-bottom: 18px !important;
+}
+
+/* Featured collection "Shop all" / CTA in left column */
+.featured-collection .button,
+.featured-collection .btn,
+.featured-collections .button,
+.featured-collections .btn {
+  background: transparent !important;
+  color: #1a1a1a !important;
+  font-family: 'Founders Grotesk Mono', ui-monospace, monospace !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  padding-bottom: 4px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #1a1a1a !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  min-height: auto !important;
+}
+
+/* Tablet & mobile — stack title above products */
+@media screen and (max-width: 989px) {
+  .featured-collection .page-width,
+  .featured-collections .page-width {
+    display: block !important;
+  }
+}
+
+/* ============================================================================
+ * Force ULTRA-tight title-to-price gap on ALL product cards (overrides Tailwind gap-2)
+ * + portrait image aspect + ultra-tight card grid
+ * ============================================================================ */
+.product-card .product-card__details,
+[id*="featured-collection"] .product-card .product-card__details,
+[id*="featured_collection"] .product-card .product-card__details,
+.slider-section-padding .product-card .product-card__details {
+  gap: 0 !important;
+}
+.product-card .product-card__text,
+[id*="featured-collection"] .product-card .product-card__text,
+[id*="featured_collection"] .product-card .product-card__text,
+.slider-section-padding .product-card .product-card__text {
+  gap: 0 !important;
+}
+.product-card .product-card__bottom,
+[id*="featured-collection"] .product-card .product-card__bottom,
+[id*="featured_collection"] .product-card .product-card__bottom,
+.slider-section-padding .product-card .product-card__bottom {
+  margin-top: 0 !important;
+}
+.product-card .product-card__title,
+[id*="featured-collection"] .product-card .product-card__title,
+[id*="featured_collection"] .product-card .product-card__title,
+.slider-section-padding .product-card .product-card__title {
+  margin-bottom: 1px !important;
+}
+.product-card .product-card__subtitle,
+[id*="featured-collection"] .product-card .product-card__subtitle,
+[id*="featured_collection"] .product-card .product-card__subtitle,
+.slider-section-padding .product-card .product-card__subtitle {
+  margin-bottom: 1px !important;
+}
+
+/* Force PORTRAIT 4:5 aspect ratio on collection card images (override theme's square setting) */
+[id*="featured-collection"] .product-card .media,
+[id*="featured_collection"] .product-card .media,
+[id*="featured-collection"] .product-card .media--square,
+[id*="featured_collection"] .product-card .media--square,
+[id*="featured-collection"] .product-card .media--portrait,
+[id*="featured_collection"] .product-card .media--portrait,
+[id*="featured-collection"] .product-card .media--landscape,
+[id*="featured_collection"] .product-card .media--landscape,
+[id*="featured-collection"] .product-card .media--adapt,
+[id*="featured_collection"] .product-card .media--adapt,
+[id*="featured-collection"] .product-card a.product-card__media,
+[id*="featured_collection"] .product-card a.product-card__media,
+[id*="featured-collection"] .product-card .product-card__media,
+[id*="featured_collection"] .product-card .product-card__media,
+.product-recommendations .product-card .media,
+.product-recommendations .product-card .media--square,
+.product-recommendations .product-card a.product-card__media {
+  aspect-ratio: 4 / 5 !important;
+  padding: 0 !important;
+  padding-top: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Image inside fills the portrait container with cover (no white space) */
+[id*="featured-collection"] .product-card .media img,
+[id*="featured_collection"] .product-card .media img,
+[id*="featured-collection"] .product-card .product-card__media img,
+[id*="featured_collection"] .product-card .product-card__media img,
+[id*="featured-collection"] .product-card picture,
+[id*="featured_collection"] .product-card picture,
+[id*="featured-collection"] .product-card picture img,
+[id*="featured_collection"] .product-card picture img,
+.product-recommendations .product-card .media img,
+.product-recommendations .product-card picture img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  max-width: 100% !important;
+}
+
+/* Remove "contain" mode that may add white bars — force cover for clean look */
+[id*="featured-collection"] .product-card .media.media--contain img,
+[id*="featured_collection"] .product-card .media.media--contain img,
+[id*="featured-collection"] .product-card .media--contain img,
+[id*="featured_collection"] .product-card .media--contain img {
+  object-fit: cover !important;
+}
+
+/* PORTRAIT 4:5 — padding-top trick on the OUTER .product-card__media only.
+   Inner <a.media> and <img> just fill via absolute positioning. */
+[id*="featured-collection"] .product-card > .product-card__media,
+[id*="featured_collection"] .product-card > .product-card__media,
+[id*="featured-collection"] .product-card .product-card__media:first-child,
+[id*="featured_collection"] .product-card .product-card__media:first-child {
+  display: block !important;
+  position: relative !important;
+  padding-top: 125% !important;
+  height: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+/* Inner <a class="media"> fills the outer box completely (no own padding) */
+[id*="featured-collection"] .product-card .product-card__media > a.media,
+[id*="featured_collection"] .product-card .product-card__media > a.media,
+[id*="featured-collection"] .product-card .product-card__media > a,
+[id*="featured_collection"] .product-card .product-card__media > a {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+  overflow: hidden !important;
+}
+/* Image fills entirely with cover */
+[id*="featured-collection"] .product-card .product-card__media img,
+[id*="featured_collection"] .product-card .product-card__media img,
+[id*="featured-collection"] .product-card .product-card__media picture,
+[id*="featured_collection"] .product-card .product-card__media picture {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  aspect-ratio: auto !important;
+}
+
+/* OLD attempt — keep for backwards compat: override theme's .media--square > img { aspect-ratio: 1/1 } */
+[id*="featured-collection"] .product-card .media--square > img,
+[id*="featured_collection"] .product-card .media--square > img,
+[id*="featured-collection"] .product-card .media--square > picture > img,
+[id*="featured_collection"] .product-card .media--square > picture > img,
+[id*="featured-collection"] .product-card .media--square img,
+[id*="featured_collection"] .product-card .media--square img,
+[id*="featured-collection"] .product-card .media--landscape > img,
+[id*="featured_collection"] .product-card .media--landscape > img,
+[id*="featured-collection"] .product-card .media--landscape img,
+[id*="featured_collection"] .product-card .media--landscape img,
+[id*="featured-collection"] .product-card .media--adapt > img,
+[id*="featured_collection"] .product-card .media--adapt > img,
+[id*="featured-collection"] .product-card .media--adapt img,
+[id*="featured_collection"] .product-card .media--adapt img,
+[id*="featured-collection"] .product-card .media > img,
+[id*="featured_collection"] .product-card .media > img,
+[id*="featured-collection"] .product-card .media img,
+[id*="featured_collection"] .product-card .media img,
+.product-recommendations .product-card .media--square > img,
+.product-recommendations .product-card .media--square img,
+.product-recommendations .product-card .media > img,
+.product-recommendations .product-card .media img {
+  aspect-ratio: 4 / 5 !important;
+}
+
+/* Ultra-tight gap between cards on collection grid */
+[id*="featured-collection"] .product-grid,
+[id*="featured_collection"] .product-grid,
+[id*="featured-collection"] .grid.product-grid,
+[id*="featured_collection"] .grid.product-grid,
+[id*="featured-collection"] .card-grid,
+[id*="featured_collection"] .card-grid,
+.product-recommendations .product-grid,
+.product-recommendations .card-grid {
+  gap: 4px !important;
+  column-gap: 4px !important;
+  row-gap: 16px !important;
+}
+@media screen and (min-width: 990px) {
+  [id*="featured-collection"] .product-grid,
+  [id*="featured_collection"] .product-grid,
+  [id*="featured-collection"] .grid.product-grid,
+  [id*="featured_collection"] .grid.product-grid,
+  [id*="featured-collection"] .card-grid,
+  [id*="featured_collection"] .card-grid,
+  .product-recommendations .product-grid,
+  .product-recommendations .card-grid {
+    gap: 6px !important;
+    column-gap: 6px !important;
+    row-gap: 24px !important;
+  }
+}
