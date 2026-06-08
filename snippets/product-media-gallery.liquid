@@ -1,5 +1,5 @@
 {%- doc -%}
-  Product media gallery in editorial 2-by-2 format: horizontal scrolling large media, sticky product info on the right.
+  Product media gallery in editorial 2-by-2 format: sticky thumbnails on top, vertical media grid, sticky product info on the right.
 {%- enddoc -%}
 
 {%- liquid
@@ -76,12 +76,19 @@
     #shopify-section-{{ section_id }} .featured-product.product { display: grid !important; grid-template-columns: var(--azp-gallery-w) var(--azp-info-w) !important; column-gap: 0 !important; row-gap: 0 !important; align-items: start !important; justify-content: start !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
     #shopify-section-{{ section_id }} .product__gallery-container,
     #shopify-section-{{ section_id }} .product__gallery-container.lg\:sticky { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; justify-self: start !important; align-self: start !important; position: relative !important; top: auto !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; margin: 0 !important; padding: 0 !important; display: grid !important; grid-template-columns: 1fr !important; gap: 0 !important; align-items: start !important; overflow: visible !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} { width: var(--azp-gallery-w) !important; max-width: var(--azp-gallery-w) !important; min-width: var(--azp-gallery-w) !important; margin: 0 !important; padding: 0 !important; display: grid !important; grid-template-columns: 1fr !important; gap: var(--azp-gallery-gap) !important; align-items: start !important; overflow: visible !important; }
 
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-wrap { display: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid { grid-column: 1 !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: var(--azp-media-gap) !important; width: var(--azp-media-w) !important; max-width: var(--azp-media-w) !important; min-width: var(--azp-media-w) !important; margin: 0 !important; padding: 0 !important; overflow-x: auto !important; overflow-y: hidden !important; scroll-snap-type: x mandatory !important; overscroll-behavior-x: contain !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid::-webkit-scrollbar { display: none !important; }
-    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile { position: relative !important; flex: 0 0 calc((var(--azp-media-w) - var(--azp-media-gap)) / 2) !important; width: calc((var(--azp-media-w) - var(--azp-media-gap)) / 2) !important; aspect-ratio: 3 / 4.05 !important; background: #f4f4f2 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; scroll-snap-align: start !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-wrap { grid-column: 1 !important; width: 100% !important; position: sticky !important; top: 16px !important; height: auto !important; z-index: 5 !important; background: rgb(var(--color-background)) !important; padding-bottom: var(--azp-gallery-gap) !important; overflow: hidden !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list { width: 100% !important; max-width: 100% !important; display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; gap: var(--azp-thumb-gap) !important; overflow-x: auto !important; overflow-y: hidden !important; overscroll-behavior-x: contain !important; scroll-snap-type: x proximity !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; padding: 0 0 2px !important; margin: 0 !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-list::-webkit-scrollbar { display: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb { position: relative !important; display: block !important; flex: 0 0 var(--azp-thumb-w) !important; width: var(--azp-thumb-w) !important; height: var(--azp-thumb-w) !important; margin: 0 !important; padding: 0 !important; border: 1px solid transparent !important; border-radius: 0 !important; background: #f2f2f2 !important; cursor: pointer !important; overflow: hidden !important; opacity: 0.76 !important; appearance: none !important; scroll-snap-align: start !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb[aria-current='true'] { border-color: #000 !important; opacity: 1 !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumb img { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; pointer-events: none !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-thumbs-arrow { display: none !important; }
+
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-grid { grid-column: 1 !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: var(--azp-media-gap) !important; width: var(--azp-media-w) !important; max-width: var(--azp-media-w) !important; min-width: var(--azp-media-w) !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; scroll-snap-type: y mandatory !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile { position: relative !important; width: 100% !important; aspect-ratio: 3 / 4.05 !important; background: #f4f4f2 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; scroll-snap-align: start !important; scroll-margin-top: 96px !important; }
+    #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile:nth-child(2n) { scroll-snap-align: none !important; }
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile img,
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; }
 
@@ -145,7 +152,7 @@
 
 <media-gallery id="ProductGallery-{{ section_id }}-{{ product_id }}" class="product__gallery block w-full relative{% if media_count == 1 %} with-only1{% endif %}" form="{{ product_form_id }}" aria-label="{{ 'products.media.gallery_viewer' | t | escape }}" role="region" data-animate="fade-up" data-immediate>
   {%- if media_count > 1 -%}
-    <div class="azp-thumbs-wrap" aria-hidden="true">
+    <div class="azp-thumbs-wrap" aria-hidden="false">
       <div class="azp-thumbs-list" aria-controls="AzpMediaGrid-{{ section_id }}-{{ product_id }}">
         {%- if featured_media != null -%}
           {%- assign thumb_alt = featured_media.alt | default: product.title | escape -%}
@@ -205,7 +212,7 @@
       const mediaId = thumb.dataset.mediaId;
       const media = mediaId ? gallery.querySelector(`.azp-media-tile[data-media-id="${mediaId}"]`) : null;
       if (!media) return;
-      event.preventDefault(); event.stopPropagation(); setActiveThumb(mediaId); media.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      event.preventDefault(); event.stopPropagation(); setActiveThumb(mediaId); media.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }, true);
     if ('IntersectionObserver' in window && mediaItems.length) {
       const observer = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting && entry.intersectionRatio >= 0.35) setActiveThumb(entry.target.dataset.mediaId); }); }, { threshold: [0.35, 0.6] });
