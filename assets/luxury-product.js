@@ -33,11 +33,11 @@
 
     style.textContent = '' +
       '@media screen and (min-width:1024px){' +
-      'body.luxury-product .azp-media-grid{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;align-content:start!important;grid-auto-rows:calc((100vh - 120px - var(--azp-media-gap,12px))/2)!important;scrollbar-width:thin!important}' +
+      'body.luxury-product .azp-media-grid{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;align-content:start!important;grid-auto-rows:calc((100vh - 120px - var(--azp-media-gap,12px))/1.55)!important;scrollbar-width:thin!important}' +
       'body.luxury-product .azp-media-grid::-webkit-scrollbar{width:6px!important;display:block!important}' +
       'body.luxury-product .azp-media-grid::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22)!important;border-radius:999px!important}' +
-      'body.luxury-product .azp-media-tile{height:calc((100vh - 120px - var(--azp-media-gap,12px))/2)!important;min-height:0!important;aspect-ratio:auto!important;background:#f7f7f5!important}' +
-      'body.luxury-product .azp-media-tile img,body.luxury-product .azp-media-tile video{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;background:#f7f7f5!important}' +
+      'body.luxury-product .azp-media-tile{height:calc((100vh - 120px - var(--azp-media-gap,12px))/1.55)!important;min-height:0!important;aspect-ratio:3/4!important;background:#f7f7f5!important}' +
+      'body.luxury-product .azp-media-tile img,body.luxury-product .azp-media-tile video{width:100%!important;height:100%!important;object-fit:cover!important;object-position:top center!important;background:#f7f7f5!important}' +
       'body.luxury-product .product__gallery-container,body.luxury-product media-gallery.product__gallery,body.luxury-product [id^="ProductGallery-"]{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important}' +
       '}' +
       '.azp-media-tile,.product__media-list .product__media,div[id^="AzpMediaGrid-"]>*{cursor:zoom-in!important}' +
@@ -55,32 +55,21 @@
     if (!window.matchMedia('(min-width: 1024px)').matches) return;
 
     document.querySelectorAll('.azp-media-grid').forEach(function (grid) {
-      var gap = parseFloat(getComputedStyle(grid).gap || '12') || 12;
       var gridHeight = Math.max(420, window.innerHeight - 120);
-      var tileHeight = Math.floor((gridHeight - gap) / 2);
+      var tileHeight = Math.floor(gridHeight / 1.55);
 
       grid.style.setProperty('height', gridHeight + 'px', 'important');
       grid.style.setProperty('max-height', gridHeight + 'px', 'important');
-      grid.style.setProperty('min-height', '0', 'important');
       grid.style.setProperty('overflow-y', 'auto', 'important');
-      grid.style.setProperty('overflow-x', 'hidden', 'important');
-      grid.style.setProperty('overscroll-behavior', 'contain', 'important');
-      grid.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
-      grid.style.setProperty('align-content', 'start', 'important');
       grid.style.setProperty('grid-auto-rows', tileHeight + 'px', 'important');
 
       grid.querySelectorAll('.azp-media-tile').forEach(function (tile) {
         tile.style.setProperty('height', tileHeight + 'px', 'important');
-        tile.style.setProperty('min-height', '0', 'important');
-        tile.style.setProperty('aspect-ratio', 'auto', 'important');
-        tile.style.setProperty('background', '#f7f7f5', 'important');
+        tile.style.setProperty('aspect-ratio', '3 / 4', 'important');
 
         tile.querySelectorAll('img, video').forEach(function (media) {
-          media.style.setProperty('width', '100%', 'important');
-          media.style.setProperty('height', '100%', 'important');
           media.style.setProperty('object-fit', 'cover', 'important');
-          media.style.setProperty('object-position', 'center', 'important');
-          media.style.setProperty('background', '#f7f7f5', 'important');
+          media.style.setProperty('object-position', 'top center', 'important');
         });
       });
     });
@@ -113,60 +102,36 @@
     function open(img) {
       var url = getImageUrl(img);
       if (!url) return;
-      var srcset = img.getAttribute('srcset');
-      if (srcset) lightboxImage.setAttribute('srcset', srcset);
-      else lightboxImage.removeAttribute('srcset');
       lightboxImage.src = url;
       lightboxImage.alt = img.alt || '';
       lightbox.classList.add('is-open');
-      lightbox.setAttribute('aria-hidden', 'false');
       document.documentElement.classList.add('product-image-lightbox-open');
     }
 
     function close() {
       lightbox.classList.remove('is-open');
-      lightbox.setAttribute('aria-hidden', 'true');
       document.documentElement.classList.remove('product-image-lightbox-open');
-      lightboxImage.removeAttribute('src');
-      lightboxImage.removeAttribute('srcset');
     }
 
     if (document.documentElement.dataset.luxuryProductLightboxReady === '1') return;
     document.documentElement.dataset.luxuryProductLightboxReady = '1';
 
     document.addEventListener('click', function (event) {
-      if (!document.body.classList.contains('luxury-product')) return;
-      if (event.target.closest('.product-image-lightbox__close')) return;
-      if (event.target.closest('.product-image-lightbox')) return;
-
       var tile = event.target.closest('.azp-media-tile, .product__media-list .product__media, div[id^="AzpMediaGrid-"] > *');
       if (!tile) return;
-
       var img = tile.matches('img') ? tile : tile.querySelector('img');
       if (!img) return;
-
       event.preventDefault();
-      event.stopPropagation();
-      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
       open(img);
     }, true);
 
     lightbox.addEventListener('click', function (event) {
       if (event.target === lightbox || event.target === closeButton) close();
     });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && lightbox.classList.contains('is-open')) close();
-    });
-  }
-
-  function initGallery() {
-    document.querySelectorAll('body.luxury-product .luxury-product-desktop-bars').forEach(function (bars) { bars.remove(); });
   }
 
   function init() {
     injectVendor();
-    initGallery();
     initLightbox();
     forceMediaGridScroll();
   }
@@ -176,9 +141,4 @@
   } else {
     init();
   }
-  window.addEventListener('load', init, { once: true });
-  window.addEventListener('resize', forceMediaGridScroll, { passive: true });
-  document.addEventListener('shopify:section:load', init);
-  setTimeout(init, 300);
-  setTimeout(init, 1000);
 })();
