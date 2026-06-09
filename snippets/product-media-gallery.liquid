@@ -334,6 +334,55 @@
   }
 }
 /* /AZP refined linked colors */
+
+/* AZP final compact linked colors override */
+@media screen and (min-width: 1024px) {
+  #shopify-section-{{ section_id }} .linked-colors {
+    margin-top: -8px !important;
+  }
+
+  #shopify-section-{{ section_id }} .linked-colors__wrap,
+  #shopify-section-{{ section_id }} .linked-colors__list {
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  #shopify-section-{{ section_id }} .linked-colors__list {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  #shopify-section-{{ section_id }} .linked-colors__item {
+    width: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  #shopify-section-{{ section_id }} .linked-colors__thumb,
+  #shopify-section-{{ section_id }} .linked-colors__list a {
+    width: 124px !important;
+    min-width: 124px !important;
+    max-width: 124px !important;
+    height: 118px !important;
+    min-height: 118px !important;
+    max-height: 118px !important;
+    aspect-ratio: auto !important;
+  }
+
+  #shopify-section-{{ section_id }} .linked-colors__thumb img,
+  #shopify-section-{{ section_id }} .linked-colors__list a img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+
+  #shopify-section-{{ section_id }} .linked-colors::after {
+    display: none !important;
+    content: none !important;
+  }
+}
+/* /AZP final compact linked colors override */
+
 </style>
 
 <media-gallery id="ProductGallery-{{ section_id }}-{{ product_id }}" class="product__gallery block w-full relative{% if media_count == 1 %} with-only1{% endif %}" form="{{ product_form_id }}" aria-label="{{ 'products.media.gallery_viewer' | t | escape }}" role="region" data-animate="fade-up" data-immediate>
