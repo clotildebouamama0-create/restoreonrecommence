@@ -3,11 +3,116 @@
   const STYLE_ID = 'ProductImageLightboxStyles';
 
   const injectLightboxStyles = () => {
-    if (document.getElementById(STYLE_ID)) return;
+    let style = document.getElementById(STYLE_ID);
+    if (!style) {
+      style = document.createElement('style');
+      style.id = STYLE_ID;
+      document.head.appendChild(style);
+    }
 
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
     style.textContent = `
+      body.luxury-product .linked-colors,
+      body.luxury-product [id^="LinkedColors-"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        overflow: visible !important;
+      }
+
+      body.luxury-product .linked-colors__wrap,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 14px !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        overflow: visible !important;
+      }
+
+      body.luxury-product .linked-colors__list,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__list {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        width: auto !important;
+        max-width: 100% !important;
+        padding: 0 2px 4px !important;
+        margin: 0 auto !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        list-style: none !important;
+        scrollbar-width: none !important;
+      }
+
+      body.luxury-product .linked-colors__list::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      body.luxury-product .linked-colors__item,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__item {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        height: 96px !important;
+        min-height: 96px !important;
+        max-height: 96px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        list-style: none !important;
+        flex: 0 0 72px !important;
+      }
+
+      body.luxury-product .linked-colors__thumb,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        height: 96px !important;
+        min-height: 96px !important;
+        max-height: 96px !important;
+        aspect-ratio: 3 / 4 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border-radius: 0 !important;
+        border: 1px solid transparent !important;
+        background: #f7f7f5 !important;
+        box-sizing: border-box !important;
+      }
+
+      body.luxury-product .linked-colors__thumb.is-active,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb.is-active,
+      body.luxury-product .linked-colors__thumb[aria-current="true"],
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb[aria-current="true"] {
+        border-color: #111 !important;
+      }
+
+      body.luxury-product .linked-colors__thumb img,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb img,
+      body.luxury-product .linked-colors__thumb picture,
+      body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb picture {
+        position: absolute !important;
+        inset: 0 !important;
+        display: block !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        max-height: none !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        background: #f7f7f5 !important;
+      }
+
       .product__media-list .product__media,
       div[id^="AzpMediaGrid-"] > * {
         cursor: zoom-in !important;
@@ -64,16 +169,25 @@
         padding: 0 0 4px;
       }
 
-      .product-image-lightbox__close:hover {
-        background: #fff;
-      }
-
       html.product-image-lightbox-open,
       html.product-image-lightbox-open body {
         overflow: hidden !important;
       }
 
       @media screen and (max-width: 749px) {
+        body.luxury-product .linked-colors__item,
+        body.luxury-product [id^="LinkedColors-"] .linked-colors__item,
+        body.luxury-product .linked-colors__thumb,
+        body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb {
+          width: 62px !important;
+          min-width: 62px !important;
+          max-width: 62px !important;
+          height: 82px !important;
+          min-height: 82px !important;
+          max-height: 82px !important;
+          flex-basis: 62px !important;
+        }
+
         .product-image-lightbox {
           padding: 18px;
         }
@@ -92,7 +206,32 @@
         }
       }
     `;
-    document.head.appendChild(style);
+  };
+
+  const forceLinkedColorsPortrait = () => {
+    if (!document.body.classList.contains('luxury-product')) return;
+
+    document.querySelectorAll('body.luxury-product [id^="LinkedColors-"] .linked-colors__item').forEach((item) => {
+      item.style.setProperty('width', '72px', 'important');
+      item.style.setProperty('min-width', '72px', 'important');
+      item.style.setProperty('height', '96px', 'important');
+      item.style.setProperty('flex', '0 0 72px', 'important');
+    });
+
+    document.querySelectorAll('body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb').forEach((thumb) => {
+      thumb.style.setProperty('width', '72px', 'important');
+      thumb.style.setProperty('min-width', '72px', 'important');
+      thumb.style.setProperty('height', '96px', 'important');
+      thumb.style.setProperty('min-height', '96px', 'important');
+      thumb.style.setProperty('aspect-ratio', '3 / 4', 'important');
+    });
+
+    document.querySelectorAll('body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb img').forEach((img) => {
+      img.style.setProperty('width', '100%', 'important');
+      img.style.setProperty('height', '100%', 'important');
+      img.style.setProperty('object-fit', 'cover', 'important');
+      img.style.setProperty('object-position', 'center', 'important');
+    });
   };
 
   const removeLegacyGalleryControls = () => {
@@ -122,6 +261,7 @@
     if (!document.body.classList.contains('luxury-product')) return;
 
     injectLightboxStyles();
+    forceLinkedColorsPortrait();
 
     const lightbox = createLightbox();
     const lightboxImage = lightbox.querySelector('.product-image-lightbox__image');
@@ -177,6 +317,7 @@
   const apply = () => {
     removeLegacyGalleryControls();
     initLightbox();
+    forceLinkedColorsPortrait();
   };
 
   if (document.readyState === 'loading') {
@@ -186,6 +327,9 @@
   }
 
   window.addEventListener('load', apply, { once: true });
+  window.addEventListener('resize', apply, { passive: true });
   document.addEventListener('shopify:section:load', apply);
   document.addEventListener('shopify:section:select', apply);
+  setTimeout(apply, 300);
+  setTimeout(apply, 1000);
 })();
