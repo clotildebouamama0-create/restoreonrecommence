@@ -1,5 +1,99 @@
 (() => {
   const LIGHTBOX_CLASS = 'product-image-lightbox';
+  const STYLE_ID = 'ProductImageLightboxStyles';
+
+  const injectLightboxStyles = () => {
+    if (document.getElementById(STYLE_ID)) return;
+
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
+      .product__media-list .product__media,
+      div[id^="AzpMediaGrid-"] > * {
+        cursor: zoom-in !important;
+      }
+
+      .product-image-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px;
+        background: rgba(0, 0, 0, 0.86);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      .product-image-lightbox.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .product-image-lightbox__image {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: min(92vw, 1600px);
+        max-height: 92vh;
+        object-fit: contain;
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      }
+
+      .product-image-lightbox__close {
+        position: fixed;
+        top: 22px;
+        right: 28px;
+        z-index: 2;
+        width: 44px;
+        height: 44px;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.94);
+        color: #000;
+        font-size: 34px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding: 0 0 4px;
+      }
+
+      .product-image-lightbox__close:hover {
+        background: #fff;
+      }
+
+      html.product-image-lightbox-open,
+      html.product-image-lightbox-open body {
+        overflow: hidden !important;
+      }
+
+      @media screen and (max-width: 749px) {
+        .product-image-lightbox {
+          padding: 18px;
+        }
+
+        .product-image-lightbox__image {
+          max-width: 96vw;
+          max-height: 88vh;
+        }
+
+        .product-image-lightbox__close {
+          top: 14px;
+          right: 14px;
+          width: 40px;
+          height: 40px;
+          font-size: 30px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  };
 
   const removeLegacyGalleryControls = () => {
     document.querySelectorAll('body.luxury-product .luxury-product-desktop-bars').forEach((bars) => bars.remove());
@@ -26,6 +120,8 @@
 
   const initLightbox = () => {
     if (!document.body.classList.contains('luxury-product')) return;
+
+    injectLightboxStyles();
 
     const lightbox = createLightbox();
     const lightboxImage = lightbox.querySelector('.product-image-lightbox__image');
