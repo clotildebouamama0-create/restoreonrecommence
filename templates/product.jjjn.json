@@ -1,0 +1,567 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "blocks": {
+        "text_y9CbH4": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 24,
+            "text": "AZYRA",
+            "text_size": "text-base"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "product-title-sm",
+            "title_size_mobile": "product-title-sm",
+            "title_tag": "h1",
+            "show_price": false,
+            "show_rating": false
+          }
+        },
+        "price_KgzHE6": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": true
+          }
+        },
+        "text_ckrjzj": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "iwidth": "custom",
+            "icon_width": 28,
+            "text": "Handmade in our custom developed pebbled vegan ultrafiber leather, and lined in our signature vegan merlot ultrafiber (feels like leather)",
+            "text_size": "text-sm"
+          }
+        },
+        "linked_colors_7bPPyg": {
+          "type": "linked_colors",
+          "settings": {
+            "label": "Couleur",
+            "show_current_name": true,
+            "metafield_key": "linked_colors",
+            "layout": "row",
+            "thumb_size": 56,
+            "bg_color": "#f3f3f3",
+            "active_color": "#111111",
+            "text_color": "#1a1a1a",
+            "muted_color": "#7a7a7a"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": false,
+            "show_price": true,
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false,
+            "enable_back_in_stock": true,
+            "show_back_in_stock_name": true,
+            "show_back_in_stock_phone": true
+          }
+        },
+        "sticky_buy_button": {
+          "type": "sticky_buy_button",
+          "settings": {}
+        },
+        "payment_badges_PGU4k7": {
+          "type": "payment_badges",
+          "settings": {
+            "show_visa": true,
+            "show_mastercard": true,
+            "show_amex": true,
+            "show_cb": true,
+            "show_apple_pay": true,
+            "show_paypal": true,
+            "show_klarna": true,
+            "show_secure_text": false,
+            "secure_text": "",
+            "text_color": "#7a7a7a"
+          }
+        },
+        "accordion_tabs_PP9GnP": {
+          "type": "accordion_tabs",
+          "settings": {
+            "open_first": false,
+            "tabs_text_color": "#1a1a1a",
+            "tabs_border_color": "#dad3c5",
+            "tab_1_title": "Goût & Arôme",
+            "tab_1_content": "<p>Notre tisane SOPK offre une saveur <strong>naturellement rafraîchissante et légèrement mentholée</strong> avec des notes chaudes et terreuses. La menthe verte apporte une fraîcheur croquante, équilibrée par la douce saveur de la cannelle et de la jujube.</p><p><strong>Profil gustatif :</strong></p><ul><li><strong>Notes de tête :</strong> Menthe verte fraîche avec une touche de douceur</li><li><strong>Notes de cœur :</strong> Cannelle chaude et ortie terreuse</li><li><strong>Notes de fond :</strong> Épice douce de gingembre et ashwagandha ancrant</li></ul><p>L'arôme est <strong>apaisant et invitant</strong> — imaginez des matins cosy avec une touche de fraîcheur herbale. Naturellement sans caféine, avec une finition douce et propre, parfaite à toute heure de la journée.</p><p><strong>À quoi s'attendre :</strong> Ni trop sucrée, ni trop amère — juste une tisane parfaitement équilibrée que vous aurez hâte de boire chaque jour.</p><p><em>Délicieuse chaude, mais tout aussi bonne en version glacée pour les journées ensoleillées ☀️</em></p>",
+            "tab_2_title": "Pour des résultats qui durent",
+            "tab_2_content": "<p>Votre corps aime la routine, tout comme votre bien-être. Avec ce produit, rester constante — et l'utiliser quotidiennement — vous aide à vous sentir équilibrée, soutenue et un pas plus proche de vos objectifs. Parce que les bienfaits s'accumulent à chaque utilisation, en faire partie de votre journée, c'est là que le vrai impact se produit.</p>",
+            "tab_3_title": "Approvisionnement & Production",
+            "tab_3_content": "<p><strong>Une qualité en qui vous pouvez avoir confiance, élaborée avec un savoir-faire ancestral 🌿</strong></p><p>Nous nous sommes associés à une petite ferme familiale dans la <strong>région du Sichuan en Chine</strong> — une région réputée pour ses sols riches et son climat idéal pour la culture des plantes médicinales.</p><p><strong>Pourquoi nous les avons choisis :</strong><br/>Après avoir testé plus d'une douzaine de fournisseurs pendant plus d'un an, ce partenariat s'est démarqué. Ils sélectionnent les meilleures plantes bio à travers le pays, en ne choisissant que les plantes à leur potentiel maximal.</p><p><strong>Notre promesse :</strong><br/>Nous avons passé un an à trouver le bon partenaire, parce que votre santé ne mérite rien de moins.</p><p><em>Approvisionné éthiquement. Élaboré traditionnellement. Fait pour vous. ✨</em></p>",
+            "tab_4_title": "Les études scientifiques derrière les plantes",
+            "tab_4_content": "<p><strong>Spearmint (menthe verte)</strong> — Des essais cliniques randomisés ont démontré que la menthe verte réduit significativement la testostérone libre et les androgènes chez les femmes atteintes de SOPK, aidant à réduire l'hirsutisme et à rééquilibrer les hormones reproductives. <a href=\"https://www.ovid.com/journals/phyr/abstract/10.1002/ptr.2900~spearmint-herbal-tea-has-significant-anti-androgen-effects?redirectionsource=fulltextview\">Lire l'étude</a></p><p><strong>Ortie (Urtica dioica)</strong> — Un essai clinique randomisé a évalué ses effets thérapeutiques chez des femmes souffrant d'hyperandrogénisme, montrant une réduction de la testostérone, une amélioration de la qualité des ovocytes et des cycles menstruels. <a href=\"https://www.semanticscholar.org/paper/Therapeutic-effects-of-stinging-nettle-(Urtica-in-Najafipour-Rahimi/25b7fc18d3ecf5afe2d592275aedad8ba455751e)\" title=\"https://www.semanticscholar.org/paper/Therapeutic-effects-of-stinging-nettle-(Urtica-in-Najafipour-Rahimi/25b7fc18d3ecf5afe2d592275aedad8ba455751e)\">Lire l'étude</a></p><p><strong>Ashwagandha</strong> — Une revue scientifique publiée sur PubMed confirme que l'ashwagandha soutient l'équilibre hormonal féminin en améliorant les niveaux de LH et FSH, en réduisant le cortisol et en agissant positivement sur les symptômes du SOPK et du SPM, sans élever la testostérone chez la femme. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC12895992/\">Lire l'étude</a></p><p><strong>Cannelle</strong> — Un essai clinique randomisé en double aveugle a montré que la cannelle réduit significativement la résistance à l'insuline chez les femmes SOPK, avec des effets comparables à ceux de la metformine sur la glycémie et le taux de testostérone. <a href=\"https://pubmed.ncbi.nlm.nih.gov/17296187/\">Lire l'étude</a></p><p><strong>Feuille de mûrier</strong> — Un essai randomisé contrôlé en double aveugle a montré que l'extrait de feuille de mûrier blanc réduit les pics de glycémie et d'insuline de près de 40%, un mécanisme clé pour limiter la surproduction d'androgènes liée à l'hyperinsulinémie dans le SOPK. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC8047566/\">Lire l'étude</a></p><p><strong>Jujube (Ziziphus jujuba)</strong> — Un essai randomisé contrôlé récent (2026) sur 196 femmes SOPK infertiles a démontré que l'extrait de jujube améliore significativement la glycémie à jeun, le profil lipidique et la résistance à l'insuline, des facteurs directement liés à la régulation hormonale et à la fertilité. <a href=\"https://pubmed.ncbi.nlm.nih.gov/41618368/\">Lire l'étude</a></p><p><strong>Gingembre & Cannelle (étude combinée)</strong> — Un essai clinique randomisé en double aveugle comparant gingembre, cannelle et metformine chez 100 femmes SOPK a révélé que le gingembre est le seul à réduire significativement la LH et la FSH, tandis que la cannelle agit sur la résistance à l'insuline et la testostérone — deux actions complémentaires au cœur du rééquilibrage hormonal. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC9745082/\">Lire l'étude</a></p>",
+            "tab_5_title": "Livraison Internationale",
+            "tab_5_content": "<p>Nous sommes ravis de vous livrer votre parcours bien-être SOPK partout dans le monde ! Notre tisane est expédiée dans plusieurs pays — vous verrez la liste complète des destinations disponibles lors du paiement.</p><p><strong>Détails de livraison :</strong></p><ul><li><strong>France, Suisse, Belgique :</strong> Livraison GRATUITE ✨</li><li><strong>International :</strong> Frais de livraison calculés lors du paiement</li><li><strong>Délai de livraison :</strong> 4 à 12 jours ouvrables selon votre localisation</li></ul><p><strong>Important à noter :</strong><br/>Toutes les commandes passent par la douane. <strong>Aucuns frais de douane supplémentaires ne vous seront facturés</strong> — nous nous en occupons.</p><p>Pour toute question concernant la livraison, contactez notre équipe support — nous sommes là pour vous aider ! 💗</p>",
+            "tab_6_title": "",
+            "tab_6_content": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_y9CbH4",
+        "title",
+        "price_KgzHE6",
+        "text_ckrjzj",
+        "linked_colors_7bPPyg",
+        "buy_buttons",
+        "sticky_buy_button",
+        "payment_badges_PGU4k7",
+        "accordion_tabs_PP9GnP"
+      ],
+      "custom_css": [],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_size": 62,
+        "gallery_layout": "thumbnail",
+        "thumbnail_position": "beside",
+        "image_ratio": "adapt_first",
+        "image_zoom": "none",
+        "hide_variants": false,
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "mobile_layout": "full_width",
+        "image_ratio_mobile": "adapt_first",
+        "mobile_thumbnail": true,
+        "padding_top": 88,
+        "padding_bottom": 0,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "help-drawer": {
+      "type": "help-drawer",
+      "blocks": {
+        "content-1": {
+          "type": "content",
+          "settings": {
+            "icon": "rocket",
+            "heading": "Shipping Information",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#b45309",
+            "color_background": "#fffbeb",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-2": {
+          "type": "content",
+          "settings": {
+            "icon": "headphone",
+            "heading": "Customer Support",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#0369a1",
+            "color_background": "#f0f9ff",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-3": {
+          "type": "content",
+          "settings": {
+            "icon": "chat_bubble",
+            "heading": "FAQ’s",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#be123c",
+            "color_background": "#fff1f2",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        },
+        "content-4": {
+          "type": "content",
+          "settings": {
+            "icon": "phone",
+            "heading": "Contact Us",
+            "text": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>",
+            "highlighted_text": "none",
+            "highlighted_scribble": "circle",
+            "color_text": "#4d7c0f",
+            "color_background": "#f7fee7",
+            "gradient_background": "",
+            "color_highlight": "#ffddbf",
+            "gradient_highlight": ""
+          }
+        }
+      },
+      "block_order": [
+        "content-1",
+        "content-2",
+        "content-3",
+        "content-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "",
+        "description": ""
+      }
+    },
+    "features_multiview_qakGz7": {
+      "type": "features-multiview",
+      "blocks": {
+        "tab_Hw8cJk": {
+          "type": "tab",
+          "settings": {
+            "label": "INTERIEUR",
+            "image": "shopify://shop_images/1_c220901d-a8aa-4e13-bf00-bbc307810ff1.png"
+          }
+        },
+        "tab_YGRViK": {
+          "type": "tab",
+          "settings": {
+            "label": "LANIÈRE",
+            "image": "shopify://shop_images/2_9b0d36a8-3d8b-46f8-8d1a-549008a92033.png"
+          }
+        },
+        "tab_ENTgxc": {
+          "type": "tab",
+          "settings": {
+            "label": "DOS",
+            "image": "shopify://shop_images/3.png"
+          }
+        },
+        "tab_BXpHWk": {
+          "type": "tab",
+          "settings": {
+            "label": "INTERIOR"
+          }
+        },
+        "tab_K7cPap": {
+          "type": "tab",
+          "settings": {
+            "label": "ANNEAU à charms",
+            "image": "shopify://shop_images/4.png"
+          }
+        },
+        "tab_p3nFLi": {
+          "type": "tab",
+          "settings": {
+            "label": "DIMENSIONS",
+            "image": "shopify://shop_images/5.png"
+          }
+        }
+      },
+      "block_order": [
+        "tab_Hw8cJk",
+        "tab_YGRViK",
+        "tab_ENTgxc",
+        "tab_BXpHWk",
+        "tab_K7cPap",
+        "tab_p3nFLi"
+      ],
+      "name": "Features multi-vues (4 catégories)",
+      "settings": {
+        "title": "PENSÉ JUSQU'AU MOINDRE DÉTAIL",
+        "subtitle": "Des détails intelligents qui font la différence",
+        "title_font": "sans",
+        "bg_color": "#ffffff",
+        "text_color": "#0f0f0f",
+        "muted_color": "#9a9a9a",
+        "accent_color": "#0f0f0f"
+      }
+    },
+    "custom_liquid_tgbKbp": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "FROM THE FOUNDER",
+      "settings": {
+        "liquid": "<style>\n.baia-img-switch-wrap {\n  width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);\n  text-align: center; padding: 0; background: transparent; border: none;\n}\n.baia-img-switch-wrap img { width: 100%; max-width: 100vw; height: auto; display: block; margin: -3rem auto; }\n.baia-img-switch-desktop { display: none !important; }\n.baia-img-switch-mobile  { display: block !important; }\n@media (min-width: 900px) {\n  .baia-img-switch-desktop { display: block !important; }\n  .baia-img-switch-mobile  { display: none !important; }\n}\n</style>\n<div class=\"baia-img-switch-wrap\">\n  <!-- Desktop/tablette -->\n  <img \n    class=\"baia-img-switch-desktop\" \n    src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/Three_years_ago_my_PCOS_diagnosis_changed_everything._Even_as_a_naturopath_I_struggled_to_find_a_solution_that_actually_worked_until_I_created_one_myself._Working_with_expert_naturopa.webp?v=1768482238\" \n    alt=\"PCOS Diagnosis Founder's story - Desktop\" loading=\"lazy\">\n  <!-- Mobile -->\n  <img \n    class=\"baia-img-switch-mobile\"\n    src=\"https://cdn.shopify.com/s/files/1/0868/4496/5201/files/From_the_founder.webp?v=1768482238\"\n    alt=\"Baïa Wellness - From the Founder - Mobile\" loading=\"lazy\">\n</div>",
+        "color_text": "",
+        "color_background": "",
+        "gradient_background": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "divider": false,
+        "narrow": false,
+        "rounded": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_limit": 6,
+        "columns": 4,
+        "carousel_on_desktop": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "heading": "You may also like",
+        "heading_size": "title-sm",
+        "heading_alignment": "text-left md:items-end md:flex-row",
+        "heading_tag": "h2",
+        "subheading": "",
+        "description": "",
+        "highlighted_text": "none",
+        "highlighted_scribble": "circle",
+        "highlighted_reveal": false,
+        "color_text": "#ac025f",
+        "color_background": "",
+        "gradient_background": "",
+        "color_highlight": "",
+        "gradient_highlight": "",
+        "color_button_text": "",
+        "color_button_background": "",
+        "color_button_gradient": "",
+        "padding_top": 32,
+        "padding_bottom": 36,
+        "divider": false,
+        "full_width": false,
+        "rounded": true
+      }
+    },
+    "split_text_checks_HmTDGQ": {
+      "type": "split-text-checks",
+      "blocks": {
+        "check_3eaXaJ": {
+          "type": "check",
+          "settings": {
+            "text": "Cuir pleine fleur, tannage végétal"
+          }
+        },
+        "check_e6Nec7": {
+          "type": "check",
+          "settings": {
+            "text": "Doublure intérieure en cuir suédé"
+          }
+        },
+        "check_gC8nJY": {
+          "type": "check",
+          "settings": {
+            "text": "Finitions à la main par nos artisans"
+          }
+        },
+        "check_NhagnJ": {
+          "type": "check",
+          "settings": {
+            "text": "Garantie 2 ans"
+          }
+        }
+      },
+      "block_order": [
+        "check_3eaXaJ",
+        "check_e6Nec7",
+        "check_gC8nJY",
+        "check_NhagnJ"
+      ],
+      "name": "Image + texte + checks",
+      "settings": {
+        "image": "shopify://shop_images/hf_20260522_090726_0cd36625-fb6a-4792-b3c7-de7b8a7f3797.webp",
+        "image_position": "left",
+        "eyebrow": "CHAPITRE 0",
+        "title": "Le sac Ève",
+        "description": "Notre interprétation du sac quotidien : forme épurée, cuir noble, finitions main.",
+        "cta_text": "",
+        "cta_link": "",
+        "cta_underline": true,
+        "eyebrow_font": "serif",
+        "title_font": "serif",
+        "desc_font": "sans",
+        "check_font": "sans",
+        "eyebrow_size": 13,
+        "title_size": 48,
+        "desc_size": 15,
+        "check_size": 14,
+        "bg_color": "#f4efe5",
+        "text_color": "#1a1a1a",
+        "muted_color": "#6a6a6a",
+        "check_color": "#1a1a1a",
+        "cta_color": "",
+        "height_desktop": 600,
+        "height_mobile": 180
+      }
+    },
+    "styles_row_rLXYQm": {
+      "type": "styles-row",
+      "blocks": {
+        "card_TYwJFK": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/16_29ef4ab6-d810-4ad6-9e0b-ed045ffcb3f5.png",
+            "label": "Valise compagnon",
+            "sublabel": "",
+            "link": ""
+          }
+        },
+        "card_tQ4xk3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/17.png",
+            "label": "Sac à dos",
+            "sublabel": "",
+            "link": ""
+          }
+        },
+        "card_AbAW47": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/18.png",
+            "label": "Bandoulière",
+            "sublabel": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_TYwJFK",
+        "card_tQ4xk3",
+        "card_AbAW47"
+      ],
+      "name": "Ligne de looks",
+      "settings": {
+        "title": "Un sac, trois looks",
+        "subtitle": "Tout porter, le porter avec élégance.",
+        "title_font": "serif-italic",
+        "show_divider": true,
+        "image_ratio": "1-1",
+        "cards_gap": 2,
+        "hover_zoom": true,
+        "show_index": true,
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "muted_color": "#7a7a7a"
+      }
+    },
+    "feature_details_grid_wBm7E3": {
+      "type": "feature-details-grid",
+      "blocks": {
+        "card_f8DBzi": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/RENFORCEMENT.jpg",
+            "caption": "Base renforcée pour une protection extra",
+            "link": ""
+          }
+        },
+        "card_yXiDL9": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/NOUVEAU_24.jpg",
+            "caption": "Cuir de vachette ciré à la main",
+            "link": ""
+          }
+        },
+        "card_P8bYBe": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/NOUVEAU_33_copie.jpg",
+            "caption": "Séparateurs amovibles personnalisables",
+            "link": ""
+          }
+        },
+        "card_L7mwiY": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Capture_d_ecran_2026-05-27_a_13.39.58.png",
+            "caption": "Double zip + fermeture magnétique cachée",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_f8DBzi",
+        "card_yXiDL9",
+        "card_P8bYBe",
+        "card_L7mwiY"
+      ],
+      "name": "Détails produit (grille)",
+      "settings": {
+        "title": "Pensé pour la mode et la fonctionnalité. Pour le travail. Pour les études.",
+        "title_font": "sans",
+        "title_size": 26,
+        "image_ratio": "1-1",
+        "gap_px": 6,
+        "caption_font": "sans",
+        "caption_size": 13,
+        "bg_color": "#ffffff",
+        "card_bg": "#f3f3f3",
+        "text_color": "#1a1a1a",
+        "muted_color": "#6a6a6a"
+      }
+    },
+    "features_multiview_GXEHTF": {
+      "type": "features-multiview",
+      "blocks": {
+        "tab_xNXUz8": {
+          "type": "tab",
+          "settings": {
+            "label": "INTERIOR"
+          }
+        },
+        "tab_BCR6Ca": {
+          "type": "tab",
+          "settings": {
+            "label": "FRONT"
+          }
+        },
+        "tab_JnFxTc": {
+          "type": "tab",
+          "settings": {
+            "label": "BACK"
+          }
+        },
+        "tab_k3pzV7": {
+          "type": "tab",
+          "settings": {
+            "label": "DETAILS"
+          }
+        }
+      },
+      "block_order": [
+        "tab_xNXUz8",
+        "tab_BCR6Ca",
+        "tab_JnFxTc",
+        "tab_k3pzV7"
+      ],
+      "name": "Features multi-vues",
+      "settings": {
+        "title": "FEATURES",
+        "subtitle": "Enzo Messenger Bag",
+        "title_font": "sans2",
+        "bg_color": "#f6f6f6",
+        "text_color": "#0f0f0f",
+        "muted_color": "#9a9a9a",
+        "accent_color": "#0f0f0f"
+      }
+    }
+  },
+  "order": [
+    "main-product",
+    "help-drawer",
+    "features_multiview_qakGz7",
+    "custom_liquid_tgbKbp",
+    "product-recommendations",
+    "split_text_checks_HmTDGQ",
+    "styles_row_rLXYQm",
+    "feature_details_grid_wBm7E3",
+    "features_multiview_GXEHTF"
+  ]
+}
