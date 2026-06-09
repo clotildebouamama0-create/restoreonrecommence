@@ -202,6 +202,98 @@
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile img,
     #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; display: block !important; }
   }
+
+/* AZP clean linked colors injected */
+@media screen and (min-width: 1024px) {
+  body.template-product .linked-colors {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+  }
+
+  body.template-product .linked-colors__wrap {
+    width: 100% !important;
+    max-width: 470px !important;
+    margin: 0 auto !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  body.template-product .linked-colors__list {
+    width: 100% !important;
+    max-width: 470px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 14px !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    list-style: none !important;
+    overflow: visible !important;
+  }
+
+  body.template-product .linked-colors__item {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.template-product .linked-colors__thumb,
+  body.template-product .linked-colors__list a {
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1.08 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #e7e2dc !important;
+    background: #f7f7f6 !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  body.template-product .linked-colors__thumb.is-active,
+  body.template-product .linked-colors__list a.is-active,
+  body.template-product .linked-colors__list a[aria-current='true'] {
+    border: 1px solid #111 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  body.template-product .linked-colors__thumb img,
+  body.template-product .linked-colors__list a img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  body.template-product .linked-colors__header,
+  body.template-product .linked-colors__label,
+  body.template-product .linked-colors__current,
+  body.template-product .linked-colors::after {
+    display: none !important;
+    content: none !important;
+  }
+}
+/* /AZP clean linked colors injected */
+
 </style>
 
 <media-gallery id="ProductGallery-{{ section_id }}-{{ product_id }}" class="product__gallery block w-full relative{% if media_count == 1 %} with-only1{% endif %}" form="{{ product_form_id }}" aria-label="{{ 'products.media.gallery_viewer' | t | escape }}" role="region" data-animate="fade-up" data-immediate>
