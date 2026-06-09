@@ -27,7 +27,7 @@
     var style = document.createElement('style');
     style.id = 'LuxuryProductImageLightboxStyles';
     style.textContent = '' +
-      '.product__media-list .product__media,div[id^="AzpMediaGrid-"]>*{cursor:zoom-in!important}' +
+      '.azp-media-tile,.product__media-list .product__media,div[id^="AzpMediaGrid-"]>*{cursor:zoom-in!important}' +
       '.product-image-lightbox{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:48px;background:rgba(0,0,0,.86);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility .18s ease}' +
       '.product-image-lightbox.is-open{opacity:1;visibility:visible;pointer-events:auto}' +
       '.product-image-lightbox__image{display:block;width:auto;height:auto;max-width:min(92vw,1600px);max-height:92vh;object-fit:contain;box-shadow:0 24px 80px rgba(0,0,0,.38)}' +
@@ -90,7 +90,10 @@
       if (event.target.closest('.product-image-lightbox__close')) return;
       if (event.target.closest('.product-image-lightbox')) return;
 
-      var img = event.target.closest('.product__media-list .product__media img, div[id^="AzpMediaGrid-"] img');
+      var tile = event.target.closest('.azp-media-tile, .product__media-list .product__media, div[id^="AzpMediaGrid-"] > *');
+      if (!tile) return;
+
+      var img = tile.matches('img') ? tile : tile.querySelector('img');
       if (!img) return;
 
       event.preventDefault();
