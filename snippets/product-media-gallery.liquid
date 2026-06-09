@@ -208,15 +208,16 @@
   #shopify-section-{{ section_id }} .linked-colors {
     width: 100% !important;
     max-width: 100% !important;
-    margin: 8px auto 0 !important;
+    margin: -4px auto 0 !important;
     overflow: visible !important;
     display: grid !important;
     justify-items: center !important;
+    gap: 0 !important;
   }
 
   #shopify-section-{{ section_id }} .linked-colors__wrap {
     width: 100% !important;
-    max-width: 580px !important;
+    max-width: 720px !important;
     margin: 0 auto !important;
     display: block !important;
     overflow: visible !important;
@@ -224,12 +225,12 @@
 
   #shopify-section-{{ section_id }} .linked-colors__list {
     width: 100% !important;
-    max-width: 580px !important;
+    max-width: 720px !important;
     margin: 0 auto !important;
     padding: 0 !important;
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 28px !important;
+    gap: 18px !important;
     align-items: stretch !important;
     justify-content: center !important;
     list-style: none !important;
@@ -251,13 +252,13 @@
     height: auto !important;
     min-width: 0 !important;
     min-height: 0 !important;
-    aspect-ratio: 1 / 1.1 !important;
+    aspect-ratio: 1 / 1 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    border: 1px solid #eee9e3 !important;
+    border: 1px solid #e9e3dd !important;
     background: #f8f8f7 !important;
     overflow: hidden !important;
     text-decoration: none !important;
@@ -289,26 +290,19 @@
 
   #shopify-section-{{ section_id }} .linked-colors__header,
   #shopify-section-{{ section_id }} .linked-colors__label,
-  #shopify-section-{{ section_id }} .linked-colors__current {
+  #shopify-section-{{ section_id }} .linked-colors__current,
+  #shopify-section-{{ section_id }} .linked-colors::after {
     display: none !important;
     content: none !important;
-  }
-
-  #shopify-section-{{ section_id }} .linked-colors::after {
-    content: '+  Coloris disponibles ({{ linked_count }})' !important;
-    display: block !important;
-    margin-top: 24px !important;
-    font-family: 'Founders Grotesk Mono', 'Founders Grotesk Mono Light', 'Courier New', monospace !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.16em !important;
-    line-height: 1.2 !important;
-    color: #000 !important;
-    text-align: center !important;
   }
 }
 
 @media screen and (max-width: 1023px) {
+  #shopify-section-{{ section_id }} .linked-colors::after {
+    display: none !important;
+    content: none !important;
+  }
+
   #shopify-section-{{ section_id }} .linked-colors__list {
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
