@@ -33,9 +33,11 @@
 
     style.textContent = '' +
       '@media screen and (min-width:1024px){' +
-      'body.luxury-product .azp-media-grid{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;align-content:start!important;scrollbar-width:thin!important}' +
+      'body.luxury-product .azp-media-grid{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;align-content:start!important;grid-auto-rows:calc((100vh - 120px - var(--azp-media-gap,12px))/2)!important;scrollbar-width:thin!important}' +
       'body.luxury-product .azp-media-grid::-webkit-scrollbar{width:6px!important;display:block!important}' +
       'body.luxury-product .azp-media-grid::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22)!important;border-radius:999px!important}' +
+      'body.luxury-product .azp-media-tile{height:calc((100vh - 120px - var(--azp-media-gap,12px))/2)!important;min-height:0!important;aspect-ratio:auto!important}' +
+      'body.luxury-product .azp-media-tile img,body.luxury-product .azp-media-tile video{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}' +
       'body.luxury-product .product__gallery-container,body.luxury-product media-gallery.product__gallery,body.luxury-product [id^="ProductGallery-"]{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important}' +
       '}' +
       '.azp-media-tile,.product__media-list .product__media,div[id^="AzpMediaGrid-"]>*{cursor:zoom-in!important}' +
@@ -53,14 +55,25 @@
     if (!window.matchMedia('(min-width: 1024px)').matches) return;
 
     document.querySelectorAll('.azp-media-grid').forEach(function (grid) {
-      grid.style.setProperty('height', 'calc(100vh - 120px)', 'important');
-      grid.style.setProperty('max-height', 'calc(100vh - 120px)', 'important');
+      var gap = parseFloat(getComputedStyle(grid).gap || '12') || 12;
+      var gridHeight = Math.max(420, window.innerHeight - 120);
+      var tileHeight = Math.floor((gridHeight - gap) / 2);
+
+      grid.style.setProperty('height', gridHeight + 'px', 'important');
+      grid.style.setProperty('max-height', gridHeight + 'px', 'important');
       grid.style.setProperty('min-height', '0', 'important');
       grid.style.setProperty('overflow-y', 'auto', 'important');
       grid.style.setProperty('overflow-x', 'hidden', 'important');
       grid.style.setProperty('overscroll-behavior', 'contain', 'important');
       grid.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
       grid.style.setProperty('align-content', 'start', 'important');
+      grid.style.setProperty('grid-auto-rows', tileHeight + 'px', 'important');
+
+      grid.querySelectorAll('.azp-media-tile').forEach(function (tile) {
+        tile.style.setProperty('height', tileHeight + 'px', 'important');
+        tile.style.setProperty('min-height', '0', 'important');
+        tile.style.setProperty('aspect-ratio', 'auto', 'important');
+      });
     });
   }
 
