@@ -385,6 +385,22 @@
 }
 /* /AZP final compact linked colors override */
 
+/* AZP final main gallery landscape override */
+@media screen and (min-width: 1024px) {
+  #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile {
+    aspect-ratio: 16 / 10 !important;
+    height: auto !important;
+  }
+
+  #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile img,
+  #ProductGallery-{{ section_id }}-{{ product_id }} .azp-media-tile video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+/* /AZP final main gallery landscape override */
 </style>
 
 <media-gallery id="ProductGallery-{{ section_id }}-{{ product_id }}" class="product__gallery block w-full relative{% if media_count == 1 %} with-only1{% endif %}" form="{{ product_form_id }}" aria-label="{{ 'products.media.gallery_viewer' | t | escape }}" role="region" data-animate="fade-up" data-immediate>
