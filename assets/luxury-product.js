@@ -1,6 +1,7 @@
 /* Luxury product page enhancements
  * - Inject brand (vendor) name at the top of the info column
  * - Product image lightbox
+ * - Internal scroll for custom media grid
  * Activates when <body class="luxury-product"> is present.
  */
 (function () {
@@ -23,10 +24,20 @@
   }
 
   function injectLightboxStyles() {
-    if (document.getElementById('LuxuryProductImageLightboxStyles')) return;
-    var style = document.createElement('style');
-    style.id = 'LuxuryProductImageLightboxStyles';
+    var style = document.getElementById('LuxuryProductImageLightboxStyles');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'LuxuryProductImageLightboxStyles';
+      document.head.appendChild(style);
+    }
+
     style.textContent = '' +
+      '@media screen and (min-width:1024px){' +
+      'body.luxury-product .azp-media-grid{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;align-content:start!important;scrollbar-width:thin!important}' +
+      'body.luxury-product .azp-media-grid::-webkit-scrollbar{width:6px!important;display:block!important}' +
+      'body.luxury-product .azp-media-grid::-webkit-scrollbar-thumb{background:rgba(0,0,0,.22)!important;border-radius:999px!important}' +
+      'body.luxury-product .product__gallery-container,body.luxury-product media-gallery.product__gallery,body.luxury-product [id^="ProductGallery-"]{height:calc(100vh - 120px)!important;max-height:calc(100vh - 120px)!important;min-height:0!important}' +
+      '}' +
       '.azp-media-tile,.product__media-list .product__media,div[id^="AzpMediaGrid-"]>*{cursor:zoom-in!important}' +
       '.product-image-lightbox{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:48px;background:rgba(0,0,0,.86);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility .18s ease}' +
       '.product-image-lightbox.is-open{opacity:1;visibility:visible;pointer-events:auto}' +
@@ -35,7 +46,22 @@
       '.product-image-lightbox__close:hover{background:#fff}' +
       'html.product-image-lightbox-open,html.product-image-lightbox-open body{overflow:hidden!important}' +
       '@media screen and (max-width:749px){.product-image-lightbox{padding:18px}.product-image-lightbox__image{max-width:96vw;max-height:88vh}.product-image-lightbox__close{top:14px;right:14px;width:40px;height:40px;font-size:30px}}';
-    document.head.appendChild(style);
+  }
+
+  function forceMediaGridScroll() {
+    if (!document.body.classList.contains('luxury-product')) return;
+    if (!window.matchMedia('(min-width: 1024px)').matches) return;
+
+    document.querySelectorAll('.azp-media-grid').forEach(function (grid) {
+      grid.style.setProperty('height', 'calc(100vh - 120px)', 'important');
+      grid.style.setProperty('max-height', 'calc(100vh - 120px)', 'important');
+      grid.style.setProperty('min-height', '0', 'important');
+      grid.style.setProperty('overflow-y', 'auto', 'important');
+      grid.style.setProperty('overflow-x', 'hidden', 'important');
+      grid.style.setProperty('overscroll-behavior', 'contain', 'important');
+      grid.style.setProperty('-webkit-overflow-scrolling', 'touch', 'important');
+      grid.style.setProperty('align-content', 'start', 'important');
+    });
   }
 
   function createLightbox() {
@@ -56,6 +82,7 @@
   function initLightbox() {
     if (!document.body.classList.contains('luxury-product')) return;
     injectLightboxStyles();
+    forceMediaGridScroll();
 
     var lightbox = createLightbox();
     var lightboxImage = lightbox.querySelector('.product-image-lightbox__image');
@@ -119,6 +146,7 @@
     injectVendor();
     initGallery();
     initLightbox();
+    forceMediaGridScroll();
   }
 
   if (document.readyState === 'loading') {
@@ -127,5 +155,8 @@
     init();
   }
   window.addEventListener('load', init, { once: true });
+  window.addEventListener('resize', forceMediaGridScroll, { passive: true });
   document.addEventListener('shopify:section:load', init);
+  setTimeout(init, 300);
+  setTimeout(init, 1000);
 })();
