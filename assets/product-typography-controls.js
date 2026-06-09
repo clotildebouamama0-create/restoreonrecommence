@@ -72,14 +72,15 @@ html body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb img { width
 }
 @media screen and (min-width: 990px) {
   html body.luxury-product main .page-width:not(.page-width--narrow) { padding-left: 20px !important; padding-right: 20px !important; }
-  html body.luxury-product .featured-product.product { grid-template-columns: minmax(0, 1fr) minmax(360px, 420px) !important; gap: 28px !important; align-items: start !important; }
+  html body.luxury-product .featured-product.product { grid-template-columns: minmax(0, 1fr) minmax(360px, 420px) !important; gap: 28px !important; align-items: start !important; min-height: 0 !important; }
   html body.luxury-product .product__gallery-container,
   html body.luxury-product media-gallery.product__gallery,
-  html body.luxury-product .product-gallery-wavy { width: 100% !important; max-width: none !important; transform: none !important; overflow: visible !important; }
-  html body.luxury-product .product__media-container { display: grid !important; grid-template-columns: 96px minmax(0, 1fr) !important; column-gap: 10px !important; align-items: start !important; margin-left: 0 !important; transform: none !important; width: 100% !important; max-width: 100% !important; overflow: visible !important; }
+  html body.luxury-product .product-gallery-wavy { width: 100% !important; max-width: none !important; transform: none !important; overflow: visible !important; min-height: 0 !important; }
+  html body.luxury-product .product__media-container { display: grid !important; grid-template-columns: 96px minmax(0, 1fr) !important; column-gap: 10px !important; align-items: start !important; margin-left: 0 !important; transform: none !important; width: 100% !important; max-width: 100% !important; overflow: visible !important; min-height: 0 !important; }
   html body.luxury-product .product__media-container > .product-thumbs-wrap { grid-column: 1 !important; grid-row: 1 !important; width: 96px !important; max-width: 96px !important; min-width: 96px !important; margin: 0 !important; position: sticky !important; top: 110px !important; align-self: start !important; z-index: 2 !important; }
   html body.luxury-product .product__media-container > .relative:not(.product-thumbs-wrap),
-  html body.luxury-product .product__media-container slider-element[id^="SliderGallery-"] { grid-column: 2 !important; grid-row: 1 !important; width: 100% !important; max-width: 100% !important; min-width: 0 !important; overflow: hidden !important; }
+  html body.luxury-product .product__media-container slider-element[id^="SliderGallery-"] { grid-column: 2 !important; grid-row: 1 !important; width: 100% !important; max-width: 100% !important; min-width: 0 !important; height: calc(100vh - 120px) !important; max-height: calc(100vh - 120px) !important; overflow: hidden !important; }
+  html body.luxury-product div[id^="AzpMediaGrid-"],
   html body.luxury-product .product__media-list,
   html body.luxury-product .product__gallery .product__media-list {
     display: grid !important;
@@ -97,11 +98,15 @@ html body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb img { width
     overscroll-behavior: contain !important;
     scroll-snap-type: y proximity !important;
     -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-    padding: 0 2px 0 0 !important;
+    scrollbar-width: thin !important;
+    padding: 0 !important;
     margin: 0 !important;
   }
-  html body.luxury-product .product__media-list::-webkit-scrollbar { display: none !important; }
+  html body.luxury-product div[id^="AzpMediaGrid-"]::-webkit-scrollbar,
+  html body.luxury-product .product__media-list::-webkit-scrollbar { width: 6px !important; }
+  html body.luxury-product div[id^="AzpMediaGrid-"]::-webkit-scrollbar-thumb,
+  html body.luxury-product .product__media-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.25) !important; border-radius: 999px !important; }
+  html body.luxury-product div[id^="AzpMediaGrid-"] > *,
   html body.luxury-product .product__media-list .product__media {
     display: block !important;
     flex: none !important;
