@@ -72,18 +72,50 @@ html body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb img { width
 }
 @media screen and (min-width: 990px) {
   html body.luxury-product main .page-width:not(.page-width--narrow) { padding-left: 20px !important; padding-right: 20px !important; }
-  html body.luxury-product .featured-product.product { grid-template-columns: max-content minmax(360px, 1fr) !important; gap: 28px !important; align-items: start !important; }
+  html body.luxury-product .featured-product.product { grid-template-columns: minmax(0, 1fr) minmax(360px, 420px) !important; gap: 28px !important; align-items: start !important; }
   html body.luxury-product .product__gallery-container,
   html body.luxury-product media-gallery.product__gallery,
-  html body.luxury-product .product-gallery-wavy { width: max-content !important; max-width: calc(100vw - 430px) !important; transform: none !important; overflow: visible !important; }
-  html body.luxury-product .product__media-container { display: grid !important; grid-template-columns: 96px minmax(0, clamp(560px, 48vw, 760px)) !important; column-gap: 10px !important; align-items: start !important; margin-left: 72px !important; transform: none !important; width: max-content !important; max-width: calc(100vw - 430px) !important; overflow: visible !important; }
+  html body.luxury-product .product-gallery-wavy { width: 100% !important; max-width: none !important; transform: none !important; overflow: visible !important; }
+  html body.luxury-product .product__media-container { display: grid !important; grid-template-columns: 96px minmax(0, 1fr) !important; column-gap: 10px !important; align-items: start !important; margin-left: 0 !important; transform: none !important; width: 100% !important; max-width: 100% !important; overflow: visible !important; }
   html body.luxury-product .product__media-container > .product-thumbs-wrap { grid-column: 1 !important; grid-row: 1 !important; width: 96px !important; max-width: 96px !important; min-width: 96px !important; margin: 0 !important; position: sticky !important; top: 110px !important; align-self: start !important; z-index: 2 !important; }
   html body.luxury-product .product__media-container > .relative:not(.product-thumbs-wrap),
-  html body.luxury-product .product__media-container slider-element[id^="SliderGallery-"] { grid-column: 2 !important; grid-row: 1 !important; width: clamp(560px, 48vw, 760px) !important; max-width: clamp(560px, 48vw, 760px) !important; min-width: 0 !important; overflow: visible !important; }
+  html body.luxury-product .product__media-container slider-element[id^="SliderGallery-"] { grid-column: 2 !important; grid-row: 1 !important; width: 100% !important; max-width: 100% !important; min-width: 0 !important; overflow: hidden !important; }
   html body.luxury-product .product__media-list,
-  html body.luxury-product .product__gallery .product__media-list { display: block !important; width: 100% !important; overflow: visible !important; scroll-snap-type: none !important; scrollbar-width: none !important; gap: 0 !important; column-gap: 0 !important; }
+  html body.luxury-product .product__gallery .product__media-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto !important;
+    gap: 10px !important;
+    column-gap: 10px !important;
+    row-gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: calc(100vh - 120px) !important;
+    max-height: calc(100vh - 120px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    scroll-snap-type: y proximity !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    padding: 0 2px 0 0 !important;
+    margin: 0 !important;
+  }
   html body.luxury-product .product__media-list::-webkit-scrollbar { display: none !important; }
-  html body.luxury-product .product__media-list .product__media { display: block !important; flex: none !important; width: 100% !important; min-width: 100% !important; max-width: 100% !important; aspect-ratio: 4 / 5 !important; height: auto !important; max-height: none !important; scroll-snap-align: none !important; overflow: hidden !important; background: #ffffff !important; margin: 0 0 18px 0 !important; }
+  html body.luxury-product .product__media-list .product__media {
+    display: block !important;
+    flex: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    aspect-ratio: 3 / 5 !important;
+    height: auto !important;
+    max-height: none !important;
+    scroll-snap-align: start !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    margin: 0 !important;
+  }
   html body.luxury-product .product__media-list .product__media .media,
   html body.luxury-product .product__media-list .product__media picture { width: 100% !important; height: 100% !important; display: block !important; }
   html body.luxury-product .product__media-list .product__media .media::before,
@@ -91,7 +123,13 @@ html body.luxury-product [id^="LinkedColors-"] .linked-colors__thumb img { width
   html body.luxury-product .product__media-list .product__media img,
   html body.luxury-product .product__media-list .product__media video,
   html body.luxury-product .product__media-list .product__media .media > img,
-  html body.luxury-product .product__media-list .product__media .media > video { width: 100% !important; height: 100% !important; object-fit: contain !important; object-position: center !important; position: absolute !important; inset: 0 !important; max-width: none !important; }
+  html body.luxury-product .product__media-list .product__media .media > video { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center !important; position: absolute !important; inset: 0 !important; max-width: none !important; }
+  html body.luxury-product .product__media-container > .product-thumbs-wrap,
+  html body.luxury-product .product__thumbnails,
+  html body.luxury-product .product__thumbnails-list { max-height: calc(100vh - 120px) !important; }
+  html body.luxury-product .product__thumbnails--beside { order: 0 !important; width: 96px !important; }
+  html body.luxury-product .product__thumbnails--beside .product__thumbnails-list { gap: 12px !important; max-height: calc(100vh - 120px) !important; overflow-y: auto !important; overflow-x: hidden !important; scrollbar-width: none !important; }
+  html body.luxury-product .product__thumbnail { width: 96px !important; height: 116px !important; min-height: 116px !important; }
   html body.luxury-product .product__media-container .indicators,
   html body.luxury-product .product__media-container .indicators .button,
   html body.luxury-product .product__media-container .luxury-gallery-arrow,
