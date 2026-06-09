@@ -205,36 +205,38 @@
 
 /* AZP refined linked colors */
 @media screen and (min-width: 1024px) {
-  body.template-product .linked-colors {
+  #shopify-section-{{ section_id }} .linked-colors {
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto !important;
+    margin: 8px auto 0 !important;
     overflow: visible !important;
+    display: grid !important;
+    justify-items: center !important;
   }
 
-  body.template-product .linked-colors__wrap {
+  #shopify-section-{{ section_id }} .linked-colors__wrap {
     width: 100% !important;
-    max-width: 530px !important;
+    max-width: 580px !important;
     margin: 0 auto !important;
     display: block !important;
     overflow: visible !important;
   }
 
-  body.template-product .linked-colors__list {
+  #shopify-section-{{ section_id }} .linked-colors__list {
     width: 100% !important;
-    max-width: 530px !important;
+    max-width: 580px !important;
     margin: 0 auto !important;
     padding: 0 !important;
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 26px !important;
+    gap: 28px !important;
     align-items: stretch !important;
     justify-content: center !important;
     list-style: none !important;
     overflow: visible !important;
   }
 
-  body.template-product .linked-colors__item {
+  #shopify-section-{{ section_id }} .linked-colors__item {
     width: 100% !important;
     min-width: 0 !important;
     margin: 0 !important;
@@ -242,19 +244,20 @@
     overflow: visible !important;
   }
 
-  body.template-product .linked-colors__thumb,
-  body.template-product .linked-colors__list a {
+  #shopify-section-{{ section_id }} .linked-colors__thumb,
+  #shopify-section-{{ section_id }} .linked-colors__list a {
     position: relative !important;
     width: 100% !important;
-    aspect-ratio: 1 / 1 !important;
     height: auto !important;
+    min-width: 0 !important;
     min-height: 0 !important;
+    aspect-ratio: 1 / 1.1 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    border: 1px solid #e8e2dc !important;
+    border: 1px solid #eee9e3 !important;
     background: #f8f8f7 !important;
     overflow: hidden !important;
     text-decoration: none !important;
@@ -262,16 +265,16 @@
     box-shadow: none !important;
   }
 
-  body.template-product .linked-colors__thumb.is-active,
-  body.template-product .linked-colors__list a.is-active,
-  body.template-product .linked-colors__list a[aria-current='true'] {
+  #shopify-section-{{ section_id }} .linked-colors__thumb.is-active,
+  #shopify-section-{{ section_id }} .linked-colors__list a.is-active,
+  #shopify-section-{{ section_id }} .linked-colors__list a[aria-current='true'] {
     border: 2px solid #111 !important;
-    box-shadow: none !important;
     outline: none !important;
+    box-shadow: none !important;
   }
 
-  body.template-product .linked-colors__thumb img,
-  body.template-product .linked-colors__list a img {
+  #shopify-section-{{ section_id }} .linked-colors__thumb img,
+  #shopify-section-{{ section_id }} .linked-colors__list a img {
     width: 100% !important;
     height: 100% !important;
     max-width: 100% !important;
@@ -284,14 +287,14 @@
     transform: none !important;
   }
 
-  body.template-product .linked-colors__header,
-  body.template-product .linked-colors__label,
-  body.template-product .linked-colors__current {
+  #shopify-section-{{ section_id }} .linked-colors__header,
+  #shopify-section-{{ section_id }} .linked-colors__label,
+  #shopify-section-{{ section_id }} .linked-colors__current {
     display: none !important;
     content: none !important;
   }
 
-  body.template-product .linked-colors::after {
+  #shopify-section-{{ section_id }} .linked-colors::after {
     content: '+  Coloris disponibles ({{ linked_count }})' !important;
     display: block !important;
     margin-top: 24px !important;
@@ -306,30 +309,30 @@
 }
 
 @media screen and (max-width: 1023px) {
-  body.template-product .linked-colors__list {
+  #shopify-section-{{ section_id }} .linked-colors__list {
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
     gap: 10px !important;
     padding: 0 16px !important;
   }
 
-  body.template-product .linked-colors__thumb,
-  body.template-product .linked-colors__list a {
+  #shopify-section-{{ section_id }} .linked-colors__thumb,
+  #shopify-section-{{ section_id }} .linked-colors__list a {
     aspect-ratio: 1 / 1 !important;
     border: 1px solid #e8e2dc !important;
     background: #f8f8f7 !important;
     overflow: hidden !important;
   }
 
-  body.template-product .linked-colors__thumb.is-active,
-  body.template-product .linked-colors__list a.is-active,
-  body.template-product .linked-colors__list a[aria-current='true'] {
+  #shopify-section-{{ section_id }} .linked-colors__thumb.is-active,
+  #shopify-section-{{ section_id }} .linked-colors__list a.is-active,
+  #shopify-section-{{ section_id }} .linked-colors__list a[aria-current='true'] {
     border: 2px solid #111 !important;
     outline: none !important;
   }
 
-  body.template-product .linked-colors__thumb img,
-  body.template-product .linked-colors__list a img {
+  #shopify-section-{{ section_id }} .linked-colors__thumb img,
+  #shopify-section-{{ section_id }} .linked-colors__list a img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
